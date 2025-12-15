@@ -1,6 +1,31 @@
 #include "./lemipc.h"
 
 
+// System V semaphore operations
+//struct sembuf lock = {0, -1, SEM_UNDO};    // Wait/Lock
+//struct sembuf unlock = {0, 1, SEM_UNDO};   // Post/Unlock
+
+// Lock the shared resource
+//semop(player->semid, &lock, 1);
+
+// Critical section - access shared memory
+//player->game->board[5][10] = player->team_id;
+
+// Unlock  
+//semop(player->semid, &unlock, 1);
+
+
+void	ft_initialize_semaphore_struct(t_player *player)
+{
+	player->lock_op.sem_num = 0;
+	player->lock_op.sem_op = -1;
+	player->lock_op.sem_flg = SEM_UNDO;
+
+	player->unlock_op.sem_num = 0;
+	player->unlock_op.sem_op = 1;
+	player->unlock_op.sem_flg = SEM_UNDO;
+}
+
 int	ft_create_semaphore(t_player *player)
 {
 	// Try to create new semaphore

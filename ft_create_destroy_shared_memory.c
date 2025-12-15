@@ -1,5 +1,36 @@
 #include "./lemipc.h"
 
+int	ft_check_if_max_teams_or_players_reached(t_player *player)
+{
+	int	nbr_of_team;
+	int	i;
+
+	nbr_of_team = 0;
+	i = 0;
+	while (i < MAX_TEAMS)
+	{
+		if (player->game->teams[i].nbr_of_players > 0)
+			nbr_of_team++;
+		if (player->team_id == player->game->teams[i].team_id)
+		{
+			if (player->game->teams[i].nbr_of_players >= MAX_PLAYER_IN_TEAM)
+			{
+				write(1, "Lemipc: Max player in team reached\n", 36);
+				write(1, "Lemipc: Player exit from the game\n", 35);
+				return (1);
+			}
+		}
+		i++;
+	}
+	if (nbr_of_team >= MAX_TEAMS)
+	{
+		write(1, "Lemipc: Max teams allowed reached\n", 35);
+		write(1, "Lemipc: Player exit from the game\n", 35);
+		return (1);
+	}
+	return (0);
+}
+
 int ft_create_shared_memory(t_player *player)
 {
     	size_t size;
@@ -47,10 +78,18 @@ int ft_create_shared_memory(t_player *player)
 			}
 			write(1, "Lemipc: Attached to existing shared memory\n", 43);
 			//after attach player to shared memory 
-			//we check for if we ream max team allowed
-			//if the player is from new team and max team reached
-			//then the player exit or wait till team is less than 100
+			//we check for if we reach max teams allowed
+			//if the player is from an exist team and max teams reached
+			//then the player exit from the game
 			//ft_check_team_max();
+
+
+
+
+			//this need modification , new player need semaphore to make 
+			//changes on shared memory
+			if (ft_check_if_max_team_players_reached(player))
+				return (1);
 			player = ft_initialize_player(player);	
 			return (0);
 		}

@@ -23,7 +23,7 @@ int	ft_get_free_place_in_team_array(t_player *player)
 	i = 0;
 	while (i < MAX_TEAMS)
 	{
-		if (player->game->teams[i].nbr_of_players == 0)
+		if (player->game->teams[i].nbr_of_players <= 0)
 			return (i);
 		i++;
 	}
@@ -41,15 +41,22 @@ t_player	*ft_initialize_player(t_player *player)
 	{
 		//case when the player is first player in new team
 		team_exist = ft_get_free_place_in_team_array(player);
+		semop(player->semid, &player->lock_op, 1);
 		player->game->teams[team_exist].team_id = player->team_id;
 		player->game->teams[team_exist].nbr_of_players = 1;
-		player->player_id = 1;
+		player->game->teams[team_exist].corner = 1;
 		player->game->total_players++;		
+		player->game->total_teams++;		
+		player->player_id = 1;
+		player->died = 0;
 	}
 	else
 	{
-		player->game->teams[team_exist].nbr_of_players++;		
+		semop(player->semid, &player->lock_op, 1);
+		player->game->teams[team_exist].nbr_of_players++;	
+		player->game->teams[team_exist].corner++;		
 		player->game->total_players++;		
+		player->died = 0;
 		player->player_id = player->game->teams[team_exist].nbr_of_players;
 	}
 	if (player->team_id % 4 == 0)
@@ -74,5 +81,8 @@ t_player	*ft_initialize_player(t_player *player)
 	}
 	player->game->teams[team_exist].init_x = x;
 	player->game->teams[team_exist].init_y = y;
+	semop(player->semid, &player->unlock_op, 1);
+	player->pos_x = -1;
+	player->pos_y = -1;
 	return (player);
 }

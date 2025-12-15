@@ -1,0 +1,156 @@
+#include "./lemipc.h"
+
+int	ft_get_message_from_message_queue(t_player *player, t_message_queue *msg)
+{
+	size_t size;
+	int ret;
+
+	// Add null check for safety
+	if (!msg) 
+		return (1);
+	// msgrcv expects size without mtype
+	size = sizeof(t_message_queue) - sizeof(long);
+	ret = msgrcv(player->msqid, msg, size, player->team_id, IPC_NOWAIT);
+
+	if (ret == -1)
+		return (1);
+
+	return (0);
+}
+
+
+int	ft_attack_defend_escape_moves(t_player *player)
+{
+	//first get message from message queue if exist
+	//check if your position need escape move
+	//make some calculation for best move and compared with exist one
+		//i need defend
+		//team member need defend
+		//attack the closet enemy
+		//check if we win
+	//if no message exist, then make calculation and push it to message queue
+	//make you move
+	t_message_queue msg;
+	t_message_queue new_msg;
+	int		msg_status;
+	int		escape;
+	int		defence;
+	int		team_need_defence;
+	int		team_array_index;
+
+	player->path[0] = -1;
+	player->path[1] = -1;
+	player->path[2] = -1;
+	player->path[3] = -1;
+	team_need_defence = 0;
+	team_array_index = ft_get_team_array_index(player);
+	//-1 player died, 1 escape needed, 0 safe position
+	//position (0,0), (0,31), (31,0), (31,31) is not strictly forbiden 
+	//in escape case , allowed only in attack and player 
+	//should not stay there
+	//or in generale escape case not allowed in board sides
+
+	//I decide to make corners (0,0), (0,31), (31,0) (31,31)
+	//a place where player will died if he stay there 3 turn
+	//each time he get semaphore and check if he is on corcer
+	//if yes reduce one from player->corner variale till reach
+	//0 then died, like that the game alyaws reach an end with a
+	//team winner, cause i player on the corner can not be surrounded
+	//the corner variable itself will increase each time a new player
+	//from the same team gets in , the corner variable is team variable
+	//that related to nbr of team member and decrease each time player
+	//from the team go to corner
+	if (ft_check_if_player_in_corner(player) == -1)
+		return (ft_player_died(player));
+	escape = ft_check_if_player_need_to_escape_or_died(player);
+	if (escape == -1) //player surrounded
+	{
+		ft_leave_the_board(player);
+		return (escape);
+	}
+	//check if you are last player or escape == 1 mean you are in denger
+	// just escape 
+	if (escape == 1 || player->game->teams[team_array_index].nbr_of_players == 1)
+	{
+		ft_last_player_escape(player);
+		return (0);
+	}
+	msg_status = ft_get_massage_from_message_queue(player, &msg);
+	if (escape == 0)
+	{
+		defence = ft_check_if_team_member_need_defence(player, new_msg);
+		if (defence == 1)
+		{
+			//push defance message
+			ft_push_message_to_queue(player, new_msg);
+			//find path to defence position
+			//(only firt move should be safe)
+			//move to defence position 
+			ft_find_path_to_position_and_make_move(player, new_msg.x_defence, new_msg.y_defence);
+			return (0);
+		}
+	}
+	else	
+	{
+	
+
+		//do attack move
+		///attack position should be 4 for team members more than 4
+		// 3 position for team of 3 players and 2 for team of 2
+		//so message queue struct should be updated for that 
+		//also the position of the enemy i want to attack
+		//other player check if enemy still there if yes just move
+		//otherwise check for colest enemy and do new calculation
+		//and push new message 
+
+		///i think is better to leave it one position of the attacked enemy
+		//then if enemy exist in this position attack one of its side otherwise 
+		//do other calculation and push message 
+		
+
+		//check if msg exist and if an attack and if enemy still in position
+		//if yes attack this position
+		if (msg_status && msg->defence_flag == 0)
+		{
+			//check if enemy still in position 
+			if (msg.x_attack >= 0 && msg.x_attack <= 31 && msg.y_attack >= 0 && msg.y_attack <= 31
+				&& player->game->board[msg.x_attack][msg.y_attack] != 0
+				&& player->game->board[msg.x_attack][msg.y_attack] != player->team_id -1)
+			{
+				int side_to_attack = -1;//top=0,right=1,bottom=2,left=3
+				//if no valid path to fore side of position to attack return -1
+				side_to_attack = ft_choose_one_side_to_attack(player, msg.x_attack, msg.y_attack);
+				if (side_to_attack != -1)
+				{
+					if (ft_is_it_one_step_to_position(player, msg, side_to_attack))
+					{
+						//check if its safe
+						ft_move_to_position_x_y();
+					}
+					else
+					{
+						if (ft_find_path_to_position_and_make_move())
+						{
+							ft_move_to_position_path(player);
+						}
+						//else
+						//	ft_go_closer_to_attack_position();
+					}
+				}
+				else
+					ft_go_closer_to_attack_position();	
+			}
+			//ft_calculate_new_attack_defence();
+			//ft_push_message_to_queue();
+		}
+		else
+		{
+			//ft_calculate_new_attack_defence();
+			//ft_push_message_to_queue();
+			//do your move
+
+		}
+		
+	}
+	return (0);
+}

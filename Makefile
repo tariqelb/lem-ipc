@@ -7,7 +7,9 @@ SRCS =	./lem-ipc.c \
 	./ft_semaphore.c \
 	./ft_initialize_player.c \
 	./ft_active_the_game.c \
-	./ft_setup_msg_queue.c
+	./ft_setup_msg_queue.c \
+	./ft_exit_from_game.c \
+	./ft_get_into_board.c
        
 OBJS = $(SRCS:.c=.o)
 

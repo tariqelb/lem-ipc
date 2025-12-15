@@ -17,6 +17,7 @@ t_player	*ft_initialize_game_board(t_player *player)
 	player->game->total_players = 1;
 	player->game->total_teams = 1;
 	player->player_id = 1;
+	player->died = 0;
 	// Initialize teams array
 	for (int i = 0; i < MAX_TEAMS; i++)
 	{
@@ -50,7 +51,10 @@ t_player	*ft_initialize_game_board(t_player *player)
 	}
 	player->game->teams[0].team_id = player->team_id;
 	player->game->teams[0].nbr_of_players = 1;
+	player->game->teams[0].corner = 1;
 	player->game->teams[0].init_x = x;
 	player->game->teams[0].init_y = y;
+	player->pos_x = -1;
+	player->pos_y = -1;
 	return (player);
 }
