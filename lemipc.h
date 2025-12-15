@@ -149,4 +149,17 @@ int	ft_leave_the_board(t_player *player);
 int     ft_check_if_player_in_the_corner(t_player *player);
 
 
+int	ft_choose_one_side_to_attack(t_player *player, int x, int y);
+int     ft_is_one_step_to_position(t_player *player, t_message_queue msg, int side_to_attack);
+
+//file : ft_move_to_position_x_y.c
+int	ft_move_to_position_x_y(t_player *player, int x, int y);
+
+//file : ft_check_position_is_safe.c
+int     ft_check_position_is_safe(t_player *player, int x, int y);
+
+//file : ft_find_path_to_position_and_make_move.c
+int     ft_find_path_to_position_and_make_move(t_player *player, int x, int y);
+
+
 #endif

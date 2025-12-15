@@ -156,16 +156,19 @@ int	ft_move_to_position_path(t_player *player)
 	return (0);
 }
 
+int	ft_go_closer_to_position_no_valid_path_to_it(player, int x, int y)
+{
+}
+
+
 
 int	ft_find_path_to_position_and_make_move(t_player *player, int x, int y)
 {
-	int	next_x;
-	int	next_y;
 
 	//find path
-	if (ft_find_path_to_position(player, board_x, board_y, next_x, next_y))	
+	if (ft_find_path_to_position(player, board_x, board_y, x, y))	
 		ft_move_to_position_path(player);//make move
 	//else
-	//	ft_go_closer();
+	//	ft_go_closer_to_position_no_valid_path_to_it();
 	return (0);
 }

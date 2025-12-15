@@ -115,30 +115,62 @@ int	ft_attack_defend_escape_moves(t_player *player)
 			//check if enemy still in position 
 			if (msg.x_attack >= 0 && msg.x_attack <= 31 && msg.y_attack >= 0 && msg.y_attack <= 31
 				&& player->game->board[msg.x_attack][msg.y_attack] != 0
-				&& player->game->board[msg.x_attack][msg.y_attack] != player->team_id -1)
+				&& player->game->board[msg.x_attack][msg.y_attack] != player->team_id - 1)
 			{
 				int side_to_attack = -1;//top=0,right=1,bottom=2,left=3
-				//if no valid path to fore side of position to attack return -1
+				//if no valid path to one of the 4 sides of attack position, then return -1
 				side_to_attack = ft_choose_one_side_to_attack(player, msg.x_attack, msg.y_attack);
 				if (side_to_attack != -1)
 				{
-					if (ft_is_it_one_step_to_position(player, msg, side_to_attack))
+					if (ft_is_it_one_step_to_position(player, msg, side_to_attack) > 0)
 					{
-						//check if its safe
-						ft_move_to_position_x_y();
+						//check if its safe and move
+						if (side_to_attack == 0)
+						{
+							if (ft_check_position_is_safe(player, player->pos_x, player->pos_y - 1) == 0)
+								ft_move_to_position_x_y(player, player->pos_x, player->pos_y - 1);
+						}
+						else if (side_to_attack == 1)
+						{
+							if (ft_check_position_is_safe(player, player->pos_x + 1, player->pos_y) == 0)
+								ft_move_to_position_x_y(player, player->pos_x + 1, player->pos_y);
+						}
+						else if (side_to_attack == 2)
+						{
+							if (ft_check_position_is_safe(player, player->pos_x, player->pos_y + 1) == 0)
+								ft_move_to_position_x_y(player, player->pos_x, player->pos_y + 1);
+						}
+						else if (side_to_attack == 3)
+						{
+							if (ft_check_position_is_safe(player, player->pos_x - 1, player->pos_y) == 0)
+								ft_move_to_position_x_y(player, player->pos_x - 1, player->pos_y);
+						}
 					}
 					else
-					{
-						if (ft_find_path_to_position_and_make_move())
+					{//find path to one of the sides in attack msg and move to it
+						if (side_to_attack == 0)//top
 						{
-							ft_move_to_position_path(player);
+							ft_find_path_to_position_and_make_move(player, msg.x_attack, msg.y_attack - 1);	
 						}
-						//else
-						//	ft_go_closer_to_attack_position();
+						else if (side_to_attack == 1)//right
+						{
+							ft_find_path_to_position_and_make_move(player, msg.x_attack + 1, msg.y_attack);	
+						}
+						else if (side_to_attack == 2)//bottom
+						{
+							ft_find_path_to_position_and_make_move(player, msg.x_attack, msg.y_attack + 1);	
+						}
+						else if (side_to_attack == 3)//left
+						{
+							ft_find_path_to_position_and_make_move(player, msg.x_attack - 1, msg.y_attack);	
+						}
 					}
 				}
 				else
+				{
+					//15/12 ft_find_path_to_position_and_make_move.c complete a function here and check ft_choose_one_side_to_attack if when return -1 no valid path exist
 					ft_go_closer_to_attack_position();	
+				}
 			}
 			//ft_calculate_new_attack_defence();
 			//ft_push_message_to_queue();

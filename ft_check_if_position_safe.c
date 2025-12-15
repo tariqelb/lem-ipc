@@ -1,0 +1,36 @@
+#include "./lemipc.h"
+
+int     ft_check_position_is_safe(t_player *player, int x, int y)
+{
+        int     left;
+        int     right;
+        int     top;
+        int     bottom;
+
+        if (x == -1 || x == 32 || y == -1 || y == 32)
+                return (-1);
+        if (x == 0)
+                left = -1;
+        else
+                left = player->game->board[y][x - 1];
+        if (x == 31)
+                right = -1;
+        else
+                right = player->game->board[y][x + 1];
+        if (y == 0)
+                top = -1;
+        else
+                top = player->game->board[y - 1][x];
+        if (y == 31)
+                bottom = -1;
+        else
+                bottom = player->game->board[y + 1][x];
+        if (top > 0 && top != player->team_id + 1 &&
+                bottom  > 0 && bottom != player->team_id + 1)
+                return (1);
+        if (left > 0 && left != player->team_id + 1 &&
+                right > 0 && right != player->team_id + 1)
+                return (1);
+        //0 = safe
+        return (0);
+}

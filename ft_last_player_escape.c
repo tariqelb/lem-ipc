@@ -28,18 +28,6 @@ int ft_random_direction(int a, int b, int c, int d)
     return valid_directions[random_index];
 }
 
-int	ft_move_to_position_x_y(t_player *player, int x, int y)
-{
-	if (x == -1 || y == -1)
-		return (1);
-	if (player->game->board[x][y] != 0)
-		return (1);
-	semop(player->semid, &player->lock_op, 1);
-	player->game->board[x][y] = player->team_id + 1;
-	semop(player->semid, &player->unlock_op, 1);
-	return (0);
-}
-
 int     ft_check_position_is_safe(t_player *player, int x, int y)
 {
         int     left;
