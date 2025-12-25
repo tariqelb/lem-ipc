@@ -1,41 +1,6 @@
 #include "./lemipc.h"
 
 
-int     ft_check_position_is_safe(t_player *player, int x, int y)
-{
-        int     left;
-        int     right;
-        int     top;
-        int     bottom;
-
-        if (x < 0 || x >= BOARD_X_LEN || y < 0 || y >= BOARD_Y_LEN)
-                return (-1);
-        if (x == 0)
-                left = -1;
-        else
-                left = player->game->board[y][x - 1];
-        if (x == 31)
-                right = -1;
-        else
-                right = player->game->board[y][x + 1];
-        if (y == 0)
-                top = -1;
-        else
-                top = player->game->board[y - 1][x];
-        if (y == 31)
-                bottom = -1;
-        else
-                bottom = player->game->board[y + 1][x];
-        if (top > 0 && top != player->team_id + 1 &&
-                bottom  > 0 && bottom != player->team_id + 1)
-                return (1);
-        if (left > 0 && left != player->team_id + 1 &&
-                right > 0 && right != player->team_id + 1)
-                return (1);
-        //0 = safe
-        return (0);
-}
-
 int	ft_initial_the_board(t_player *player)
 {
 	int	i;
@@ -48,18 +13,26 @@ int	ft_initial_the_board(t_player *player)
 		while (j < BOARD_X_LEN)
 		{
 			player->game->board[i][j] = 0;
-			if (i == 0 && j == 2)//place an enemy
-				player->game->board[i][j] = 3;
-			if (i == 1 && j == 1)//enemy
-				player->game->board[i][j] = 3;
-			if (i == 2 && j == 2)//enemy
-				player->game->board[i][j] = 3;
-			if (i == 3 && j == 4)//enemy
-				player->game->board[i][j] = 3;
-			if (i == 3 && j == 1)//player + 1
+			if (i == 1 && j == 1)//place an enemy
+				player->game->board[i][j] = 4;
+			if (i == 3 && j == 3)//enemy
 				player->game->board[i][j] = 2;
-			if (i == 0 && j == 4)//player + 1
-				player->game->board[i][j] = 2;
+			//if (i == 2 && j == 2)//enemy
+			//	player->game->board[i][j] = 3;
+			//if (i == 3 && j == 4)//enemy
+			//	player->game->board[i][j] = 3;
+			//if (i == 3 && j == 3)//enemy
+			//	player->game->board[i][j] = 6;
+			if (i == 0 && j == 0)//player + 1
+				player->game->board[i][j] = 3;
+			if (i == 2 && j == 4)//player + 1
+				player->game->board[i][j] = 3;
+			//if (i == 4 && j == 5)//enemy
+			//	player->game->board[i][j] = 6;
+			//if (i == 5 && j == 2)//enemy
+			//	player->game->board[i][j] = 6;
+			//if (i == 6 && j == 3)//enemy
+			//	player->game->board[i][j] = 6;
 			j++;
 		}
 		i++;
@@ -80,16 +53,27 @@ int	ft_initial_the_board(t_player *player)
 	return (0);
 }
 
-
+/*
 void	ft_print_the_board(t_player *player)
 {
 	int	i;
 	int	j;
 	
-
-	printf(" _________________________ \n");
-	printf("| [x/y] | [0][1][2][3][4] |\n");
-	printf("|_______|_________________|\n");
+	printf(" _________");
+	i = 0;
+	while (i++ < BOARD_X_LEN)
+		printf("___");
+	printf("_ \n");
+	printf("| [x/y] | ");
+	i = 0;
+	while (i < BOARD_X_LEN)
+		printf("[%d]", i++);
+	printf(" |\n");
+	printf("|_______|_");
+	i = 0;
+	while (i++ < BOARD_X_LEN)
+		printf("___");
+	printf("_|\n");
 	i = 0;
 	while (i < BOARD_Y_LEN)
 	{
@@ -103,9 +87,13 @@ void	ft_print_the_board(t_player *player)
 		printf(" |\n");
 		i++;
 	}
-	printf("|_______|_________________|\n");
+	printf("|_______|_");
+	i = 0;
+	while (i++ < BOARD_X_LEN)
+		printf("___");
+	printf("_|\n");
 }
-
+*/
 
 int	main(void)
 {
@@ -116,18 +104,18 @@ int	main(void)
 
 	ft_initial_the_board(&player);
 
-	player.team_id = 1;
+	player.team_id = 2;
 	player.player_id = 1;
-	player.pos_x = 1;
-	player.pos_y = 3;
-	player.path[0] = 0;
-	player.path[1] = 0;
-	player.path[2] = 0;
-	player.path[3] = 0;
-	player.find_x = 3;
-	player.find_y = 1;
-	msg.x_attack = 2;
-	msg.y_attack = 2;
+	player.pos_x = 0;
+	player.pos_y = 0;
+	player.path[0] = -1;
+	player.path[1] = -1;
+	player.path[2] = -1;
+	player.path[3] = -1;
+	//player.find_x = 3;
+	//player.find_y = 1;
+	//msg.x_attack = 0;
+	//msg.y_attack = 2;
 	ft_print_the_board(&player);
 	
 	//printf("Position (%d,%d) is [%d]\n",
@@ -138,11 +126,23 @@ int	main(void)
 	//	 -1, 2 ,ft_check_position_is_safe(&player, -1, 2));
 	//int status = ft_find_path_to_position(&player);
 	//printf("Status : %d\n", status);
-	int status = ft_choose_one_side_to_attack(&player, 2, 3);
+	/*int status = ft_choose_one_side_to_attack(&player, 2, 3);
 	printf("status : %d\n", status);
 	printf("is it one step : %d\n", ft_is_one_step_to_position(&player, msg, 0));
 	printf("is it one step : %d\n", ft_is_one_step_to_position(&player, msg, 1));
 	printf("is it one step : %d\n", ft_is_one_step_to_position(&player, msg, 2));
 	printf("is it one step : %d\n", ft_is_one_step_to_position(&player, msg, 3));
+	*/
+
+	ft_calculate_push_new_attack(&player, &msg);
+	printf("Enemy pos [%d][%d]\n", msg.x_attack, msg.y_attack);
+	ft_find_path_to_position_and_make_move(&player, msg.x_attack, msg.y_attack);
+	printf("------------------------------------\n");
+/*	ft_calculate_push_new_attack(&player, &msg);
+	printf("Enemy pos [%d][%d]\n", msg.x_attack, msg.y_attack);
+	ft_find_path_to_position_and_make_move(&player, msg.x_attack, msg.y_attack);
+*/	printf("------------------------------------\n");
+
+	
 	return (0);
 }

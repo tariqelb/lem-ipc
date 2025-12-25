@@ -18,6 +18,7 @@ t_player	*ft_initialize_game_board(t_player *player)
 	player->game->total_teams = 1;
 	player->player_id = 1;
 	player->died = 0;
+	player->first_move = 1;
 	// Initialize teams array
 	for (int i = 0; i < MAX_TEAMS; i++)
 	{

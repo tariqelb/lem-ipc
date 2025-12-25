@@ -14,8 +14,8 @@
 # include <time.h>
 
 # define BOARD_SIZE 32
-# define BOARD_X_LEN 5 
-# define BOARD_Y_LEN 5
+# define BOARD_X_LEN 6 
+# define BOARD_Y_LEN 7
 # define SHM_SIZE 8192 // page size * 2
 # define MAX_TEAMS 100 //Game will be designed to hold handred team as max
 # define MAX_PLAYER_IN_TEAM 50
@@ -66,8 +66,11 @@ typedef struct	s_player
 	//this var hold how mony step i need to reach find_x/y from safe side
 	//related to player->pos_x/y
 	int	path[4];//top->right->bottom->left
-	short	find_x;
-	short	find_y;
+	int	first_move;
+	short	find_x;//you should check if i use this or remove it
+	short	find_y;//
+		       //
+		       //
 	// Semaphore operations - DECLARE ONCE
 	t_sem_lock	lock_op;
 	t_sem_unlock	unlock_op;
@@ -90,76 +93,118 @@ typedef struct	s_message_queue
 }		t_message_queue; //total size = 22 * 100 + 14 = 2214 byes
 
 
-
-//file : ft_get_team.c
-int	ft_get_team(char *av);
-int	ft_atoi(char *str);
-
-
-//file : ft_create_destroy_shared_memory.c
-int     ft_create_shared_memory(t_player *player);
-int	ft_remove_shared_memory(t_player *player);
-
-//file : ft_semaphore.c
-void    ft_initialize_semaphore_struct(t_player *player);
-int	ft_create_semaphore(t_player *player);
-int	ft_destroy_semaphore(t_player *player);
-
-//file : ft_initialize_board.c
-t_player	*ft_initialize_game_board(t_player *player);
-
-//file : ft_initialize_player.c
-int		ft_check_if_team_exist(t_player *player); 
-int		ft_get_free_place_in_team_array(t_player *player);
-t_player	*ft_initialize_player(t_player *player);
-
 //file : ft_active_the_game.c
 int     ft_active_the_game(t_player *player);
 int     ft_is_the_game_active(t_player *player);
 int     ft_check_if_team_win(t_player *player);
 
-//file: ft_setup_msg_queue.c
-int     ft_create_message_queue(t_player *player);
-int     ft_destroy_message_queue(t_player *player);
-
-//file:  ft_exit_from_game.c
-int     ft_exit_from_game(t_player *player, int flag);
-int     ft_player_died(t_player *player);
-
-
-//file : ft_get_into_board.c
-int     ft_get_into_board(t_player *player);
-
-//file : ft_check_if_player_died.c
-int     ft_check_if_player_surrounded(t_player *player);
-
 //file : ft_attack_defend_escape_moves.c
-int	ft_attack_defend_escape_moves(t_player *player);
+int     ft_get_message_from_message_queue(t_player *player, t_message_queue *msg);
+int     ft_attack_defend_escape_moves(t_player *player);
 
-//file: ft_check_if_player_need_to_escape_or_died.c
+//file : ft_calculate_push_new_attack.c
+int	ft_calculate_push_new_attack(t_player *player, t_message_queue *msg);
+
+//file : 	ft_check_if_player_in_the_corner.c
+int	ft_check_if_player_in_the_corner(t_player *player);
+
+//file : ft_check_if_player_need_to_escape_or_died.c
+int	ft_check_if_player_in_the_corner(t_player *player);
+
+
+//file : ft_check_if_player_need_to_escape_or_died.c
 int	ft_check_if_player_need_to_escape_or_died(t_player *player);
 
+//file : ft_check_if_position_safe.c
+int     ft_check_position_is_safe(t_player *player, int x, int y);
+
+//file :  ft_check_if_team_member_need_defence.c
+int	ft_check_if_postion_need_defence(t_player *player, int p_x, int p_y, t_message_queue *new_msg);
+int	ft_check_if_team_member_need_defence(t_player *player, t_message_queue *new_msg);
+
+//file : ft_choose_one_side_to_attack.c
+int	ft_choose_one_side_to_attack(t_player *player, int x, int y);
+
+//file : ft_create_destroy_shared_memory.c
+int	ft_check_if_max_teams_or_players_reached(t_player *player);
+int	ft_create_shared_memory(t_player *player);
+int     ft_remove_shared_memory(t_player *player);
+
+//file : ft_exit_from_game.c
+int	ft_exit_from_game(t_player *player, int flag);
+
+//file : ft_find_path_to_position_and_make_move.c
+int     ft_find_path_recursion(t_player *player, int p_x, int p_y, int board_visited_positions[BOARD_Y_LEN][BOARD_X_LEN], int index, int side);
+int     ft_find_path_to_position(t_player *player);
+int	ft_move_to_position_path(t_player *player);
+int	ft_go_closer_to_position_no_valid_path_to_it(t_player *player, int x, int y);
+int	ft_find_path_to_position_and_make_move(t_player *player, int x, int y);
+
+//file : ft_get_into_board.c
+int	ft_get_into_board(t_player *player);
+
 //file : ft_get_team_array_index.c
-int     ft_get_team_array_index(t_player *player);
+int	ft_get_team_array_index(t_player *player);
+
+//file : ft_get_team.c
+int     ft_putint(int nbr);
+int	ft_get_team(char *av);
+int	ft_atoi(char *str);
+
+//file : ft_initialize_board.c
+t_player	*ft_initialize_game_board(t_player *player);
+
+//file : ft_initialize_player.c
+int		ft_check_if_team_exist(t_player *player);
+int		ft_get_free_place_in_team_array(t_player *player);
+t_player	*ft_initialize_player(t_player *player);
+
+//file : ft_is_it_one_step_to_position.c
+int	ft_is_it_one_step_to_position(t_player *player, t_message_queue msg, int side_to_attack);
+
+//file : ft_last_player_escape.c
+int	ft_random_direction(int a, int b, int c, int d);
+int	ft_check_position_is_safe(t_player *player, int x, int y);
+void	ft_find_best_move_and_escape(t_player *player);
+int	ft_last_player_escape(t_player *player);
 
 //file : ft_leave_the_board.c
 int	ft_leave_the_board(t_player *player);
 
-//file :  int     ft_check_if_player_in_the_corner.c
-int     ft_check_if_player_in_the_corner(t_player *player);
-
-
-int	ft_choose_one_side_to_attack(t_player *player, int x, int y);
-int     ft_is_one_step_to_position(t_player *player, t_message_queue msg, int side_to_attack);
-
 //file : ft_move_to_position_x_y.c
 int	ft_move_to_position_x_y(t_player *player, int x, int y);
 
-//file : ft_check_position_is_safe.c
-int     ft_check_position_is_safe(t_player *player, int x, int y);
+//file : ft_push_message_to_queue.c
+int	ft_push_message_to_queue(t_player *player, t_message_queue *msg);
 
-//file : ft_find_path_to_position_and_make_move.c
-int     ft_find_path_to_position_and_make_move(t_player *player, int x, int y);
+//file : ft_scan_the_board_and_get_x_y_of_enemy_to_attack.c
+int	ft_scan_the_board_and_get_x_y_of_enemy_to_attack(t_player *player, int *enemy_x, int *enemy_y, int *enemy_team_id);
+
+//file : ft_semaphore.c
+void	ft_initialize_semaphore_struct(t_player *player);
+int	ft_create_semaphore(t_player *player);
+int	ft_destroy_semaphore(t_player *player);
+
+//file : ft_setup_msg_queue.c
+int	ft_create_message_queue(t_player *player);
+int	ft_destroy_message_queue(t_player *player);
+
+//file : lem-ipc.c
+
+//file :  ft_print_the_board.c
+void	ft_print_the_board(t_player *player);
+
+//file :
+//file :
+//file :
+//file :
+
+
+
+
+
+
+
 
 
 #endif

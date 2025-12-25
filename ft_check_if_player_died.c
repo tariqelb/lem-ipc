@@ -10,8 +10,8 @@ int	ft_check_if_player_surrounded(t_player *player)
 	int	up_pos_team_id;
 	int	bottom_pos_team_id;
 	
-	int	p_x;
-	int	p_y;
+	int	x;
+	int	y;
 
 	x = player->pos_x;
 	y = player->pos_y;
@@ -36,26 +36,22 @@ int	ft_check_if_player_surrounded(t_player *player)
 		//update board
 		//update team
 		player->died = 1;
-		semop(player->semid, &player->lock_op, 1);
 		player->game->teams[player->team_id].nbr_of_players--;	
 		if (player->game->teams[player->team_id].nbr_of_players <= 0)
 			player->game->total_teams--;
 		player->game->board[x][y] = 0;
 		player->died = 1;
-		semop(player->semid, &player->unlock_op, 1);
 		return (1);	
-	{
+	}
 	if (up_pos_team_id != -1 && up_pos_team_id != player->team_id + 1
 		&& bottom_pos_team_id != -1 && bottom_pos_team_id != player->team_id + 1)
 	{
 		player->died = 1;
-		semop(player->semid, &player->lock_op, 1);
 		player->game->teams[player->team_id].nbr_of_players--;	
 		if (player->game->teams[player->team_id].nbr_of_players <= 0)
 			player->game->total_teams--;
 		player->game->board[x][y] = 0;
 		player->died = 1;
-		semop(player->semid, &player->unlock_op, 1);
 		return (1);	
 	}
 	return (0);

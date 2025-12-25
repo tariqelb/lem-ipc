@@ -7,7 +7,7 @@ int     ft_check_position_is_safe(t_player *player, int x, int y)
         int     top;
         int     bottom;
 
-        if (x == -1 || x == 32 || y == -1 || y == 32)
+        if (x < 0 || x >= BOARD_X_LEN || y < 0 || y >= BOARD_Y_LEN)
                 return (-1);
         if (x == 0)
                 left = -1;

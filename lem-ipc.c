@@ -1,7 +1,5 @@
 #include "./lemipc.h"
 
-
-
 int	main(int ac, char **av)
 {
 	t_player	player;
@@ -17,14 +15,23 @@ int	main(int ac, char **av)
 	player.team_id = ft_get_team(av[1]);
 	if (player.team_id == 0)
 		return (1);
+	//allocate memory for game board
+	/*player.game = NULL;
+	player.game->board = (int *) malloc(sizeof(int) * BOARD_Y_LEN * BOARD_X_LEN);
+	if (player.game->board == NULL)
+	{
+		write(2, "Lemipc : Error, fail to allocate memory for player board\n", 57);
+		return (1);
+	}*/
+	//Implement semaphore system for synchronization
+	if (ft_create_semaphore(&player))
+	{
+		return (1);
+	}
 	//Create shared memory segment for game board 
 	//Attach board to shared memory , first player
 	//Get access to shared memory for other players
 	if (ft_create_shared_memory(&player))
-		return (1);
-	
-	//Implement semaphore system for synchronization
-	if (ft_create_semaphore(&player))
 	{
 		ft_exit_from_game(&player, 1);
 		return (1);
@@ -35,47 +42,63 @@ int	main(int ac, char **av)
 		ft_exit_from_game(&player, 2);
 		return (1);
 	}
-	//allocate memory for player board
-	//if (ft_allocate_memory_for_board(&player))
-	//{
-	//decallocate memory on exit
-	//	ft_exit_from_game(N);
-	//}
 	//Turn game to active state
 	if (ft_active_the_game(&player) == 0)
 		ft_exit_from_game(&player, 3);
 	while (ft_is_the_game_active(&player) == 0)
 	{
-		//0 mean game not reach minimum nbr of player and teams
+		//0 mean game not reach minimum nbr of players and teams
 
 		printf("Game is waiting state, players nbr is %d\n", player.game->total_players);
+		int n;
+
+		n = 0;
+		while (n < player.game->total_teams)
+		{
+			printf("Data nbr of player [%d] , team id [%d] , corner [%d]\n", player.game->teams[n].nbr_of_players, player.game->teams[n].team_id, player.game->teams[n].corner);
+			n++;
+		}
 		sleep(5);
 	}
-	printf("Game starter, players nbr is %d\n", player.game->total_players);
+	printf("Game started, total player nbr is %d\n", player.game->total_players);
 	while (ft_get_into_board(&player))
 	{
-		printf("Place is full , x = %d , y = %d\n", player.pos_x, player.pos_y);	
+		printf("Place is full , x = %d , y = %d total players %d\n", player.pos_x, player.pos_y, player.game->total_players);	
 		sleep(4);
-		if (player.game->game_active == 0)
-			break;
+		if (player.game->game_active == 0 || player.game->total_players == 1)
+		{
+			ft_exit_from_game(&player, 3);
+			return (0);
+		}
 	}
 	printf("Player get into board : team id %d\n", player.team_id);
 	printf("Player position x = %d , y = %d\n", player.pos_x, player.pos_y);
+	printf("Total players %d\n", player.game->total_players);
+	printf("Total teams %d\n", player.game->total_teams);
 	
 	while (player.game->game_active == 1 && player.died == 0)
 	{
 		//player make move, attack , defend , escape
-		if (ft_attack_defend_escape_moves(&player) == 1)
+		printf("Attack defence escape : pos x [%d] pos y [%d]\n", player.pos_x, player.pos_y);
+		ft_print_the_board(&player);
+		semop(player.semid, &player.lock_op, 1);
+		if (ft_check_if_team_win(&player))
+		{
+			semop(player.semid, &player.unlock_op, 1);
 			break;
+		}
+		if (ft_attack_defend_escape_moves(&player) == 1)
+		{
+			semop(player.semid, &player.unlock_op, 1);
+			break;
+		}
+		semop(player.semid, &player.unlock_op, 1);
 		sleep(5);
 		//temprorary break
-		break;
+		//break;
 	}
 	sleep(20);
 	//--------------------------
-	//Player dead or game end
-	//this decrease needs a lot of checks
-	//team adjustment also needed
 	ft_exit_from_game(&player, 3);
 	return (0);
 }

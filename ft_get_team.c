@@ -1,5 +1,49 @@
 #include "lemipc.h"
 
+int	ft_putstr(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		write(1, &str[i], 1);
+		i++;
+	}
+	return (i);
+}
+
+
+int	ft_putint(int nbr)
+{
+	char	tab[10];
+	int		i;
+	int		nb;
+
+	nb = 0;
+	i = 0;
+	if (nbr <= 0)
+	{
+		if (nbr == 0)
+			return (ft_putstr("0"));
+		else if (nbr == -2147483648)
+			return (ft_putstr("-2147483648"));
+		else
+			nb = nb + ft_putstr("-");
+		nbr = nbr * -1;
+	}
+	while (nbr)
+	{
+		tab[i++] = (nbr % 10) + 48;
+		nbr /= 10;
+	}
+	nb = nb + i;
+	while (i)
+		write(1, &tab[--i], 1);
+	return (nb);
+}
+
+
 int	ft_atoi(char *str)
 {
 	int	i;

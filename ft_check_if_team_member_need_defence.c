@@ -10,8 +10,6 @@ int	ft_check_if_postion_need_defence(t_player *player, int p_x, int p_y, t_messa
 	int	right;
 	int	bottom;
 	int	left;
-	int	p_x;
-	int	p_y;
 	int	t_id;
 
 	top_left  = 0;
@@ -82,21 +80,21 @@ int	ft_check_if_postion_need_defence(t_player *player, int p_x, int p_y, t_messa
 
 	//fill remain position;
 	if (top_left != -1)
-		top_left = player->game->board[p_x - 1][p_y - 1];
+		top_left = player->game->board[p_y - 1][p_x - 1];
 	if (top != -1)
-		top = player->game->board[p_x][p_y - 1];
+		top = player->game->board[p_y - 1][p_x];
 	if (top_right != -1)
-		top_right = player->game->board[p_x + 1][p_y - 1];
+		top_right = player->game->board[p_y - 1][p_x + 1];
 	if (left != -1)
-		left = player->game->board[p_x - 1][p_y];
+		left = player->game->board[p_y][p_x - 1];
 	if (right != -1)
-		right = player->game->board[p_x + 1][p_y];
+		right = player->game->board[p_y][p_x + 1];
 	if (btm_left != -1)
-		btm_left = player->game->board[p_x - 1][p_y + 1];
+		btm_left = player->game->board[p_y + 1][p_x - 1];
 	if (bottom != -1)
-		bottom = player->game->board[p_x][p_y + 1];
+		bottom = player->game->board[p_y + 1][p_x];
 	if (btm_right != -1)
-		btm_right = player->game->board[p_x + 1][p_y + 1];
+		btm_right = player->game->board[p_y + 1][p_x + 1];
 	//check if player died
 	if (left > 0 && right > 0 && left != t_id && right != t_id)
 		return (-1);
@@ -157,8 +155,6 @@ int	 ft_check_if_team_member_need_defence(t_player *player, t_message_queue *new
 	int	team_array_index;
 	//scan board x and y is and index where i reach so i complete 
 	//the scan from this point after check player is need defence 
-	int	scan_board_x;
-	int	scan_board_y;
 	int	i_x;
 	int	i_y;
 	int	defence;
@@ -174,12 +170,12 @@ int	 ft_check_if_team_member_need_defence(t_player *player, t_message_queue *new
 	//check if this player need defence if yes save position need defence
 	//otherwise move to next player
 	i_y = 0;
-	while (i_y < 32 && checked_player < nbr_of_players)
+	while (i_y < BOARD_Y_LEN && checked_player < nbr_of_player)
 	{
 		i_x = 0;
-		while (i_x < 32)
+		while (i_x < BOARD_X_LEN)
 		{
-			if (player->game->board[i_x][i_y] == player->team_id + 1)
+			if (player->game->board[i_y][i_x] == player->team_id + 1)
 			{
 				defence = ft_check_if_postion_need_defence(player, i_x, i_y, new_msg);	
 				if (defence == 1)

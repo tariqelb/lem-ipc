@@ -9,45 +9,37 @@ int	ft_check_if_player_in_the_corner(t_player *player)
 		team_array_index = ft_get_team_array_index(player);
 		if (team_array_index != -1)
 		{
-			semop(player->semid, &player->lock_op, 1);
 			player->game->teams[team_array_index].corner--;	
-			semop(player->semid, &player->unlock_op, 1);
 		}
 		if (player->game->teams[team_array_index].corner <= 0)
 			return (-1);
 	}
-	else if (player->pos_x == 31 && player->pos_y == 0)
+	else if (player->pos_x == BOARD_X_LEN - 1 && player->pos_y == 0)
 	{
 		team_array_index = ft_get_team_array_index(player);
 		if (team_array_index != -1)
 		{
-			semop(player->semid, &player->lock_op, 1);
 			player->game->teams[team_array_index].corner--;	
-			semop(player->semid, &player->unlock_op, 1);
 		}
 		if (player->game->teams[team_array_index].corner <= 0)
 			return (-1);
 	}
-	else if (player->pos_x == 0 && player->pos_y == 31)
+	else if (player->pos_x == 0 && player->pos_y == BOARD_Y_LEN - 1)
 	{
 		team_array_index = ft_get_team_array_index(player);
 		if (team_array_index != -1)
 		{
-			semop(player->semid, &player->lock_op, 1);
-			player->game->teams[team_array_index].corner--;	
-			semop(player->semid, &player->unlock_op, 1);
+			player->game->teams[team_array_index].corner--;
 		}
 		if (player->game->teams[team_array_index].corner <= 0)
 			return (-1);
 	}
-	else if (player->pos_x == 31 && player->pos_y == 31)
+	else if (player->pos_x == BOARD_X_LEN - 1 && player->pos_y == BOARD_Y_LEN - 1)
 	{
 		team_array_index = ft_get_team_array_index(player);
 		if (team_array_index != -1)
 		{
-			semop(player->semid, &player->lock_op, 1);
-			player->game->teams[team_array_index].corner--;	
-			semop(player->semid, &player->unlock_op, 1);
+			player->game->teams[team_array_index].corner--;
 		}
 		if (player->game->teams[team_array_index].corner <= 0)
 			return (-1);

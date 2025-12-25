@@ -36,7 +36,7 @@ int ft_create_shared_memory(t_player *player)
     	size_t size;
 
 	size = SHM_SIZE;
-
+	semop(player->semid, &player->lock_op, 1);
 	// Try to create NEW shared memory (fails if exists)
 	player->shmid = shmget(SHM_KEY, size, IPC_CREAT | IPC_EXCL | 0666);
     	if (player->shmid != -1)
@@ -48,12 +48,14 @@ int ft_create_shared_memory(t_player *player)
 		player->game = (t_game *)shmat(player->shmid, NULL, 0);
 		if (player->game == (void *)-1)
 		{
-		    write(2, "Lemipc: Failed to attach to new shared memory\n", 45);
-		    return (1);
+			write(2, "Lemipc: Failed to attach to new shared memory\n", 45);
+			semop(player->semid, &player->unlock_op, 1);
+			return (1);
 		}
-
+		
 		// INITIALIZE the game board (first player responsibility)
 		player = ft_initialize_game_board(player);
+		semop(player->semid, &player->unlock_op, 1);
 		return (0);
 	}
 
@@ -65,6 +67,7 @@ int ft_create_shared_memory(t_player *player)
 		if (player->shmid == -1)
 		{
 			write(2, "Lemipc: Fail attaching to existing shared memory\n", 49);
+			semop(player->semid, &player->unlock_op, 1);
 			return (1);
 		}
 		else
@@ -73,6 +76,7 @@ int ft_create_shared_memory(t_player *player)
 			player->game = (t_game *)shmat(player->shmid, NULL, 0);
 			if (player->game == (void *)-1)
 			{
+				semop(player->semid, &player->unlock_op, 1);
 				write(2, "Lemipc: Failed to attach to existing shared memory\n", 49);
 				return (1);
 			}
@@ -82,20 +86,24 @@ int ft_create_shared_memory(t_player *player)
 			//if the player is from an exist team and max teams reached
 			//then the player exit from the game
 			//ft_check_team_max();
-
+			if (ft_check_if_max_teams_or_players_reached(player))
+			{
+				semop(player->semid, &player->unlock_op, 1);
+				return (1);
+			}
 
 
 
 			//this need modification , new player need semaphore to make 
 			//changes on shared memory
-			if (ft_check_if_max_team_players_reached(player))
-				return (1);
+			semop(player->semid, &player->unlock_op, 1);
 			player = ft_initialize_player(player);	
 			return (0);
 		}
 	}
 	//CRITICAL ERROR: Cannot create or access shared memory
 	write(2, "Lemipc: Critical error - cannot access shared memory\n", 52);
+	semop(player->semid, &player->unlock_op, 1);
 	return (1);
 }
 

@@ -23,10 +23,10 @@ int	ft_get_into_board(t_player *player)
 	initial_y = player->game->teams[team_index_in_array].init_y;
 	if (player->pos_x == -1)
 	{
-		if (player->game->board[initial_x][initial_y] == 0)
+		if (player->game->board[initial_y][initial_x] == 0)
 		{
 			semop(player->semid, &player->lock_op, 1);
-			player->game->board[initial_x][initial_y] = 1 + team_id;
+			player->game->board[initial_y][initial_x] = 1 + team_id;
 			player->pos_x = initial_x;
 			player->pos_y = initial_y;
 			semop(player->semid, &player->unlock_op, 1);
