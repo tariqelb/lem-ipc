@@ -99,21 +99,21 @@ int	ft_check_if_player_need_to_escape_or_died(t_player *player)
 
 	//fill remain position;
 	if (top_left != -1)
-		top_left = player->game->board[p_x - 1][p_y - 1];
+		top_left = player->game->board[p_y - 1][p_x - 1];
 	if (top != -1)
-		top = player->game->board[p_x][p_y - 1];
+		top = player->game->board[p_y - 1][p_x];
 	if (top_right != -1)
-		top_right = player->game->board[p_x + 1][p_y - 1];
+		top_right = player->game->board[p_y - 1][p_x + 1];
 	if (left != -1)
-		left = player->game->board[p_x - 1][p_y];
+		left = player->game->board[p_y][p_x - 1];
 	if (right != -1)
-		right = player->game->board[p_x + 1][p_y];
+		right = player->game->board[p_y][p_x + 1];
 	if (btm_left != -1)
-		btm_left = player->game->board[p_x - 1][p_y + 1];
+		btm_left = player->game->board[p_y + 1][p_x - 1];
 	if (bottom != -1)
-		bottom = player->game->board[p_x][p_y + 1];
+		bottom = player->game->board[p_y + 1][p_x];
 	if (btm_right != -1)
-		btm_right = player->game->board[p_x + 1][p_y + 1];
+		btm_right = player->game->board[p_y + 1][p_x + 1];
 	//check if player died
 	if (left > 0 && right > 0 && left != t_id && right != t_id)
 		return (-1);

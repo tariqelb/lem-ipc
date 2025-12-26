@@ -164,7 +164,7 @@ int     ft_find_path_to_position(t_player *player)
 	while (i < 4)
 	{
 		if (player->path[i] != -1)
-			return (1);
+			return (i);
 		i++;
 	}
         //if (top != -1 || right != -1 || bottom != -1 || left != -1)
@@ -213,10 +213,18 @@ int	ft_move_to_position_path(t_player *player)
 	printf("Side and paths : %d %d %d %d %d\n", side, player->path[0],player->path[1],player->path[2],player->path[3]);
 	if (side != -1)
 	{
-		player->game->board[player->pos_y][player->pos_x] = 0;
-		player->game->board[player->pos_y + y][player->pos_x + x] = player->team_id + 1;
-		player->pos_x = player->pos_x + x;
-		player->pos_y = player->pos_y + y;
+		if (player->game->board[player->pos_y + y][player->pos_x + x] == 0)
+		{
+			player->game->board[player->pos_y][player->pos_x] = 0;
+			player->game->board[player->pos_y + y][player->pos_x + x] = player->team_id + 1;
+			player->pos_x = player->pos_x + x;
+			player->pos_y = player->pos_y + y;
+			return (1);
+		}
+		else
+		{
+			printf("place full . move to path fun \n");
+		}
 	}
 	return (0);
 }
@@ -387,7 +395,9 @@ int	ft_find_path_to_position_and_make_move(t_player *player, int x, int y)
 {
 
 	int	i;
+	int	move;
 
+	move = 0;
 	i = 0;
 	while (i < 4)
 	{
@@ -400,11 +410,7 @@ int	ft_find_path_to_position_and_make_move(t_player *player, int x, int y)
 	if (ft_find_path_to_position(player))	
 	{
 		printf("Find path \n");
-		printf("Path top    to enemy [%d] steps \n", player->path[0]);
-		printf("Path right  to enemy [%d] steps \n", player->path[1]);
-		printf("Path bottom to enemy [%d] steps \n", player->path[2]);
-		printf("Path left   to enemy [%d] steps \n", player->path[3]);
-		ft_move_to_position_path(player);//make move
+		move = ft_move_to_position_path(player);//make move
 	}
 	else
 	{
@@ -412,7 +418,7 @@ int	ft_find_path_to_position_and_make_move(t_player *player, int x, int y)
 		printf("My position [%d][%d]\n", player->pos_x, player->pos_y);
 		printf("Go to position [%d][%d]\n", x, y);
 
-		ft_go_closer_to_position_no_valid_path_to_it(player, x, y);
+		move = ft_go_closer_to_position_no_valid_path_to_it(player, x, y);
 	}
-	return (0);
+	return (move);
 }

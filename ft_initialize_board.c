@@ -57,5 +57,6 @@ t_player	*ft_initialize_game_board(t_player *player)
 	player->game->teams[0].init_y = y;
 	player->pos_x = -1;
 	player->pos_y = -1;
+	player->target_team_id = -1;
 	return (player);
 }

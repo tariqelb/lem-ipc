@@ -90,5 +90,6 @@ t_player	*ft_initialize_player(t_player *player)
 	semop(player->semid, &player->unlock_op, 1);
 	player->pos_x = -1;
 	player->pos_y = -1;
+	player->target_team_id = -1;
 	return (player);
 }

@@ -75,13 +75,14 @@ int	main(int ac, char **av)
 	printf("Player position x = %d , y = %d\n", player.pos_x, player.pos_y);
 	printf("Total players %d\n", player.game->total_players);
 	printf("Total teams %d\n", player.game->total_teams);
-	
+	int attack_index = 0;
 	while (player.game->game_active == 1 && player.died == 0)
 	{
 		//player make move, attack , defend , escape
+		printf("----------------------------------------------------[%d]\n", attack_index);
 		printf("Attack defence escape : pos x [%d] pos y [%d]\n", player.pos_x, player.pos_y);
-		ft_print_the_board(&player);
 		semop(player.semid, &player.lock_op, 1);
+		ft_print_the_board(&player);
 		if (ft_check_if_team_win(&player))
 		{
 			semop(player.semid, &player.unlock_op, 1);
@@ -96,6 +97,9 @@ int	main(int ac, char **av)
 		sleep(5);
 		//temprorary break
 		//break;
+		printf("----------------------------------------------------[%d]\n", attack_index);
+		printf("\n\n\n");
+		attack_index++;
 	}
 	sleep(20);
 	//--------------------------

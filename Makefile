@@ -6,6 +6,7 @@ SRCS =	./lem-ipc.c \
 	./ft_attack_defend_escape_moves.c \
 	./ft_calculate_push_new_attack.c \
 	./ft_check_if_player_died.c \
+	./ft_check_if_player_in_right_position_do_not_move.c \
 	./ft_check_if_player_in_the_corner.c \
 	./ft_check_if_player_need_to_escape_or_died.c \
 	./ft_check_if_position_safe.c \
@@ -15,6 +16,7 @@ SRCS =	./lem-ipc.c \
 	./ft_exit_from_game.c \
 	./ft_find_path_to_position_and_make_move.c \
 	./ft_get_into_board.c \
+	./ft_get_target_enemy_team_id.c \
 	./ft_get_team_array_index.c \
 	./ft_get_team.c \
 	./ft_initialize_board.c \

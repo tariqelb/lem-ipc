@@ -29,7 +29,7 @@ int	ft_scan_the_board_and_get_x_y_of_enemy_to_attack(t_player *player, int *enem
 			while (j < BOARD_X_LEN - x_max)
 			{
 				//printf("x = (%d, %d) ", j, y_top_index);
-				if (player->game->board[y_top_index][j] != 0 && player->game->board[y_top_index][j] != player->team_id + 1)
+				if (player->game->board[y_top_index][j] != 0 && player->game->board[y_top_index][j] != player->team_id + 1 && player->game->board[y_top_index][j] == player->target_team_id + 1)
 				{
 					*enemy_x = j;
 					*enemy_y = y_top_index;
@@ -50,7 +50,7 @@ int	ft_scan_the_board_and_get_x_y_of_enemy_to_attack(t_player *player, int *enem
 			while (j < x_max)
 			{
 				//printf("x2 = (%d, %d) ", j, y_bottom_index);
-				if (player->game->board[y_bottom_index][j] != 0 && player->game->board[y_bottom_index][j] != player->team_id + 1)
+				if (player->game->board[y_bottom_index][j] != 0 && player->game->board[y_bottom_index][j] != player->team_id + 1 && player->game->board[y_bottom_index][j] == player->target_team_id + 1)
 				{
 					*enemy_x = j;
 					*enemy_y = y_bottom_index;
@@ -73,7 +73,7 @@ int	ft_scan_the_board_and_get_x_y_of_enemy_to_attack(t_player *player, int *enem
 			while (v_left_min <= v_left_max)
 			{
 				//printf("l-y = (%d, %d) ", v_left_x, v_left_min);
-				if (player->game->board[v_left_min][v_left_x] != 0 && player->game->board[v_left_min][v_left_x] != player->team_id + 1)
+				if (player->game->board[v_left_min][v_left_x] != 0 && player->game->board[v_left_min][v_left_x] != player->team_id + 1 && player->game->board[v_left_min][v_left_x] == player->target_team_id + 1)
 				{
 					*enemy_x = v_left_x;
 					*enemy_y = v_left_min;
@@ -96,7 +96,7 @@ int	ft_scan_the_board_and_get_x_y_of_enemy_to_attack(t_player *player, int *enem
 			while (v_right_min <= v_right_max)
 			{
 				//printf("r-y = (%d, %d)", v_right_x, v_right_min);
-				if (player->game->board[v_right_min][v_right_x] != 0 && player->game->board[v_right_min][v_right_x] != player->team_id + 1)
+				if (player->game->board[v_right_min][v_right_x] != 0 && player->game->board[v_right_min][v_right_x] != player->team_id + 1 && player->game->board[v_right_min][v_right_x] == player->target_team_id + 1)
 				{
 					*enemy_x = v_right_x;
 					*enemy_y = v_right_min;

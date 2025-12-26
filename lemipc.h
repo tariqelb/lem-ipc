@@ -67,6 +67,7 @@ typedef struct	s_player
 	//related to player->pos_x/y
 	int	path[4];//top->right->bottom->left
 	int	first_move;
+	int	target_team_id;
 	short	find_x;//you should check if i use this or remove it
 	short	find_y;//
 		       //
@@ -194,8 +195,14 @@ int	ft_destroy_message_queue(t_player *player);
 //file :  ft_print_the_board.c
 void	ft_print_the_board(t_player *player);
 
-//file :
-//file :
+//file :  ft_get_target_enemy_team_id.c
+int     ft_get_target_enemy_team_id(t_player *pleyer);
+
+
+//file : ft_check_if_player_in_right_position_do_not_move.c
+int	ft_check_if_player_in_right_position_do_not_move(t_player *player);
+
+
 //file :
 //file :
 

@@ -180,8 +180,6 @@ int	 ft_check_if_team_member_need_defence(t_player *player, t_message_queue *new
 				defence = ft_check_if_postion_need_defence(player, i_x, i_y, new_msg);	
 				if (defence == 1)
 				{
-					//set defence position
-					//announce msg
 					return (1);
 				}
 				else
