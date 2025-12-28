@@ -118,6 +118,7 @@ int	ft_check_if_player_need_to_escape_or_died(t_player *player);
 
 //file : ft_check_if_position_safe.c
 int     ft_check_position_is_safe(t_player *player, int x, int y);
+int     ft_check_if_position_is_free(t_player *player, int x, int y);
 
 //file :  ft_check_if_team_member_need_defence.c
 int	ft_check_if_postion_need_defence(t_player *player, int p_x, int p_y, t_message_queue *new_msg);
@@ -165,8 +166,7 @@ int	ft_is_it_one_step_to_position(t_player *player, t_message_queue msg, int sid
 
 //file : ft_last_player_escape.c
 int	ft_random_direction(int a, int b, int c, int d);
-int	ft_check_position_is_safe(t_player *player, int x, int y);
-void	ft_find_best_move_and_escape(t_player *player);
+int	ft_find_best_move_and_escape(t_player *player);
 int	ft_last_player_escape(t_player *player);
 
 //file : ft_leave_the_board.c
@@ -203,9 +203,16 @@ int     ft_get_target_enemy_team_id(t_player *pleyer);
 int	ft_check_if_player_in_right_position_do_not_move(t_player *player);
 
 
-//file :
-//file :
+//file :  ft_display_the_board.c
+void    ft_display_the_board(int board[BOARD_Y_LEN][BOARD_X_LEN]);
 
+//file : ft_best_side.c
+int	ft_include(int best_side[4], int i, int include);
+int	ft_best_side(t_player *player, int p_x, int p_y, int i, int best_side[4]);
+
+//file :
+//file :
+//file :
 
 
 

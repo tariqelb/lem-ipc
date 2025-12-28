@@ -4,6 +4,7 @@ SRCS =	./lem-ipc.c \
 	./ft_print_the_board.c \
 	./ft_active_the_game.c \
 	./ft_attack_defend_escape_moves.c \
+	./ft_best_side.c \
 	./ft_calculate_push_new_attack.c \
 	./ft_check_if_player_died.c \
 	./ft_check_if_player_in_right_position_do_not_move.c \
@@ -13,6 +14,7 @@ SRCS =	./lem-ipc.c \
 	./ft_check_if_team_member_need_defence.c \
 	./ft_choose_one_side_to_attack.c \
 	./ft_create_destroy_shared_memory.c \
+	./ft_display_the_board.c \
 	./ft_exit_from_game.c \
 	./ft_find_path_to_position_and_make_move.c \
 	./ft_get_into_board.c \

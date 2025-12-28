@@ -37,22 +37,23 @@ int	ft_player_died(t_player *player)
 
 int	ft_first_move(t_player *player)
 {
-	if (ft_check_position_is_safe(player, player->pos_x, player->pos_y - 1) == 0)
+	//if (ft_check_position_is_safe(player, player->pos_x, player->pos_y - 1) == 0)
+	if (ft_check_if_position_is_free(player, player->pos_x, player->pos_y - 1) == 0)
 	{
 		ft_move_to_position_x_y(player, player->pos_x, player->pos_y - 1);
 		player->first_move = 0;
 	}
-	else if (ft_check_position_is_safe(player, player->pos_x + 1, player->pos_y) == 0)
+	else if (ft_check_if_position_is_free(player, player->pos_x + 1, player->pos_y) == 0)
 	{
 		ft_move_to_position_x_y(player, player->pos_x + 1, player->pos_y);
 		player->first_move = 0;
 	}
-	else if (ft_check_position_is_safe(player, player->pos_x, player->pos_y + 1) == 0)
+	else if (ft_check_if_position_is_free(player, player->pos_x, player->pos_y + 1) == 0)
 	{
 		ft_move_to_position_x_y(player, player->pos_x, player->pos_y + 1);
 		player->first_move = 0;
 	}
-	else if (ft_check_position_is_safe(player, player->pos_x - 1, player->pos_y) == 0)
+	else if (ft_check_if_position_is_free(player, player->pos_x - 1, player->pos_y) == 0)
 	{
 		ft_move_to_position_x_y(player, player->pos_x - 1, player->pos_y);
 		player->first_move = 0;
@@ -62,7 +63,6 @@ int	ft_first_move(t_player *player)
 
 int	ft_side_to_attack(t_player *player, t_message_queue msg)
 {
-	printf("side to attack\n");
 
 	int side_to_attack = -1;//top=0,right=1,bottom=2,left=3
 	//if no valid path to one of the 4 sides of attack position, then return -1
@@ -71,33 +71,32 @@ int	ft_side_to_attack(t_player *player, t_message_queue msg)
 	{
 		if (ft_is_it_one_step_to_position(player, msg, side_to_attack) > 0)
 		{
-			printf("is one step to side to attacki [%d]\n", side_to_attack);
 			//check if its safe and move
 			if (side_to_attack == 0)
 			{
-				if (ft_check_position_is_safe(player, player->pos_x, player->pos_y - 1) == 0)
+				//if (ft_check_position_is_safe(player, player->pos_x, player->pos_y - 1) == 0)
+				if (ft_check_if_position_is_free(player, player->pos_x, player->pos_y - 1) == 0)
 					ft_move_to_position_x_y(player, player->pos_x, player->pos_y - 1);
 			}
 			else if (side_to_attack == 1)
 			{
-				if (ft_check_position_is_safe(player, player->pos_x + 1, player->pos_y) == 0)
+				if (ft_check_if_position_is_free(player, player->pos_x + 1, player->pos_y) == 0)
 					ft_move_to_position_x_y(player, player->pos_x + 1, player->pos_y);
 			}
 			else if (side_to_attack == 2)
 			{
-				if (ft_check_position_is_safe(player, player->pos_x, player->pos_y + 1) == 0)
+				if (ft_check_if_position_is_free(player, player->pos_x, player->pos_y + 1) == 0)
 					ft_move_to_position_x_y(player, player->pos_x, player->pos_y + 1);
 			}
 			else if (side_to_attack == 3)
 			{
-				if (ft_check_position_is_safe(player, player->pos_x - 1, player->pos_y) == 0)
+				if (ft_check_if_position_is_free(player, player->pos_x - 1, player->pos_y) == 0)
 					ft_move_to_position_x_y(player, player->pos_x - 1, player->pos_y);
 			}
 		}
 		else
 		{//find path to one of the sides in attack msg and move to it
 		 	int move = 0;//move == 0 mean player can attack position
-			printf("find path side to attack [%d]\n", side_to_attack);
 			if (side_to_attack == 0)//top
 			{
 				move = ft_find_path_to_position_and_make_move(player, msg.x_attack, msg.y_attack - 1);	
@@ -113,17 +112,6 @@ int	ft_side_to_attack(t_player *player, t_message_queue msg)
 			else if (side_to_attack == 3)//left
 			{
 				move = ft_find_path_to_position_and_make_move(player, msg.x_attack - 1, msg.y_attack);	
-			}
-			if (move == 0)
-			{//check other side to attack
-				if (player->path[0] != -1 && side_to_attack != 0)
-					move = ft_find_path_to_position_and_make_move(player, msg.x_attack, msg.y_attack - 1);	
-				if (move == 0 && player->path[1] != -1 && side_to_attack != 1)
-					move = ft_find_path_to_position_and_make_move(player, msg.x_attack + 1, msg.y_attack);	
-				if (move == 0 && player->path[2] != -1 && side_to_attack != 2)
-					move = ft_find_path_to_position_and_make_move(player, msg.x_attack, msg.y_attack + 1);	
-				if (move == 0 && player->path[3] != -1 && side_to_attack != 3)
-					move = ft_find_path_to_position_and_make_move(player, msg.x_attack - 1, msg.y_attack);	
 			}
 			return (move);
 		}
@@ -147,14 +135,14 @@ int	ft_attack_defend_escape_moves(t_player *player)
 	t_message_queue new_msg;
 	int		msg_status;
 	int		escape;
-	int		defence;
-	int		team_array_index;
+	//int		defence;
+	//int		team_array_index;
 
 	player->path[0] = -1;
 	player->path[1] = -1;
 	player->path[2] = -1;
 	player->path[3] = -1;
-	team_array_index = ft_get_team_array_index(player);
+	//team_array_index = ft_get_team_array_index(player);
 	//-1 player died, 1 escape needed, 0 safe position
 	//position (0,0), (0,31), (31,0), (31,31) is not strictly forbiden 
 	//in escape case , allowed only in attack and player 
@@ -183,19 +171,18 @@ int	ft_attack_defend_escape_moves(t_player *player)
 		return (ft_player_died(player));
 	}*/
 	escape = ft_check_if_player_need_to_escape_or_died(player);
-	printf("Escape : %d\n", escape);
 	if (escape == -1) //player surrounded
 	{
 		return (ft_player_died(player));
 	}
-	if (ft_check_if_player_in_right_position_do_not_move(player))
+/*	if (ft_check_if_player_in_right_position_do_not_move(player))
 	{
 		printf("player in attack position no need to move\n");
 		return (0);
-	}
+	}*/
 	//check if you are last player or escape == 1 mean you are in denger
 	// just escape 
-	if (escape == 1 || player->game->teams[team_array_index].nbr_of_players == 1)
+	/*if (escape == 1 || player->game->teams[team_array_index].nbr_of_players == 1)
 	{
 		printf("Under attack or Last player escape \n");
 		ft_last_player_escape(player);
@@ -207,13 +194,12 @@ int	ft_attack_defend_escape_moves(t_player *player)
 	defence = ft_check_if_team_member_need_defence(player, &new_msg);
 	if (defence == 1)
 	{
-		printf("Defence = 1 [%d] \n", defence);
 		//(only first move should be safe)
 		//move to defence position 
 		ft_find_path_to_position_and_make_move(player, new_msg.x_defence, new_msg.y_defence);
 		return (0);
 	}
-	else	
+	else*/	
 	{
 		//do attack move
 		///attack position should be 4 for team members more than 4
@@ -236,11 +222,7 @@ int	ft_attack_defend_escape_moves(t_player *player)
 		if (msg_status != 0 || (msg_status == 0 && (player->game->board[msg.x_attack][msg.y_attack] == 0 || player->game->board[msg.x_attack][msg.y_attack] == player->team_id - 1)))
 		{
 			msg_status = ft_calculate_push_new_attack(player, &new_msg);
-			printf("old attack [%d][%d]\n", msg.x_attack, msg.y_attack);
 			msg = new_msg;
-			printf("Board enemy x y [%d] target [%d]\n", player->game->board[new_msg.y_attack][new_msg.x_attack], player->target_team_id);
-			printf("calculate new attack [%d][%d]\n", new_msg.x_attack, new_msg.y_attack);
-			printf("update attack [%d][%d]\n", msg.x_attack, msg.y_attack);
 			if (msg.x_attack < BOARD_X_LEN && msg.y_attack < BOARD_Y_LEN
 				&& player->game->board[msg.y_attack][msg.x_attack] != 0
 				&& player->game->board[msg.y_attack][msg.x_attack] != player->team_id - 1)
@@ -254,8 +236,6 @@ int	ft_attack_defend_escape_moves(t_player *player)
 		}
 		else if (msg_status == 0)
 		{
-			printf("Attack , msg status [%d] tagert [%d] \n", msg_status, player->target_team_id);
-			printf("Attack x y board [%d][%d][%d]\n", msg.x_attack, msg.y_attack, player->game->board[msg.x_attack][msg.y_attack]);
 			//check if enemy still in position 
 			if (msg.x_attack < BOARD_X_LEN && msg.y_attack < BOARD_Y_LEN
 				&& player->game->board[msg.y_attack][msg.x_attack] != 0

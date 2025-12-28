@@ -22,13 +22,13 @@ int	ft_check_if_player_surrounded(t_player *player)
 	bottom_pos_team_id = -1;
 
 	if (player->pos_x > 0)
-		left_pos_team_id = player->game->board[x - 1][y];
-	if (player->pos_x < 31)
-		right_pos_team_id = player->game->board[x + 1][y];
+		left_pos_team_id = player->game->board[y][x - 1];
+	if (player->pos_x < BOARD_X_LEN)
+		right_pos_team_id = player->game->board[y][x + 1];
 	if (player->pos_y > 0)
-		up_pos_team_id = player->game->board[y - 1][y];
-	if (player->pos_y < 31)
-		bottom_pos_team_id = player->game->board[y + 1][y];
+		up_pos_team_id = player->game->board[y - 1][x];
+	if (player->pos_y < BOARD_Y_LEN)
+		bottom_pos_team_id = player->game->board[y + 1][x];
 	if (left_pos_team_id != -1 && left_pos_team_id != player->team_id + 1 
 		&& right_pos_team_id != -1 && right_pos_team_id != player->team_id + 1) 
 	{
@@ -39,7 +39,7 @@ int	ft_check_if_player_surrounded(t_player *player)
 		player->game->teams[player->team_id].nbr_of_players--;	
 		if (player->game->teams[player->team_id].nbr_of_players <= 0)
 			player->game->total_teams--;
-		player->game->board[x][y] = 0;
+		player->game->board[y][x] = 0;
 		player->died = 1;
 		return (1);	
 	}
@@ -50,7 +50,7 @@ int	ft_check_if_player_surrounded(t_player *player)
 		player->game->teams[player->team_id].nbr_of_players--;	
 		if (player->game->teams[player->team_id].nbr_of_players <= 0)
 			player->game->total_teams--;
-		player->game->board[x][y] = 0;
+		player->game->board[y][x] = 0;
 		player->died = 1;
 		return (1);	
 	}

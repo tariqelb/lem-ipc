@@ -34,3 +34,14 @@ int     ft_check_position_is_safe(t_player *player, int x, int y)
         //0 = safe
         return (0);
 }
+
+
+int	ft_check_if_position_is_free(t_player *player, int x, int y)
+{
+	
+        if (x < 0 || x >= BOARD_X_LEN || y < 0 || y >= BOARD_Y_LEN)
+                return (-1);
+	if (player->game->board[y][x] != 0)	
+		return (1);
+	return (0);
+}

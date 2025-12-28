@@ -21,7 +21,7 @@ int	ft_check_if_postion_need_defence(t_player *player, int p_x, int p_y, t_messa
 	bottom    = 0;
 	left      = 0;
 	t_id      = player->team_id + 1;
-	if (player->pos_y == 0 && player->pos_x == 0)
+	if (p_y == 0 && p_x == 0)
 	{//top left of the board
 		top_left  = -1;
 		top       = -1;
@@ -29,7 +29,7 @@ int	ft_check_if_postion_need_defence(t_player *player, int p_x, int p_y, t_messa
 		left      = -1;
 		btm_left  = -1;
 	}
-	else if (player->pos_y == 0 && player->pos_x == BOARD_X_LEN - 1)
+	else if (p_y == 0 && p_x == BOARD_X_LEN - 1)
 	{//top right of the board
 		top_right = -1;
 		top       = -1;
@@ -37,7 +37,7 @@ int	ft_check_if_postion_need_defence(t_player *player, int p_x, int p_y, t_messa
 		right     = -1;
 		btm_right = -1;
 	}
-	else if (player->pos_x == 0 && player->pos_y == BOARD_Y_LEN - 1)
+	else if (p_x == 0 && p_y == BOARD_Y_LEN - 1)
 	{//bottom left of the board
 		btm_left  = -1;
 		bottom    = -1;
@@ -45,7 +45,7 @@ int	ft_check_if_postion_need_defence(t_player *player, int p_x, int p_y, t_messa
 		left      = -1;
 		top_left  = -1;
 	}
-	else if (player->pos_x == BOARD_X_LEN - 1  && player->pos_y == BOARD_Y_LEN - 1)
+	else if (p_x == BOARD_X_LEN - 1  && p_y == BOARD_Y_LEN - 1)
 	{//bottom right of the board
 		btm_left  = -1;
 		bottom    = -1;
@@ -53,25 +53,25 @@ int	ft_check_if_postion_need_defence(t_player *player, int p_x, int p_y, t_messa
 		right     = -1;
 		top_right = -1;
 	}
-	else if (player->pos_y == 0)
+	else if (p_y == 0)
 	{//top bar except corners
 		top_left  = -1;
 		top       = -1;
 		top_right = -1;
 	}
-	else if (player->pos_y == BOARD_Y_LEN - 1)
+	else if (p_y == BOARD_Y_LEN - 1)
 	{//bottom bar execpt corners
 		btm_left  = -1;
 		bottom    = -1;
 		btm_right = -1;
 	}
-	else if (player->pos_x == 0)
+	else if (p_x == 0)
 	{//left side of the board
 		top_left = -1;
 		left     = -1;
 		btm_left = -1;
 	}
-	else if (player->pos_x == BOARD_X_LEN - 1)
+	else if (p_x == BOARD_X_LEN - 1)
 	{//right side of the board
 		top_right = -1;
 		right     = -1;
@@ -162,7 +162,7 @@ int	 ft_check_if_team_member_need_defence(t_player *player, t_message_queue *new
 
 	defence = 0;
 	team_array_index = ft_get_team_array_index(player);
-	if (team_array_index)
+	if (team_array_index == -1)
 		return (0);
 	nbr_of_player = player->game->teams[team_array_index].nbr_of_players;
 	checked_player = 0;

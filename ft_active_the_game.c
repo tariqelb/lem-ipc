@@ -31,7 +31,6 @@ int	ft_active_the_game(t_player *player)
 		}
 		i++;
 	}
-	printf("Data team one : %d  , team two %d\n", team_have_at_less_two_player, team_have_at_less_one_player);
 	if (team_have_at_less_two_player && team_have_at_less_one_player)
 	{
 		

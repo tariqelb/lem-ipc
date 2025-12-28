@@ -43,8 +43,6 @@ int	ft_check_if_player_in_right_position_do_not_move(t_player *player)
 		p_top_top = player->pos_y - 2;
 		if (p_top_top >= 0 && player->game->board[p_top_top][player->pos_x] == 0)
 		{
-			printf("block : p_x [%d] p_y [%d] : target [%d] ", player->pos_x, player->pos_y, player->target_team_id);
-			printf("block : top p [%d], top top p [%d] \n", player->game->board[player->pos_y - 1][player->pos_x], player->game->board[player->pos_y - 2][player->pos_x]);
 			return (1);
 		}
 	}
@@ -55,8 +53,6 @@ int	ft_check_if_player_in_right_position_do_not_move(t_player *player)
 		p_right_right = player->pos_x + 2;
 		if (p_right_right < BOARD_X_LEN && player->game->board[player->pos_y][p_right_right] == 0)
 		{
-			printf("block : p_x [%d] p_y [%d] : target [%d] ", player->pos_x, player->pos_y, player->target_team_id);
-			printf("block : right p [%d], right right p [%d] \n", player->game->board[player->pos_y][player->pos_x + 1], player->game->board[player->pos_y][player->pos_x + 2]);
 			return (1);
 		}
 	}
@@ -67,8 +63,6 @@ int	ft_check_if_player_in_right_position_do_not_move(t_player *player)
 		p_bottom_bottom = player->pos_y + 2;
 		if (p_bottom_bottom < BOARD_Y_LEN && player->game->board[p_bottom_bottom][player->pos_x] == 0)
 		{
-			printf("block : p_x [%d] p_y [%d] : target [%d] ", player->pos_x, player->pos_y, player->target_team_id);
-			printf("block : btm p [%d], btm top p [%d] \n", player->game->board[player->pos_y + 1][player->pos_x], player->game->board[player->pos_y + 2][player->pos_x]);
 			return (1);
 		}
 	}
@@ -79,8 +73,6 @@ int	ft_check_if_player_in_right_position_do_not_move(t_player *player)
 		p_left_left = player->pos_x - 2;
 		if (p_left_left >= 0 && player->game->board[player->pos_y][p_left_left] == 0)
 		{
-			printf("block : p_x [%d] p_y [%d] : target [%d] ", player->pos_x, player->pos_y, player->target_team_id);
-			printf("block : left p [%d], left left p [%d] \n", player->game->board[player->pos_y][player->pos_x - 1], player->game->board[player->pos_y][player->pos_x - 2]);
 			return (1);
 		}
 	}

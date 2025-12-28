@@ -37,9 +37,6 @@ t_player	*ft_initialize_player(t_player *player)
 	int	y;
 
 	team_exist = ft_check_if_team_exist(player);
-	//printf("Team exist : %d\n", team_exist);
-	//printf("team id %d\n", player->team_id);
-	//printf("Total teams : %d\n", player->game->total_teams);
 	if (team_exist == -1)
 	{
 		//case when the player is first player in new team
@@ -64,7 +61,6 @@ t_player	*ft_initialize_player(t_player *player)
 		player->first_move = 1;
 		player->player_id = player->game->teams[team_exist].nbr_of_players;
 	}
-	//printf("Total teams : %d\n", player->game->total_teams);
 	if (player->team_id % 4 == 0)
 	{
 		x = player->team_id % BOARD_X_LEN;

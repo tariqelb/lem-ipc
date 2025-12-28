@@ -1,7 +1,5 @@
-check why player sometime disapper and fix it
+check sig fault
 
+check if i surround enemy , just stay there till killed enemy exist from the board
 
-improve find path 
-i should try to improve find path or work with go close function only, target enemy team, always go closer to one of the side based on modulo
-you can make player only attack one side of the enemy , mean player id % 2 always attack top , %3 always attack right so on
 

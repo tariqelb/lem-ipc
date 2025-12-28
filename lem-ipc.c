@@ -94,14 +94,13 @@ int	main(int ac, char **av)
 			break;
 		}
 		semop(player.semid, &player.unlock_op, 1);
-		sleep(5);
+		sleep(3);
 		//temprorary break
 		//break;
 		printf("----------------------------------------------------[%d]\n", attack_index);
 		printf("\n\n\n");
 		attack_index++;
 	}
-	sleep(20);
 	//--------------------------
 	ft_exit_from_game(&player, 3);
 	return (0);

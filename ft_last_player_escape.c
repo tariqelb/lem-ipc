@@ -29,7 +29,7 @@ int ft_random_direction(int a, int b, int c, int d)
 }
 
 
-void	ft_find_best_move_and_escape(t_player *player)
+int	ft_find_best_move_and_escape(t_player *player)
 {
 	int	left;
 	int	right;
@@ -62,7 +62,8 @@ void	ft_find_best_move_and_escape(t_player *player)
 	free_position = 0;
 	if (left == 0)
 	{
-		left = ft_check_position_is_safe(player, player->pos_x - 1, player->pos_y);
+		//left = ft_check_position_is_safe(player, player->pos_x - 1, player->pos_y);
+		left = ft_check_if_position_is_free(player, player->pos_x - 1, player->pos_y);
 		if (left == 0)
 		{
 			left = 1;
@@ -71,7 +72,7 @@ void	ft_find_best_move_and_escape(t_player *player)
 	}
 	if (right == 0)
 	{
-		right = ft_check_position_is_safe(player, player->pos_x + 1, player->pos_y);
+		right = ft_check_if_position_is_free(player, player->pos_x + 1, player->pos_y);
 		if (right == 0)
 		{
 			right = 1;
@@ -80,7 +81,7 @@ void	ft_find_best_move_and_escape(t_player *player)
 	}
 	if (top == 0)
 	{
-		top = ft_check_position_is_safe(player, player->pos_x, player->pos_y - 1);
+		top = ft_check_if_position_is_free(player, player->pos_x, player->pos_y - 1);
 		if (top == 0)
 		{
 			top = 1;
@@ -89,28 +90,26 @@ void	ft_find_best_move_and_escape(t_player *player)
 	}
 	if (bottom == 0)
 	{
-		bottom = ft_check_position_is_safe(player, player->pos_x, player->pos_y + 1);
+		bottom = ft_check_if_position_is_free(player, player->pos_x, player->pos_y + 1);
 		if (bottom == 0)
 		{
 			free_position++;
 			bottom = 1;
 		}
 	}
-	printf("free_position %d\n", free_position);
 	if (free_position > 0)
 	{
 		random_direction = ft_random_direction(left, top, right, bottom);
-		printf("random_direction %d \n", random_direction);
 		if (random_direction == 1)//move to left
-			ft_move_to_position_x_y(player, player->pos_x - 1, player->pos_y);
+			return (!ft_move_to_position_x_y(player, player->pos_x - 1, player->pos_y));
 		else if (random_direction == 2)//move to top
-			ft_move_to_position_x_y(player, player->pos_x, player->pos_y - 1);
+			return (!ft_move_to_position_x_y(player, player->pos_x, player->pos_y - 1));
 		else if (random_direction == 3)//move to right
-			ft_move_to_position_x_y(player, player->pos_x + 1, player->pos_y);
+			return (!ft_move_to_position_x_y(player, player->pos_x + 1, player->pos_y));
 		else if (random_direction == 4)//move to bottom
-			ft_move_to_position_x_y(player, player->pos_x, player->pos_y + 1);
+			return (!ft_move_to_position_x_y(player, player->pos_x, player->pos_y + 1));
 	}
-	return;
+	return (0);
 }
 
 

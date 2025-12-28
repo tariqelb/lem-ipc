@@ -4,7 +4,7 @@ int	ft_exit_from_game(t_player *player, int flag)
 {
 	//check if last player before destroy resources
 	//team ajustement needed here
-	if (player->died == 1 || player->game->game_active == 0)
+	if (player->died == 0 || player->game->game_active == 0)
 	{
 		ft_leave_the_board(player);
 	}

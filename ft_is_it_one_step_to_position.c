@@ -10,8 +10,6 @@ int	ft_is_it_one_step_to_position(t_player *player, t_message_queue msg, int sid
 	//the ft_choose_side_to_attack() function return best side to attack
 	//now we check is it one step to that side
 
-	//printf("Data : %d %d , %d %d, %d\n", player->pos_x, player->pos_y, msg.x_attack, msg.y_attack, side_to_attack);
-
 	if (side_to_attack == 0)
 	{
 		attack_x = msg.x_attack;

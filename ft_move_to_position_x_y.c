@@ -6,7 +6,6 @@ int	ft_move_to_position_x_y(t_player *player, int x, int y)
 		return (1);
 	if (player->game->board[y][x] != 0)
 		return (1);
-	printf("Data : %d %d %d %d %d %d\n", player->team_id, player->pos_x, player->pos_y, x, y, player->game->board[y][x]);
 	if (player->game->board[y][x] == 0)
 	{
 		player->game->board[player->pos_y][player->pos_x] = 0;
