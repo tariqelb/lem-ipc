@@ -20,6 +20,7 @@ SRCS =	./lem-ipc.c \
 	./ft_get_into_board.c \
 	./ft_get_target_enemy_team_id.c \
 	./ft_get_team_array_index.c \
+	./ft_graphic_representation.c \
 	./ft_get_team.c \
 	./ft_initialize_board.c \
 	./ft_initialize_player.c \
@@ -36,12 +37,15 @@ SRCS =	./lem-ipc.c \
 OBJS = $(SRCS:.c=.o)
 
 CC = gcc
+
 CFLAGS = -Wall -Wextra -Werror
+
+RAYLIB = -lraylib -lm -ldl -lpthread -lX11
 
 all: $(NAME) clean
 
 $(NAME): $(OBJS)
-	$(CC) -o $(NAME) -I . $(OBJS)
+	$(CC) $(RAYLIB) -o $(NAME) -I . $(OBJS) $(RAYLIB) 
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@

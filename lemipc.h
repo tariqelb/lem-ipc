@@ -12,6 +12,7 @@
 # include <sys/ipc.h>
 # include <sys/msg.h>
 # include <time.h>
+# include "raylib.h"
 
 # define BOARD_SIZE 32
 # define BOARD_X_LEN 6 
@@ -19,6 +20,12 @@
 # define SHM_SIZE 8192 // page size * 2
 # define MAX_TEAMS 100 //Game will be designed to hold handred team as max
 # define MAX_PLAYER_IN_TEAM 50
+
+
+#define HEIGHT 900
+#define WIDTH  800
+#define TITLE  "lemipc"
+
 
 //:)
 #define SHM_KEY 0x4C454D49  // "LEMI" in hex
@@ -72,6 +79,8 @@ typedef struct	s_player
 	short	find_y;//
 		       //
 		       //
+	int	graphic_representative;
+	int	team_color;
 	// Semaphore operations - DECLARE ONCE
 	t_sem_lock	lock_op;
 	t_sem_unlock	unlock_op;
@@ -214,7 +223,10 @@ int	ft_best_side(t_player *player, int p_x, int p_y, int i, int best_side[4]);
 int	ft_is_enemy_surounded(t_player *player);
 
 
-//file :
+//file : ft_graphic_representation.c
+
+int     ft_graphic_representation(t_player *player);
+
 //file :
 
 

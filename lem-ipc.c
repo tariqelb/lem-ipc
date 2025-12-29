@@ -71,10 +71,27 @@ int	main(int ac, char **av)
 			return (0);
 		}
 	}
+	//fork and create a process that handle graphic window
+	if (player.graphic_representative)
+	{
+		int	pid;
+
+		pid = fork();
+		if (pid == -1)
+        		return (1);
+
+		if (pid != 0)
+		{
+			ft_graphic_representation(&player);
+			exit(0);
+			return (0);
+		}
+	}
 	printf("Player get into board : team id %d\n", player.team_id);
 	printf("Player position x = %d , y = %d\n", player.pos_x, player.pos_y);
 	printf("Total players %d\n", player.game->total_players);
 	printf("Total teams %d\n", player.game->total_teams);
+	printf("Team color ----[%d]----\n", player.team_color);
 	int attack_index = 0;
 	while (player.game->game_active == 1 && player.died == 0)
 	{

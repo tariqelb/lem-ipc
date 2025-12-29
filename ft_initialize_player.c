@@ -50,6 +50,7 @@ t_player	*ft_initialize_player(t_player *player)
 		player->player_id = 1;
 		player->first_move = 1;
 		player->died = 0;
+		player->team_color = team_exist + 1;
 	}
 	else
 	{
@@ -60,6 +61,7 @@ t_player	*ft_initialize_player(t_player *player)
 		player->died = 0;
 		player->first_move = 1;
 		player->player_id = player->game->teams[team_exist].nbr_of_players;
+		player->team_color = team_exist + 1;
 	}
 	if (player->team_id % 4 == 0)
 	{
@@ -87,5 +89,6 @@ t_player	*ft_initialize_player(t_player *player)
 	player->pos_x = -1;
 	player->pos_y = -1;
 	player->target_team_id = -1;
+	player->graphic_representative = 0;
 	return (player);
 }

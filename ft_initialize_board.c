@@ -58,5 +58,7 @@ t_player	*ft_initialize_game_board(t_player *player)
 	player->pos_x = -1;
 	player->pos_y = -1;
 	player->target_team_id = -1;
+	player->graphic_representative = 1;
+	player->team_color = 1;
 	return (player);
 }
