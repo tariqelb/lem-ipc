@@ -2,6 +2,7 @@
 
 int	ft_move_to_position_x_y(t_player *player, int x, int y)
 {
+	printf("ft_move_to_position_x_y\n");
 	if (x < 0 || y < 0 || x >= BOARD_X_LEN || y >= BOARD_Y_LEN)
 		return (1);
 	if (player->game->board[y][x] != 0)

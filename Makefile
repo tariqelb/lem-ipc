@@ -23,6 +23,7 @@ SRCS =	./lem-ipc.c \
 	./ft_get_team.c \
 	./ft_initialize_board.c \
 	./ft_initialize_player.c \
+	./ft_is_enemy_surounded.c \
 	./ft_is_it_one_step_to_position.c \
 	./ft_last_player_escape.c \
 	./ft_leave_the_board.c \

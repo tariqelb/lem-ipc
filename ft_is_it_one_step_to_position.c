@@ -6,6 +6,7 @@ int	ft_is_it_one_step_to_position(t_player *player, t_message_queue msg, int sid
 	int	attack_x;
 	int	attack_y;
 
+	printf("ft_is_it_one_step_to_position\n");
 	//the msg attack hold cooredinate of the position to attack
 	//the ft_choose_side_to_attack() function return best side to attack
 	//now we check is it one step to that side
@@ -32,13 +33,26 @@ int	ft_is_it_one_step_to_position(t_player *player, t_message_queue msg, int sid
 	}
 
 	if (player->pos_x == attack_x && player->pos_y - 1 == attack_y)
+	{
+		printf("one side = 0\n");
 		return (0);
+	}
 	else if (player->pos_x + 1 == attack_x && player->pos_y == attack_y)
+	{
+		printf("one side = 1\n");
 		return (1);
+	}
 	else if (player->pos_x == attack_x && player->pos_y + 1 == attack_y)
+	{
+		printf("one side = 2\n");
 		return (2);
+	}
 	else if (player->pos_x - 1 == attack_x && player->pos_y == attack_y)
+	{
+		printf("one side = 3\n");
 		return (3);
+	}
+	printf("one side = -1\n");
 
 	return (-1);
 }

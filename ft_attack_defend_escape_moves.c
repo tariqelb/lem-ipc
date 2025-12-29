@@ -64,6 +64,7 @@ int	ft_first_move(t_player *player)
 int	ft_side_to_attack(t_player *player, t_message_queue msg)
 {
 
+	printf("ft_side_to_attack\n");
 	int side_to_attack = -1;//top=0,right=1,bottom=2,left=3
 	//if no valid path to one of the 4 sides of attack position, then return -1
 	side_to_attack = ft_choose_one_side_to_attack(player, msg.x_attack, msg.y_attack);
@@ -71,28 +72,33 @@ int	ft_side_to_attack(t_player *player, t_message_queue msg)
 	{
 		if (ft_is_it_one_step_to_position(player, msg, side_to_attack) > 0)
 		{
+			int move = 0;
 			//check if its safe and move
 			if (side_to_attack == 0)
 			{
 				//if (ft_check_position_is_safe(player, player->pos_x, player->pos_y - 1) == 0)
 				if (ft_check_if_position_is_free(player, player->pos_x, player->pos_y - 1) == 0)
-					ft_move_to_position_x_y(player, player->pos_x, player->pos_y - 1);
+					move = !ft_move_to_position_x_y(player, player->pos_x, player->pos_y - 1);
 			}
 			else if (side_to_attack == 1)
 			{
 				if (ft_check_if_position_is_free(player, player->pos_x + 1, player->pos_y) == 0)
-					ft_move_to_position_x_y(player, player->pos_x + 1, player->pos_y);
+					move = !ft_move_to_position_x_y(player, player->pos_x + 1, player->pos_y);
 			}
 			else if (side_to_attack == 2)
 			{
 				if (ft_check_if_position_is_free(player, player->pos_x, player->pos_y + 1) == 0)
-					ft_move_to_position_x_y(player, player->pos_x, player->pos_y + 1);
+					move = !ft_move_to_position_x_y(player, player->pos_x, player->pos_y + 1);
 			}
 			else if (side_to_attack == 3)
 			{
 				if (ft_check_if_position_is_free(player, player->pos_x - 1, player->pos_y) == 0)
-					ft_move_to_position_x_y(player, player->pos_x - 1, player->pos_y);
+					move = !ft_move_to_position_x_y(player, player->pos_x - 1, player->pos_y);
 			}
+			printf("move [%d]\n", move);
+			if (move == 0)
+				move = ft_find_best_move_and_escape(player);
+			printf("move [%d]\n", move);
 		}
 		else
 		{//find path to one of the sides in attack msg and move to it
@@ -175,6 +181,9 @@ int	ft_attack_defend_escape_moves(t_player *player)
 	{
 		return (ft_player_died(player));
 	}
+	//check if i surround an enemy stay here
+	if (ft_is_enemy_surounded(player))
+		return (0);
 /*	if (ft_check_if_player_in_right_position_do_not_move(player))
 	{
 		printf("player in attack position no need to move\n");

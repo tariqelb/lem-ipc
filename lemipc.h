@@ -210,7 +210,10 @@ void    ft_display_the_board(int board[BOARD_Y_LEN][BOARD_X_LEN]);
 int	ft_include(int best_side[4], int i, int include);
 int	ft_best_side(t_player *player, int p_x, int p_y, int i, int best_side[4]);
 
-//file :
+//file : ft_is_enemy_surounded.c
+int	ft_is_enemy_surounded(t_player *player);
+
+
 //file :
 //file :
 

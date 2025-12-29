@@ -160,24 +160,30 @@ int	ft_move_to_position_path(t_player *player)
 		x = -1;
 	if (side != -1)
 	{
-		if (player->game->board[player->pos_y + y][player->pos_x + x] == 0)
+		if (player->pos_x + x >= 0 && player->pos_x + x < BOARD_X_LEN && player->pos_y + y >= 0 && player->pos_y + y < BOARD_Y_LEN)
 		{
-			player->game->board[player->pos_y][player->pos_x] = 0;
-			player->game->board[player->pos_y + y][player->pos_x + x] = player->team_id + 1;
-			player->pos_x = player->pos_x + x;
-			player->pos_y = player->pos_y + y;
-			return (1);
+			if (player->game->board[player->pos_y + y][player->pos_x + x] == 0)
+			{
+				player->game->board[player->pos_y][player->pos_x] = 0;
+				player->game->board[player->pos_y + y][player->pos_x + x] = player->team_id + 1;
+				player->pos_x = player->pos_x + x;
+				player->pos_y = player->pos_y + y;
+				return (1);
+			}
+			else
+			{
+				printf("place full . move to path fun \n");
+			}
 		}
 		else
-		{
-			printf("place full . move to path fun \n");
-		}
+			printf("out of the board");
 	}
 	return (0);
 }
 
 int	ft_go_closer_to_position_no_valid_path_to_it(t_player *player, int x, int y)
 {
+	printf("ft_go_closer_to_position_no_valid_path_to_it");
 	int	top;
 	int	bottom;
 	int	right;

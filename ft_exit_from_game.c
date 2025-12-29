@@ -4,12 +4,13 @@ int	ft_exit_from_game(t_player *player, int flag)
 {
 	//check if last player before destroy resources
 	//team ajustement needed here
-	if (player->died == 0 || player->game->game_active == 0)
-	{
-		ft_leave_the_board(player);
-	}
+	printf("ft_exit_from_game p died[%d] g active[%d] t players[%d]\n", player->died, player->game->game_active, player->game->total_players);
+	//if (player->died == 0 || player->game->game_active == 0)
+	//{
+	//}
+	ft_leave_the_board(player);
 
-	if (player->game->total_players <= 1)
+	if (player->game->total_players <= 0)
 	{
 		//check for last player before destroy
 		if (flag >= 3)

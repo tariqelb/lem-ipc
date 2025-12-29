@@ -2,6 +2,7 @@
 
 int	ft_choose_one_side_to_attack(t_player *player, int x, int y)
 {
+	printf("ft_choose_one_side_to_attack\n");
 	int	top_side;
 	int	right_side;
 	int	bottom_side;
@@ -24,9 +25,12 @@ int	ft_choose_one_side_to_attack(t_player *player, int x, int y)
 		top_side = player->game->board[y - 1][x];
 	if (y < BOARD_Y_LEN)
 		bottom_side = player->game->board[y + 1][x];
-	if (player->game->board[y][x] != 0)
+	enemy_id = -1;
+	if (x >= 0 && x < BOARD_X_LEN && y >= 0 && y < BOARD_Y_LEN && player->game->board[y][x] != 0)
 	enemy_id = player->game->board[y][x];
 
+	if (enemy_id == -1)
+		return (-1);
 	if (bottom_side != enemy_id && top_side == 0)
 		return (0);
 	if (left_side != enemy_id && right_side == 0)

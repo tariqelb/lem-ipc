@@ -2,6 +2,7 @@
 
 int	ft_calculate_push_new_attack(t_player *player, t_message_queue *msg)
 {
+	printf("ft_calculate_push_new_attack\n");
 	//i change strategy and i will not attack the closest enemy
 	//the closest enemy to me not the closest to my team member
 	//i will scan the board from the middle to the sides
