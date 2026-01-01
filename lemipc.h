@@ -13,6 +13,7 @@
 # include <sys/msg.h>
 # include <time.h>
 # include "raylib.h"
+# include <sys/wait.h>
 
 # define BOARD_SIZE 32
 # define BOARD_X_LEN 6 
@@ -221,6 +222,8 @@ int	ft_best_side(t_player *player, int p_x, int p_y, int i, int best_side[4]);
 
 //file : ft_is_enemy_surounded.c
 int	ft_is_enemy_surounded(t_player *player);
+int     ft_scan_board_if_a_player_surrounded(t_player *player);
+int     ft_get_player_sides(t_player *player, int x, int y, int *top, int *right, int *bottom, int *left);
 
 
 //file : ft_graphic_representation.c

@@ -83,6 +83,7 @@ int	main(int ac, char **av)
 		if (pid != 0)
 		{
 			ft_graphic_representation(&player);
+			waitpid(pid, NULL, 0);
 			exit(0);
 			return (0);
 		}

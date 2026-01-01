@@ -44,11 +44,11 @@ int	ft_find_best_move_and_escape(t_player *player)
 	bottom = 0;
 	if (player->pos_x == 0)
 		left = -1;
-	if (player->pos_x == 31)
+	if (player->pos_x == BOARD_X_LEN - 1)
 		right = -1;
 	if (player->pos_y == 0)
 		top = -1;
-	if (player->pos_y == 31)
+	if (player->pos_y == BOARD_Y_LEN - 1)
 		bottom = -1;
 	if (left != -1)
 		left = player->game->board[player->pos_y][player->pos_x - 1];

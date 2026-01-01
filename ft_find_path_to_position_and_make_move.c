@@ -164,6 +164,8 @@ int	ft_move_to_position_path(t_player *player)
 		{
 			if (player->game->board[player->pos_y + y][player->pos_x + x] == 0)
 			{
+				printf("short path pos_x[%d] pos_y[%d] [%d][%d]", player->pos_x, player->pos_y, x, y);
+				printf(" board now [%d] board after move [%d]\n", player->game->board[player->pos_y][player->pos_x], player->game->board[player->pos_y + y][player->pos_x + x]);
 				player->game->board[player->pos_y][player->pos_x] = 0;
 				player->game->board[player->pos_y + y][player->pos_x + x] = player->team_id + 1;
 				player->pos_x = player->pos_x + x;
@@ -350,18 +352,18 @@ int	ft_find_path_to_position_and_make_move(t_player *player, int x, int y)
 	player->find_y = y;
 	//find path
 	{
-		printf("Going closer\n");
 		move = ft_go_closer_to_position_no_valid_path_to_it(player, x, y);
+		printf("Going closer move [%d]\n", move);
 	}
-	if (ft_find_path_to_position(player))	
+	if (move == 0 && ft_find_path_to_position(player))	
 	{
-		printf("Find path \n");
 		move = ft_move_to_position_path(player);//make move
+		printf("Find path [%d]\n", move);
 	}
 	if (move == 0)
 	{
-		printf("Random escape \n");
 		move = ft_find_best_move_and_escape(player);
+		printf("Random escape [%d]\n", move);
 	}
 	
 	return (move);

@@ -19,11 +19,11 @@ int	ft_choose_one_side_to_attack(t_player *player, int x, int y)
 
 	if (x > 0)
 		left_side = player->game->board[y][x - 1];
-	if (x < BOARD_X_LEN)
+	if (x < BOARD_X_LEN - 1)
 		right_side = player->game->board[y][x + 1];
 	if (y > 0)
 		top_side = player->game->board[y - 1][x];
-	if (y < BOARD_Y_LEN)
+	if (y < BOARD_Y_LEN - 1)
 		bottom_side = player->game->board[y + 1][x];
 	enemy_id = -1;
 	if (x >= 0 && x < BOARD_X_LEN && y >= 0 && y < BOARD_Y_LEN && player->game->board[y][x] != 0)
@@ -31,13 +31,13 @@ int	ft_choose_one_side_to_attack(t_player *player, int x, int y)
 
 	if (enemy_id == -1)
 		return (-1);
-	if (bottom_side != enemy_id && top_side == 0)
+	if (bottom_side != 0 && bottom_side != enemy_id && top_side == 0)
 		return (0);
-	if (left_side != enemy_id && right_side == 0)
+	if (left_side != 0 && left_side != enemy_id && right_side == 0)
 		return (1);
-	if (top_side != enemy_id && bottom_side == 0)
+	if (top_side != 0 && top_side != enemy_id && bottom_side == 0)
 		return (2);
-	if (right_side != enemy_id && left_side == 0)
+	if (right_side != 0 && right_side != enemy_id && left_side == 0)
 		return (3);
 	if (player->pos_x > x && player->pos_y > y)//enemy on left top side
 	{
@@ -87,13 +87,5 @@ int	ft_choose_one_side_to_attack(t_player *player, int x, int y)
 		if (right_side == 0)
 			return (1);
 	}
-	if (top_side == 0)
-		return (0);
-	if (right_side == 0)
-		return (1);
-	if (bottom_side == 0)
-		return (2);
-	if (left_side == 0)
-		return (3);
 	return (-1);
 }

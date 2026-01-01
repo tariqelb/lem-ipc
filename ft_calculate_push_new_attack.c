@@ -17,8 +17,8 @@ int	ft_calculate_push_new_attack(t_player *player, t_message_queue *msg)
 		printf("no enemy found\n");
 		return (0);//no enemy_found
 	}
-	//printf("My position : x %d y %d\n", player->pos_x, player->pos_y);
-	//printf("Enemy found : pos : x %d , y %d board [%d]\n", enemy_x, enemy_y, player->game->board[enemy_y][enemy_x]);
+	printf("My position : x %d y %d\n", player->pos_x, player->pos_y);
+	printf("Enemy found : pos : x %d , y %d board [%d]\n", enemy_x, enemy_y, player->game->board[enemy_y][enemy_x]);
 
 	msg->x_attack = enemy_x;
 	msg->y_attack = enemy_y;
