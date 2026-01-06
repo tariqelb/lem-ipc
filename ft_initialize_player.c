@@ -90,5 +90,6 @@ t_player	*ft_initialize_player(t_player *player)
 	player->pos_y = -1;
 	player->target_team_id = -1;
 	player->graphic_representative = 0;
+	player->attack = 0;
 	return (player);
 }

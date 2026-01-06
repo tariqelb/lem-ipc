@@ -9,6 +9,16 @@ int	ft_choose_one_side_to_attack(t_player *player, int x, int y)
 	int	left_side;
 	int	enemy_id;
 
+	int	move_top;
+	int	move_right;
+	int	move_bottom;
+	int	move_left;
+
+	move_top = 0;
+	move_right = 0;
+	move_bottom = 0;
+	move_left = 0;
+
 	top_side = -1;
 	right_side = -1;
 	bottom_side = -1;
@@ -32,60 +42,75 @@ int	ft_choose_one_side_to_attack(t_player *player, int x, int y)
 	if (enemy_id == -1)
 		return (-1);
 	if (bottom_side != 0 && bottom_side != enemy_id && top_side == 0)
-		return (0);
+		move_top = 1;
 	if (left_side != 0 && left_side != enemy_id && right_side == 0)
-		return (1);
+		move_right = 1;
 	if (top_side != 0 && top_side != enemy_id && bottom_side == 0)
-		return (2);
+		move_bottom = 1;
 	if (right_side != 0 && right_side != enemy_id && left_side == 0)
+		move_left = 1;
+
+	//check is it one step
+	int	one_step = ft_is_it_one_step_to_position_x_y(player, x, y);
+	if (move_top && one_step == 0)
+		return (0);
+	if (move_right && one_step == 1)
+		return (1);
+	if (move_bottom && one_step == 2)
+		return (2);
+	if (move_left && one_step == 3)
 		return (3);
+
 	if (player->pos_x > x && player->pos_y > y)//enemy on left top side
 	{
 		if (bottom_side == 0)
-			return (2);
+			move_bottom = 1;
 		if (right_side == 0)
-			return (1);
+			move_right = 1;
 	}
 	if (player->pos_x == x && player->pos_y > y)//enemy on top side
 	{
 		if (bottom_side == 0)
-			return (2);
+			move_bottom = 1;
 	}
 	if (player->pos_x < x && player->pos_y > y)//enemy on top right side
 	{
 		if (left_side == 0)
-			return (3);
+			move_left = 1;
 		if (bottom_side == 0)
-			return (2);
+			move_bottom = 1;
 	}
 	if (player->pos_x < x && player->pos_y == y)//enemy on right side
 	{
 		if (left_side == 0)
-			return (3);
+			move_left = 1;
 	}
 	if (player->pos_x < x && player->pos_y < y)//enemy on bottom right side
 	{
 		if (top_side == 0)
-			return (0);
+			move_top = 1;
 		if (left_side == 0)
-			return (3);
+			move_left = 1;
 	}
 	if (player->pos_x == x && player->pos_y < y)//enemy on bottom side
 	{
 		if (top_side == 0)
-			return (0);
+			move_top = 1;
 	}
 	if (player->pos_x < x && player->pos_y < y)//enemy on bottom left side
 	{
 		if (right_side == 0)
-			return (1);
+			move_right = 1;
 		if (top_side == 0)
-			return (0);
+			move_top = 1;
 	}
 	if (player->pos_x > x && player->pos_y == y)//enemy on left side
 	{
 		if (right_side == 0)
-			return (1);
+			move_right = 1;
 	}
-	return (-1);
+	int random =  ft_random_direction(move_top, move_right , move_bottom, move_left);
+	if (random == 0)
+		return (-1);
+	return (random - 1);
 }

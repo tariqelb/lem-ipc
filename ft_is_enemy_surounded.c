@@ -26,7 +26,7 @@ int	ft_is_enemy_surounded(t_player *player)
 	if (player->pos_y > 0)
 		top = player->game->board[player->pos_y - 1][player->pos_x];
 	if (player->pos_y < BOARD_Y_LEN - 1)
-		top = player->game->board[player->pos_y + 1][player->pos_x];
+		bottom = player->game->board[player->pos_y + 1][player->pos_x];
 	if (top > 0 && top != player->team_id + 1 && player->pos_y > 1)
 	{
 		int	top_top;
@@ -40,7 +40,7 @@ int	ft_is_enemy_surounded(t_player *player)
 		int	right_right;
 
 		right_right = player->game->board[player->pos_y][player->pos_x + 2];
-		if (right > 0 && right_right != right)
+		if (right_right > 0 && right_right != right)
 			return (1);
 	}
 	if (bottom > 0 && bottom != player->team_id + 1 && player->pos_y < BOARD_Y_LEN - 2)
@@ -48,7 +48,7 @@ int	ft_is_enemy_surounded(t_player *player)
 		int	bottom_bottom;
 
 		bottom_bottom = player->game->board[player->pos_y + 2][player->pos_x];
-		if (bottom > 0 && bottom_bottom != bottom)
+		if (bottom_bottom > 0 && bottom_bottom != bottom)
 			return (1);
 	}
 	if (left > 0 && left != player->team_id + 1 && player->pos_x > 1)
@@ -59,6 +59,39 @@ int	ft_is_enemy_surounded(t_player *player)
 		if (left_left > 0 && left_left != left)
 			return (1);
 	}
+	return (0);
+}
+
+int	ft_is_player_surrounded(t_player *player)
+{
+	int	left;
+	int	right;
+	int	top;
+	int	bottom;
+
+	top = -1;
+	right = -1;
+	bottom = -1;
+	left = -1;
+	printf("Check is player surouneded [%d][%d]\n", player->pos_x, player->pos_y);
+	ft_print_the_board(player);
+	
+	if (player->pos_x > 0)
+		left = player->game->board[player->pos_y][player->pos_x - 1];
+	if (player->pos_x < BOARD_X_LEN - 1)
+		right = player->game->board[player->pos_y][player->pos_x + 1];
+	if (player->pos_y > 0)
+		top = player->game->board[player->pos_y - 1][player->pos_x];
+	if (player->pos_y < BOARD_Y_LEN - 1)
+		bottom = player->game->board[player->pos_y + 1][player->pos_x];
+
+	printf("Data top[%d] pos[%d] btm[%d]\n", top, player->game->board[player->pos_y][player->pos_x], bottom);
+	printf("Data left[%d] pos[%d] right[%d]\n", left, player->game->board[player->pos_y][player->pos_x], right);
+	if (top > 0 && top != player->team_id + 1 && bottom > 0 && bottom != player->team_id + 1)
+		return (1);
+
+	if (left > 0 && left != player->team_id + 1 && right > 0 && right != player->team_id + 1)
+		return (1);
 	return (0);
 }
 

@@ -201,19 +201,19 @@ int	ft_go_closer_to_position_no_valid_path_to_it(t_player *player, int x, int y)
 
 	//check the fore sides if its free and safe
 	//if (ft_check_position_is_safe(player, player->pos_x, player->pos_y - 1) == 0 && player->game->board[player->pos_y - 1][player->pos_x] == 0)//top
-	if (ft_check_if_position_is_free(player, player->pos_x, player->pos_y - 1) == 0 && player->game->board[player->pos_y - 1][player->pos_x] == 0)//top
+	if (ft_check_if_position_is_free(player, player->pos_x, player->pos_y - 1) == 0)//top
 	{
 		top = 1;
 	}
-	if (ft_check_if_position_is_free(player, player->pos_x + 1, player->pos_y) == 0 && player->game->board[player->pos_y][player->pos_x + 1] == 0)//right
+	if (ft_check_if_position_is_free(player, player->pos_x + 1, player->pos_y) == 0)//right
 	{
 		right = 1;
 	}
-	if (ft_check_if_position_is_free(player, player->pos_x, player->pos_y + 1) == 0 && player->game->board[player->pos_y + 1][player->pos_x] == 0)//bottom
+	if (ft_check_if_position_is_free(player, player->pos_x, player->pos_y + 1) == 0)//bottom
 	{
 		bottom = 1;
 	}
-	if (ft_check_if_position_is_free(player, player->pos_x - 1, player->pos_y) == 0 && player->game->board[player->pos_y][player->pos_x - 1] == 0)//left
+	if (ft_check_if_position_is_free(player, player->pos_x - 1, player->pos_y) == 0)//left
 	{
 		left = 1;
 	}
@@ -222,27 +222,27 @@ int	ft_go_closer_to_position_no_valid_path_to_it(t_player *player, int x, int y)
 	//otherwise move to top-right, means go to (xy) exist on the top right of to player, similar for other sides
 	//i want to move to top-right and i have to move either to the top or right, so i choose the farest move 
 	//means p_x =1 p_y = 1 find_x = 4 find_y 6 in this case i will move to top
-	if (top == 1 && player->pos_x == x && player->pos_y > y)
+	if (top == 1 && player->pos_x == x && player->pos_y - 1 > y)
 	{
 		ft_move_to_position_x_y(player, player->pos_x, player->pos_y - 1);
 		return (1);
 	}
-	if (right == 1 && player->pos_y == y && player->pos_x < x)
+	if (right == 1 && player->pos_y == y && player->pos_x + 1 < x)
 	{
 		ft_move_to_position_x_y(player, player->pos_x + 1, player->pos_y);
 		return (1);
 	}
-	if (bottom == 1 && player->pos_x == x && player->pos_y < y)
+	if (bottom == 1 && player->pos_x == x && player->pos_y + 1 < y)
 	{
 		ft_move_to_position_x_y(player, player->pos_x, player->pos_y + 1);
 		return (1);
 	}
-	if (left == 1 && player->pos_y == y && player->pos_x > x)
+	if (left == 1 && player->pos_y == y && player->pos_x - 1 > x)
 	{
 		ft_move_to_position_x_y(player, player->pos_x - 1, player->pos_y);
 		return (1);
 	}
-	if ((top == 1 || right == 1) && player->pos_y > y && player->pos_x < x)//move to top-right
+	if ((top == 1 || right == 1) && player->pos_y  > y && player->pos_x < x)//move to top-right
 	{
 		int len_x;
 		int len_y;
@@ -253,12 +253,12 @@ int	ft_go_closer_to_position_no_valid_path_to_it(t_player *player, int x, int y)
 			len_x = len_x * -1;
 		if (len_y < 0)
 			len_y = len_y * -1;
-		if (len_y > len_x && top == 1)//move to top
+		if (len_y < len_x && top == 1)//move to top
 		{
 			ft_move_to_position_x_y(player, player->pos_x, player->pos_y - 1);
 			return (1);
 		}
-		if (len_x > len_y && right == 1)//move to right
+		if (len_x < len_y && right == 1)//move to right
 		{
 			ft_move_to_position_x_y(player, player->pos_x + 1, player->pos_y);
 			return (1);
@@ -275,12 +275,12 @@ int	ft_go_closer_to_position_no_valid_path_to_it(t_player *player, int x, int y)
 			len_x = len_x * -1;
 		if (len_y < 0)
 			len_y = len_y * -1;
-		if (len_x > len_y && right == 1)//move to right
+		if (len_x < len_y && right == 1)//move to right
 		{
 			ft_move_to_position_x_y(player, player->pos_x + 1, player->pos_y);
 			return (1);
 		}
-		if (len_y > len_x && bottom == 1)//move to bottom
+		if (len_y < len_x && bottom == 1)//move to bottom
 		{
 			ft_move_to_position_x_y(player, player->pos_x, player->pos_y + 1);
 			return (1);
@@ -297,12 +297,12 @@ int	ft_go_closer_to_position_no_valid_path_to_it(t_player *player, int x, int y)
 			len_x = len_x * -1;
 		if (len_y < 0)
 			len_y = len_y * -1;
-		if (len_y > len_x && bottom == 1)//move to bottom
+		if (len_y < len_x && bottom == 1)//move to bottom
 		{
 			ft_move_to_position_x_y(player, player->pos_x, player->pos_y + 1);
 			return (1);
 		}
-		if (len_x > len_y && left == 1)//move to left
+		if (len_x < len_y && left == 1)//move to left
 		{
 			ft_move_to_position_x_y(player, player->pos_x - 1, player->pos_y);
 			return (1);
@@ -319,12 +319,12 @@ int	ft_go_closer_to_position_no_valid_path_to_it(t_player *player, int x, int y)
 			len_x = len_x * -1;
 		if (len_y < 0)
 			len_y = len_y * -1;
-		if (len_y > len_x && top == 1)//move to top
+		if (len_y < len_x && top == 1)//move to top
 		{
 			ft_move_to_position_x_y(player, player->pos_x, player->pos_y - 1);
 			return (1);
 		}
-		if (len_x > len_y && left == 1)//move to right
+		if (len_x < len_y && left == 1)//move to right
 		{
 			ft_move_to_position_x_y(player, player->pos_x - 1, player->pos_y);
 			return (1);

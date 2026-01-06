@@ -5,11 +5,14 @@ SRCS =	./lem-ipc.c \
 	./ft_active_the_game.c \
 	./ft_attack_defend_escape_moves.c \
 	./ft_best_side.c \
+	./ft_best_move.c \
 	./ft_calculate_push_new_attack.c \
+	./ft_check_attack_sides_of_surrouned_enemy_and_choose_one.c \
 	./ft_check_if_player_died.c \
 	./ft_check_if_player_in_right_position_do_not_move.c \
 	./ft_check_if_player_in_the_corner.c \
 	./ft_check_if_player_need_to_escape_or_died.c \
+	./ft_check_if_player_surround_enemy_from_one_side.c \
 	./ft_check_if_position_safe.c \
 	./ft_check_if_team_member_need_defence.c \
 	./ft_choose_one_side_to_attack.c \
@@ -28,11 +31,14 @@ SRCS =	./lem-ipc.c \
 	./ft_is_it_one_step_to_position.c \
 	./ft_last_player_escape.c \
 	./ft_leave_the_board.c \
+	./ft_move_to_best_position.c \
 	./ft_move_to_position_x_y.c \
+	./ft_player_surround_enemy_from_one_side_and_other_side_free.c \
 	./ft_push_message_to_queue.c \
 	./ft_scan_the_board_and_get_x_y_of_enemy_to_attack.c \
 	./ft_semaphore.c \
-	./ft_setup_msg_queue.c
+	./ft_setup_msg_queue.c \
+	./ft_side_to_attack.c
        
 OBJS = $(SRCS:.c=.o)
 

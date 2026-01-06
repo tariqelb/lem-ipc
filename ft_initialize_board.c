@@ -60,5 +60,6 @@ t_player	*ft_initialize_game_board(t_player *player)
 	player->target_team_id = -1;
 	player->graphic_representative = 1;
 	player->team_color = 1;
+	player->attack = 0;
 	return (player);
 }

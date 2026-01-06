@@ -82,6 +82,7 @@ typedef struct	s_player
 		       //
 	int	graphic_representative;
 	int	team_color;
+	int	attack;
 	// Semaphore operations - DECLARE ONCE
 	t_sem_lock	lock_op;
 	t_sem_unlock	unlock_op;
@@ -95,12 +96,15 @@ typedef struct	s_message_queue
 {
 	long		mtype; 
 	unsigned short 	team_id;     // unsinged short is 2 byte, 0-65,535 teams
-	unsigned short	defence_flag; // 0 or 1 for defence
+	unsigned short	defence_flag; // 0 or 1 for defence 2 surround from one side
 	unsigned short	nbr_team_member; // 0-127 players
 	unsigned short	x_attack;    // 0-31
 	unsigned short	y_attack;    // 0-31
 	unsigned short	x_defence;   // 0-31  
 	unsigned short	y_defence;   // 0-31
+	unsigned short  x_y_sides[4][2];
+	unsigned short  sides[4];	// enemy surrounded from one side attack side[1] = 1 => [P][E][0] 
+					// enemies positions in x y sides , surround flag = 2 in defence_flag and side to attack in side[N] = 1
 }		t_message_queue; //total size = 22 * 100 + 14 = 2214 byes
 
 
@@ -221,15 +225,40 @@ int	ft_include(int best_side[4], int i, int include);
 int	ft_best_side(t_player *player, int p_x, int p_y, int i, int best_side[4]);
 
 //file : ft_is_enemy_surounded.c
+int     ft_is_player_surrounded(t_player *player);
 int	ft_is_enemy_surounded(t_player *player);
 int     ft_scan_board_if_a_player_surrounded(t_player *player);
 int     ft_get_player_sides(t_player *player, int x, int y, int *top, int *right, int *bottom, int *left);
 
 
 //file : ft_graphic_representation.c
-
 int     ft_graphic_representation(t_player *player);
 
+//file : ft_best_move.c
+int	ft_best_move(t_player *player, int *x, int *y);
+int     ft_second_best_move(t_player *player, int *x, int *y);
+
+//file : ft_player_surround_enemy_from_one_side_and_other_side_free.c
+int	ft_player_surround_enemy_from_one_side_and_other_side_free(t_player *player, t_message_queue *msg);
+
+//file : ft_check_attack_sides_of_surrouned_enemy_and_choose_one.c
+int     ft_is_it_one_step_to_position_x_y(t_player *player, int x, int y);
+int     ft_check_attack_sides_of_surrouned_enemy_and_choose_one(t_player *player, t_message_queue *msg);
+
+//file : ft_side_to_attack.c
+int     ft_side_to_attack(t_player *player, t_message_queue msg);
+int     ft_surround_side_to_attack(t_player *player, t_message_queue msg);
+
+//file :  ft_check_if_player_surround_enemy_from_one_side.c
+int     ft_get_position_sides(t_player *player, int x, int y, int *top, int *right, int *bottom, int *left);
+int     ft_check_if_player_surround_enemy_from_one_side(t_player *player, t_message_queue *msg);
+
+//file : ft_move_to_best_position.c
+int     ft_move_to_best_position(t_player *player, int *x, int *y);
+
+//file :
+//file :
+//file :
 //file :
 
 

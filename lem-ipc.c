@@ -94,24 +94,44 @@ int	main(int ac, char **av)
 	printf("Total teams %d\n", player.game->total_teams);
 	printf("Team color ----[%d]----\n", player.team_color);
 	int attack_index = 0;
+	int win;
 	while (player.game->game_active == 1 && player.died == 0)
 	{
 		//player make move, attack , defend , escape
 		printf("----------------------------------------------------[%d]\n", attack_index);
-		printf("Attack defence escape : pos x [%d] pos y [%d]\n", player.pos_x, player.pos_y);
-		semop(player.semid, &player.lock_op, 1);
-		ft_print_the_board(&player);
-		if (ft_check_if_team_win(&player))
+		win = ft_check_if_team_win(&player);
+		if (win)
 		{
-			semop(player.semid, &player.unlock_op, 1);
+			if (win == 2)
+				write(1, "Lemipc: --_0_-- Better state no one win\n", 40);
 			break;
 		}
-		if (ft_attack_defend_escape_moves(&player) == 1)
+		printf("after----------------------------------------------------[%d]\n", attack_index);
+		if (ft_scan_board_if_a_player_surrounded(&player))
 		{
-			semop(player.semid, &player.unlock_op, 1);
-			break;
+			printf("ft_scan_the_board_and_get_x_y_of_enemy_to_attack\n");
+			if (ft_is_player_surrounded(&player))
+			{
+				semop(player.semid, &player.lock_op, 1);
+				ft_print_the_board(&player);
+				printf("Dead move\n");
+				semop(player.semid, &player.unlock_op, 1);
+				break;
+			}
 		}
-		semop(player.semid, &player.unlock_op, 1);
+		else
+		{
+			printf("Attack defence escape : pos x [%d] pos y [%d]\n", player.pos_x, player.pos_y);
+			semop(player.semid, &player.lock_op, 1);
+			ft_print_the_board(&player);
+			if (ft_attack_defend_escape_moves(&player) == 1)
+			{
+				semop(player.semid, &player.unlock_op, 1);
+				break;
+			}
+			ft_print_the_board(&player);
+			semop(player.semid, &player.unlock_op, 1);
+		}
 		sleep(3);
 		//temprorary break
 		//break;

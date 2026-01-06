@@ -83,14 +83,24 @@ int	ft_check_if_team_win(t_player *player)
 	int	team_one_id;
 	int	team_two_id;
 	int	i;
+	int	one_player_from_each_team;
+	int	nbr_of_one_player_team;
 
 	team_one_id = 0;
 	team_two_id = 0;
 	team_one_exist = 0;
 	team_two_exist = 0;
 	i = 0;
+	one_player_from_each_team = 1;
+	nbr_of_one_player_team = 0;
 	while (i < MAX_TEAMS)
 	{
+		if (player->game->teams[i].nbr_of_players == 1)
+		{
+			nbr_of_one_player_team++;
+		}
+		if (player->game->teams[i].nbr_of_players > 1)
+			one_player_from_each_team = 0;
 		if (team_one_id == 0 && player->game->teams[i].nbr_of_players >= 1)
 		{
 			team_one_id = 1;
@@ -102,6 +112,11 @@ int	ft_check_if_team_win(t_player *player)
 			team_two_exist = 1;
 		}
 		i++;
+	}
+	if (one_player_from_each_team && nbr_of_one_player_team > 1)
+	{
+		player->game->game_active = 0;
+		return (2);
 	}
 	if (team_one_exist != team_two_exist)
 	{
