@@ -2,6 +2,7 @@
 
 int	ft_player_surround_enemy_from_one_side_and_other_side_free(t_player *player, t_message_queue *msg)
 {
+	printf("ft_player_surround_enemy_from_one_side_and_other_side_free\n");
 	int	top;
 	int	right;
 	int	bottom;

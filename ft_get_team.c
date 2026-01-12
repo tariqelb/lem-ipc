@@ -71,11 +71,20 @@ int	ft_atoi(char *str)
 	return (nbr * sign);
 }
 
-int	ft_get_team(char *av)
+int	ft_get_team(int ac, char *av, t_player *player)
 {
+	printf("ft_get_team\n");
 	int	i;
 	int 	team;
 	int	is_a_number;
+
+	if (ac != 2)
+	{
+		write(2, "Lemipc : Missing player team\n", 29);
+		write(2, "Usage: ./lemipc [1 - N]\n", 24);
+		return (1);
+	}
+
 	
 	i = 0;
 	team = 0;
@@ -96,7 +105,11 @@ int	ft_get_team(char *av)
 		return (0);
 	}
 	team = ft_atoi(av);
-	if (team > 0)	
+	if (team > 0)
+	{
+		player->team_id = team;
 		return (team);
-	return (0);
+	}
+	write(2, "Lemipc : Wrong team id\n", 23);
+	return (1);
 }

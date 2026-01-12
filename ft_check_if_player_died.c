@@ -2,6 +2,7 @@
 
 int	ft_check_if_player_surrounded(t_player *player)
 {
+	printf("ft_check_if_player_surrounded\n");
 	//player died if sourended by the same team from two diagonal position
 	//if player in broad side then one or even two var from below can have -1
 	//which mean out of the board

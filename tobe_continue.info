@@ -37,6 +37,29 @@ in this case move to best position bottom
 
 in this case just stay in your position and announce an attack
 
+
+[0][0][0][0]
+[0][E][P][0]
+[0][0][p][0]
+[0][0][0][0]
+[0][0][0][0]
+
+in this case player move left
+
 othersiwe just go closer to selected enemy team
 ----------------------------
-update attack annoucement and record move to fix bugs
+record and fix bugs 
+fix bug player jump
+check if team two players from the same team surround enemy from two sides not opposite to each other , only one should not move
+
+fix that
+if (move == 0 && ft_find_path_to_position(player))      
+{
+        //problem here is when player block and find path to go out and next move can bring him back to same position and block again 
+        //so either remove it or save last position when find path do job and if she brings you back skip it 
+        //or just always give to find path last position to not calcule path and return to it 
+        move = ft_move_to_position_path(player);//make move
+        printf("Find path [%d]\n", move);
+}*/
+
+

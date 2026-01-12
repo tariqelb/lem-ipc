@@ -2,6 +2,7 @@
 
 void	ft_display_the_board(int board[BOARD_Y_LEN][BOARD_X_LEN])
 {
+	printf("ft_display_the_board\n");
 	int	i;
 	int	j;
 

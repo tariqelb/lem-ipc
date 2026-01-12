@@ -2,6 +2,7 @@
 
 int	ft_scan_the_board_and_get_x_y_of_enemy_to_attack(t_player *player, int *enemy_x, int *enemy_y, int *enemy_team_id)
 {
+	printf("ft_scan_the_board_and_get_x_y_of_enemy_to_attack\n");
 	int	y_bottom_index;
 	int	y_top_index;
 	int	i;

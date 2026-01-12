@@ -2,6 +2,7 @@
 
 int	ft_active_the_game(t_player *player)
 {
+	printf("ft_active_the_game\n");
 	int	team_have_at_less_one_player;
 	int	team_have_at_less_two_player;
 	int	team_one_id;
@@ -78,6 +79,7 @@ int	ft_is_the_game_active(t_player *player)
 
 int	ft_check_if_team_win(t_player *player)
 {
+	printf("ft_check_if_team_win\n");
 	int	team_one_exist;
 	int	team_two_exist;
 	int	team_one_id;

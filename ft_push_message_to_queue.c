@@ -2,7 +2,9 @@
 
 int	ft_push_message_to_queue(t_player *player, t_message_queue *msg)
 {
+	printf("ft_push_message_to_queue : flag = [%d]\n", msg->defence_flag);
 	int	status;
+
 
 	msg->team_id = player->team_id;
 	msg->mtype = player->team_id;

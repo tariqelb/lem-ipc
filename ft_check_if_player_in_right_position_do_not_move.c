@@ -3,6 +3,7 @@
 
 int	ft_check_if_player_in_right_position_do_not_move(t_player *player)
 {
+	printf("ft_check_if_player_in_right_position_do_not_move\n");
 	int	p_top;
 	int	p_right;
 	int	p_bottom;

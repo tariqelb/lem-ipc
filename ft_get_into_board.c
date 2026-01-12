@@ -2,6 +2,7 @@
 
 int	ft_get_into_board(t_player *player)
 {
+	printf("ft_get_into_board\n");
 	int	team_id;
 	int	initial_x;
 	int	initial_y;

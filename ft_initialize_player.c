@@ -2,6 +2,7 @@
 
 int	ft_check_if_team_exist(t_player *player)
 {
+	printf("ft_check_if_team_exist\n");
 	int i;
 
 	i = 0;
@@ -18,6 +19,7 @@ int	ft_check_if_team_exist(t_player *player)
 
 int	ft_get_free_place_in_team_array(t_player *player)
 {
+	printf("ft_get_free_place_in_team_array");
 	int	i;
 
 	i = 0;
@@ -32,6 +34,7 @@ int	ft_get_free_place_in_team_array(t_player *player)
 
 t_player	*ft_initialize_player(t_player *player)
 {
+	printf("ft_initialize_player\n");
 	int	team_exist;
 	int	x;
 	int	y;
@@ -91,5 +94,6 @@ t_player	*ft_initialize_player(t_player *player)
 	player->target_team_id = -1;
 	player->graphic_representative = 0;
 	player->attack = 0;
+	player->find_path_active = 0;
 	return (player);
 }

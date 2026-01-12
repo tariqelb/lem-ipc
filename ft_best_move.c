@@ -2,6 +2,7 @@
 
 int	ft_best_move(t_player *player, int *x, int *y)
 {
+	printf("ft_best_move\n");
 	int	top;
 	int	right;
 	int	bottom;
@@ -95,6 +96,7 @@ int	ft_best_move(t_player *player, int *x, int *y)
 
 int	ft_second_best_move(t_player *player, int *x, int *y)
 {
+	printf("ft_second_best_move\n");
 	int	top_left;
 	int	top_right;
 	int	btm_right;
@@ -120,6 +122,7 @@ int	ft_second_best_move(t_player *player, int *x, int *y)
 		int e_right;
 		int e_bottom;
 		int e_left;
+		printf("second best move 1\n");
 
 		ft_get_position_sides(player, player->pos_x - 1, player->pos_y - 1, &e_top, &e_right, &e_bottom, &e_left);
 		if (e_top > 0 && e_top != top_left && e_bottom == 0)
@@ -141,8 +144,9 @@ int	ft_second_best_move(t_player *player, int *x, int *y)
 		int e_right;
 		int e_bottom;
 		int e_left;
+		printf("second best move 2\n");
 
-		ft_get_position_sides(player, player->pos_x - 1, player->pos_y - 1, &e_top, &e_right, &e_bottom, &e_left);
+		ft_get_position_sides(player, player->pos_x + 1, player->pos_y - 1, &e_top, &e_right, &e_bottom, &e_left);
 		if (e_top > 0 && e_top != top_right && e_bottom == 0)
 		{
 			*x = 1;
@@ -158,12 +162,13 @@ int	ft_second_best_move(t_player *player, int *x, int *y)
 	}
 	if (btm_right > 0 && btm_right != player->team_id + 1)
 	{
+		printf("second best move 3\n");
 		int e_top;
 		int e_right;
 		int e_bottom;
 		int e_left;
 
-		ft_get_position_sides(player, player->pos_x - 1, player->pos_y - 1, &e_top, &e_right, &e_bottom, &e_left);
+		ft_get_position_sides(player, player->pos_x + 1, player->pos_y + 1, &e_top, &e_right, &e_bottom, &e_left);
 		if (e_bottom > 0 && e_bottom != btm_right && e_top == 0)
 		{
 			*x = 1;
@@ -178,12 +183,13 @@ int	ft_second_best_move(t_player *player, int *x, int *y)
 	}
 	if (btm_left > 0 && btm_left != player->team_id + 1)
 	{
+		printf("second best move 4\n");
 		int e_top;
 		int e_right;
 		int e_bottom;
 		int e_left;
 
-		ft_get_position_sides(player, player->pos_x - 1, player->pos_y - 1, &e_top, &e_right, &e_bottom, &e_left);
+		ft_get_position_sides(player, player->pos_x - 1, player->pos_y + 1, &e_top, &e_right, &e_bottom, &e_left);
 		if (e_bottom > 0 && e_bottom != btm_left && e_top == 0)
 		{
 			*x = -1;
@@ -197,5 +203,7 @@ int	ft_second_best_move(t_player *player, int *x, int *y)
 			return (1);
 		}
 	}
+	
+	printf("second best move -1\n");
 	return (-1);
 }

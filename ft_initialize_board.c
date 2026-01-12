@@ -2,6 +2,7 @@
 
 t_player	*ft_initialize_game_board(t_player *player)
 {
+	printf("ft_initialize_game_board\n");
 	int	x;
 	int	y;
 
@@ -17,6 +18,7 @@ t_player	*ft_initialize_game_board(t_player *player)
 	player->game->total_players = 1;
 	player->game->total_teams = 1;
 	player->player_id = 1;
+	player->find_path_active = 0;
 	player->died = 0;
 	player->first_move = 1;
 	// Initialize teams array

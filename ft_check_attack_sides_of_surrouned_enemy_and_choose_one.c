@@ -1,21 +1,5 @@
 #include "./lemipc.h"
 
-int	ft_is_it_one_step_to_position_x_y(t_player *player, int x, int y)
-{
-	printf("ft_is_it_one_step_to_position_x_y\n");
-	if (x < 0 || x >= BOARD_X_LEN || y < 0 || y >= BOARD_Y_LEN)
-		return (-1);
-	if (player->pos_y - 1 == y && player->pos_x == x)
-		return (0);
-	if (player->pos_x + 1 && player->pos_y == y)
-		return (1);
-	if (player->pos_y + 1 == y && player->pos_x == x)
-		return (2);
-	if (player->pos_x - 1 == x && player->pos_y == y)
-		return (3);
-	return (-1);
-}
-
 int	ft_check_attack_sides_of_surrouned_enemy_and_choose_one(t_player *player, t_message_queue *msg)
 {
 	printf("ft_check_attack_sides_of_surrouned_enemy_and_choose_one\n");

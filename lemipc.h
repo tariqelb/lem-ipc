@@ -16,8 +16,8 @@
 # include <sys/wait.h>
 
 # define BOARD_SIZE 32
-# define BOARD_X_LEN 6 
-# define BOARD_Y_LEN 7
+# define BOARD_X_LEN 10 
+# define BOARD_Y_LEN 10
 # define SHM_SIZE 8192 // page size * 2
 # define MAX_TEAMS 100 //Game will be designed to hold handred team as max
 # define MAX_PLAYER_IN_TEAM 50
@@ -80,6 +80,9 @@ typedef struct	s_player
 	short	find_y;//
 		       //
 		       //
+	short	last_x_pos;
+	short	last_y_pos;
+	short	find_path_active;
 	int	graphic_representative;
 	int	team_color;
 	int	attack;
@@ -102,6 +105,8 @@ typedef struct	s_message_queue
 	unsigned short	y_attack;    // 0-31
 	unsigned short	x_defence;   // 0-31  
 	unsigned short	y_defence;   // 0-31
+	unsigned short  x_player;
+	unsigned short  y_player;
 	unsigned short  x_y_sides[4][2];
 	unsigned short  sides[4];	// enemy surrounded from one side attack side[1] = 1 => [P][E][0] 
 					// enemies positions in x y sides , surround flag = 2 in defence_flag and side to attack in side[N] = 1
@@ -115,7 +120,7 @@ int     ft_check_if_team_win(t_player *player);
 
 //file : ft_attack_defend_escape_moves.c
 int     ft_get_message_from_message_queue(t_player *player, t_message_queue *msg);
-int     ft_attack_defend_escape_moves(t_player *player);
+int     ft_attack_defend_escape_moves(t_player *player, t_message_queue *msg);
 
 //file : ft_calculate_push_new_attack.c
 int	ft_calculate_push_new_attack(t_player *player, t_message_queue *msg);
@@ -153,7 +158,6 @@ int	ft_exit_from_game(t_player *player, int flag);
 int     ft_find_path_recursion(t_player *player, int p_x, int p_y, int board_visited_positions[BOARD_Y_LEN][BOARD_X_LEN], int index, int side);
 int     ft_find_path_to_position(t_player *player);
 int	ft_move_to_position_path(t_player *player);
-int	ft_go_closer_to_position_no_valid_path_to_it(t_player *player, int x, int y);
 int	ft_find_path_to_position_and_make_move(t_player *player, int x, int y);
 
 //file : ft_get_into_board.c
@@ -164,8 +168,9 @@ int	ft_get_team_array_index(t_player *player);
 
 //file : ft_get_team.c
 int     ft_putint(int nbr);
-int	ft_get_team(char *av);
 int	ft_atoi(char *str);
+int     ft_get_team(int ac, char *av, t_player *player);
+
 
 //file : ft_initialize_board.c
 t_player	*ft_initialize_game_board(t_player *player);
@@ -177,6 +182,7 @@ t_player	*ft_initialize_player(t_player *player);
 
 //file : ft_is_it_one_step_to_position.c
 int	ft_is_it_one_step_to_position(t_player *player, t_message_queue msg, int side_to_attack);
+int     ft_is_it_one_step_to_position_x_y(t_player *player, int x, int y);
 
 //file : ft_last_player_escape.c
 int	ft_random_direction(int a, int b, int c, int d);
@@ -242,12 +248,12 @@ int     ft_second_best_move(t_player *player, int *x, int *y);
 int	ft_player_surround_enemy_from_one_side_and_other_side_free(t_player *player, t_message_queue *msg);
 
 //file : ft_check_attack_sides_of_surrouned_enemy_and_choose_one.c
-int     ft_is_it_one_step_to_position_x_y(t_player *player, int x, int y);
 int     ft_check_attack_sides_of_surrouned_enemy_and_choose_one(t_player *player, t_message_queue *msg);
 
 //file : ft_side_to_attack.c
+int     ft_attack_position(t_player *player, int x, int y);
 int     ft_side_to_attack(t_player *player, t_message_queue msg);
-int     ft_surround_side_to_attack(t_player *player, t_message_queue msg);
+int     ft_second_side_to_attack(t_player *player, t_message_queue msg);
 
 //file :  ft_check_if_player_surround_enemy_from_one_side.c
 int     ft_get_position_sides(t_player *player, int x, int y, int *top, int *right, int *bottom, int *left);
@@ -255,7 +261,43 @@ int     ft_check_if_player_surround_enemy_from_one_side(t_player *player, t_mess
 
 //file : ft_move_to_best_position.c
 int     ft_move_to_best_position(t_player *player, int *x, int *y);
+int     ft_move_to_second_best_position(t_player *player, int *x, int *y);
 
+//file :  ft_check_if_attack_position_still_valid_and_free.c
+int     ft_check_if_attack_position_still_valid_and_free(t_player *player, t_message_queue *msg);
+
+//file :
+int	ft_go_closer_to_position_no_valid_path_to_it(t_player *player, int x, int y);
+
+
+//file : ft_player_first_checks_and_moves.c
+int     ft_player_first_checks_and_moves(t_player *player, t_message_queue *msg);
+
+//file : ft_new_enemy_found_select_best_side_to_attack.c
+int     ft_new_enemy_found_select_best_side_to_attack(t_player *player, int enemy_x, int enemy_y, int enemy_team_id);
+
+//file : ft_first_move.c
+int	ft_first_move(t_player *player);
+
+//file : ft_get_message_from_message_queue.c
+int     ft_get_message_from_message_queue(t_player *player, t_message_queue *msg);
+
+//file : ft_is_enemy_still_in_position.c
+int     ft_is_enemy_still_in_position(t_player *player, int x, int y);
+
+//file : ft_get_resouces.c
+int     ft_get_resouces(t_player *player);
+
+//file : ft_active_the_game_and_get_into_board.c
+int     ft_active_the_game_and_get_into_board(t_player *player);
+
+
+//file : ft_check_if_last_position_surround_enemy.c
+int     ft_check_if_last_position_surround_enemy(t_player *player, int new_x, int new_y);
+
+
+
+//file :
 //file :
 //file :
 //file :

@@ -2,6 +2,7 @@
 
 int	ft_is_enemy_surounded(t_player *player)
 {
+	printf("ft_is_enemy_surounded\n");
 	int	top;
 	int	right;
 	int	bottom;
@@ -121,7 +122,7 @@ int	ft_get_player_sides(t_player *player, int x, int y, int *top, int *right, in
 		*right = player->game->board[y][x + 1];
 	if (*bottom == 0)
 		*bottom = player->game->board[y + 1][x];
-	if (left == 0)
+	if (*left == 0)
 		*left = player->game->board[y][x - 1];
 
 	return (0);
@@ -130,6 +131,7 @@ int	ft_get_player_sides(t_player *player, int x, int y, int *top, int *right, in
 
 int	ft_scan_board_if_a_player_surrounded(t_player *player)
 {
+	printf("ft_scan_board_if_a_player_surrounded\n");
 	int	y;
 	int	x;
 
@@ -151,6 +153,8 @@ int	ft_scan_board_if_a_player_surrounded(t_player *player)
 			if (curr_pos)
 			{
 				ft_get_player_sides(player, x, y, &top, &right, &bottom, &left);
+				//printf("scan board if enemy dead : top[%d]  curr[%d] btm[%d] x y [%d,%d]\n", top, curr_pos, bottom , x ,y);
+				//printf("scan board if enemy dead : left[%d] curr[%d] right[%d]\n", left, curr_pos, right);
 				if (left > 0 && right > 0 && left != curr_pos && right != curr_pos)
 				{
 					printf("ft_scan_if_a_player_surrounded left[%d] [%d] right[%d]\n", left, curr_pos, right);

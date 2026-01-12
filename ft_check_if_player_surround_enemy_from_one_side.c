@@ -17,6 +17,8 @@ int	ft_get_position_sides(t_player *player, int x, int y, int *top, int *right, 
 	if (x - 1 >= 0 && x - 1 < BOARD_X_LEN && y >= 0 && y < BOARD_Y_LEN)
 		*left = player->game->board[y][x - 1];
 
+	printf("x y [%d] [%d] sides t[%d]r[%d]b[%d]l[%d]\n", x, y, *top, *right, *bottom, *left);
+
 	return (0);
 }
 
@@ -73,26 +75,36 @@ int	ft_check_if_player_surround_enemy_from_one_side(t_player *player , t_message
 		ft_get_position_sides(player, player->pos_x, player->pos_y - 1, &enemy_top_side, &enemy_right_side, &enemy_bottom_side, &enemy_left_side);
 		if (enemy_left_side != -1 && enemy_right_side != -1 && enemy_left_side != player->team_id + 1 && enemy_right_side != player->team_id + 1)
 		{
+			msg->x_player = player->pos_x;
+			msg->y_player = player->pos_y;
 			msg->x_attack = player->pos_x;
 			msg->y_attack = player->pos_y - 1;
+			msg->x_defence = player->pos_x;
+			msg->y_attack = player->pos_y - 2;
 			msg->defence_flag = 4;
 			ft_push_message_to_queue(player, msg);
+			printf("Top data [%d][%d][%d][%d][%d][%d]\n", msg->x_player, msg->y_player, msg->x_attack, msg->y_attack, msg->y_defence, msg->y_defence);
 			return (1);
 		}
 	}
 	if (right > 0 && right != player_id && right_right == 0)
 	{
-		int enemy_top_side;
-		int enemy_right_side;
-		int enemy_bottom_side;
-		int enemy_left_side;
+		int	    enemy_top_side;
+		int	    enemy_right_side;
+		int	    enemy_bottom_side;
+		int	    enemy_left_side;
 		ft_get_position_sides(player, player->pos_x + 1, player->pos_y, &enemy_top_side, &enemy_right_side, &enemy_bottom_side, &enemy_left_side);
 		if (enemy_left_side != -1 && enemy_top_side != -1 && player->team_id + 1 && enemy_bottom_side != player->team_id + 1)
 		{
+			msg->x_player = player->pos_x;
+			msg->y_player = player->pos_y;	
 			msg->x_attack = player->pos_x + 1;
 			msg->y_attack = player->pos_y;
+			msg->x_defence = player->pos_x + 2;
+			msg->y_defence = player->pos_y;
 			msg->defence_flag = 4;
 			ft_push_message_to_queue(player, msg);
+			printf("Right data [%d][%d][%d][%d][%d][%d]\n", msg->x_player, msg->y_player, msg->x_attack, msg->y_attack, msg->y_defence, msg->y_defence);
 			return (2);
 		}
 	}
@@ -105,10 +117,15 @@ int	ft_check_if_player_surround_enemy_from_one_side(t_player *player , t_message
 		ft_get_position_sides(player, player->pos_x, player->pos_y - 1, &enemy_top_side, &enemy_right_side, &enemy_bottom_side, &enemy_left_side);
 		if (enemy_left_side != -1 && enemy_right_side != -1 && enemy_left_side != player->team_id + 1 && enemy_right_side != player->team_id + 1)
 		{
+			msg->x_player = player->pos_x;
+			msg->y_player = player->pos_y;
 			msg->x_attack = player->pos_x;
 			msg->y_attack = player->pos_y + 1;
+			msg->x_defence = player->pos_x;
+			msg->y_defence = player->pos_y + 2;
 			msg->defence_flag = 4;
 			ft_push_message_to_queue(player, msg);
+			printf("Bottom data [%d][%d][%d][%d][%d][%d]\n", msg->x_player, msg->y_player, msg->x_attack, msg->y_attack, msg->y_defence, msg->y_defence);
 			return (3);
 		}
 	}
@@ -121,10 +138,15 @@ int	ft_check_if_player_surround_enemy_from_one_side(t_player *player , t_message
 		ft_get_position_sides(player, player->pos_x, player->pos_y - 1, &enemy_top_side, &enemy_right_side, &enemy_bottom_side, &enemy_left_side);
 		if (enemy_left_side != -1 && enemy_top_side != -1 && player->team_id + 1 && enemy_bottom_side != player->team_id + 1)
 		{
+			msg->x_player = player->pos_x;
+			msg->y_player = player->pos_y;
 			msg->x_attack = player->pos_x - 1;
 			msg->y_attack = player->pos_y;
+			msg->x_defence = player->pos_x - 2;
+			msg->y_defence = player->pos_y;
 			msg->defence_flag = 4;
 			ft_push_message_to_queue(player, msg);
+			printf("Left data [%d][%d][%d][%d][%d][%d]\n", msg->x_player, msg->y_player, msg->x_attack, msg->y_attack, msg->y_defence, msg->y_defence);
 			return (4);
 		}
 	}
