@@ -10,9 +10,9 @@ int	ft_check_if_attack_position_still_valid_and_free(t_player *player, t_message
 
 	if (msg->x_player < BOARD_X_LEN && msg->y_player < BOARD_Y_LEN)
 		player_pos = player->game->board[msg->y_player][msg->x_player];
-	if (msg->x_defence < BOARD_X_LEN && msg->y_defence < BOARD_Y_LEN)
-		enemy_pos = player->game->board[msg->y_attack][msg->x_attack];
 	if (msg->x_attack < BOARD_X_LEN && msg->y_attack < BOARD_Y_LEN)
+		enemy_pos = player->game->board[msg->y_attack][msg->x_attack];
+	if (msg->x_defence < BOARD_X_LEN && msg->y_defence < BOARD_Y_LEN)
 		free_pos = player->game->board[msg->y_defence][msg->x_defence];
 	//return 1 attack stil valid but not current player who surround enemy
 	//return 2 valid and current player surround enemy from one side

@@ -1,0 +1,94 @@
+----------------------------------------------------[30]                                                                                                                                                                                                                                                                     
+ft_check_if_team_win                                                                                                                                                                                                                                                                                                         
+after----------------------------------------------------[30]                                                                                                                                                                                                                                                                
+ft_scan_board_if_a_player_surrounded                                                                                                                                                                                                                                                                                         
+Attack defence escape : pos x [9] pos y [7]                                                                                                                                                                                                                                                                                  
+ ________________________________________                                                                                                                                                                                                                                                                                    
+| [x/y] | [0][1][2][3][4][5][6][7][8][9] |                                                                                                                                                                                                                                                                                   
+|_______|________________________________|                                                                                                                                                                                                                                                                                   
+|  [0]  | [0][0][0][0][0][0][0][0][0][0] |                                                                                                                                                                                                                                                                                   
+|  [1]  | [0][0][0][0][0][0][0][0][0][0] |                                                                                                                                                                                                                                                                                   
+|  [2]  | [0][0][0][0][0][0][0][0][0][0] |                                                                                                                                                                                                                                                                                   
+|  [3]  | [0][0][0][0][0][0][0][0][0][0] |                                                                                                                                                                                                                                                                                   
+|  [4]  | [0][0][0][0][0][0][0][0][0][0] |                                                                                                                                                                                                                                                                                   
+|  [5]  | [0][0][0][0][0][0][0][8][8][0] |                                                                                                                                                                                                                                                                                   
+|  [6]  | [0][0][0][0][0][0][8][0][0][8] |                                                                                                                                                                                                                                                                                   
+|  [7]  | [0][0][0][0][0][0][0][0][8][2] |                                                                                                                                                                                                                                                                                   
+|  [8]  | [0][0][0][0][0][0][0][0][0][0] |                                                                                                                                                                                                                                                                                   
+|  [9]  | [0][0][0][0][0][0][0][0][0][0] |                                                                                                                                                                                                                                                                                   
+|_______|________________________________|                                                                                                                                                                                                                                                                                   
+ft_check_if_player_need_to_escape_or_died                                                                                                                                                                                                                                                                                    
+ft_scan_board_if_a_player_surrounded                                                           
+ft_player_first_checks_and_moves                                                               
+ft_check_if_attack_position_still_valid_and_free           
+last attack flag [0]and data p [-1], e[0], free pos[-1]
+last attack result : 0       
+ft_best_move                 
+ft_second_best_move          
+second best move -1          
+ft_second_best_move [-1]     
+ft_move_to_best_position                                                                                               
+Data : t[8]r[-1]b[0]l[8] tl[0]tr[-1]br[-1]bl[0]                                                                        
+best second move                                                                                                       
+ft_move_to_second_best_position                                                                                        
+ft_check_if_player_surround_enemy_from_one_side                                                                        
+ft_get_position_sides                                                                                                  
+x y [9] [6] sides t[0]r[-1]b[2]l[0]                                                                                    
+ft_get_position_sides                                                                                                  
+x y [9] [6] sides t[0]r[-1]b[2]l[0]                                                                                    
+ft_get_target_enemy_team_id                                                                                            
+Data : i [0] , nbr of players [1] , enemy id [1], player id [1]                                                        
+Data : i [3] , nbr of players [5] , enemy id [7], player id [1]                                                        
+ft_get_message_from_message_queue                                                                                      
+msg flag = [4]                                                                                                         
+ft_is_enemy_still_in_position                                                                                          
+ft_calculate_push_new_attack                                                                                           
+My position : x 9 y 7                                                                                                  
+Team id [1] target team id [7]                                                                                         
+ft_scan_the_board_and_get_x_y_of_enemy_to_attack                                                                       
+Enemy found : pos : x 6 , y 6 board [8]                                                                                
+ft_new_enemy_found_select_best_side_to_attack                                                                          
+ft_push_message_to_queue : flag = [0]                                                                                  
+player pos x,y[9, 7] team id + 1 [2]                                                                                   
+data msg attack [6][6] defence [65535][65535] player [65535][65535]                                                    
+ft_surround_side_to_attack                                                                                             
+ft_is_it_one_step_to_position_x_y                                                                                      
+Data p_x[9] p_y[7] x[6] y[6]                                                                                           
+ft_find_path_to_position_and_make_move                                                                                 
+ft_go_closer_to_position_no_valid_path_to_it                                                                           
+ft_check_if_position_is_free                                                                                           
+ft_check_if_position_is_free                                                                                           
+ft_check_if_position_is_free                                                                                           
+ft_check_if_position_is_free                                                                                           
+Sides : t[-1]r[-1]b[1]l[-1]                                                                                            
+player : pos x[9] y[7] ex[6] ey[6]                                                                                     
+no move in go closer                                                                                                   
+Going closer move [0]                                                                                                  
+ft_find_path_to_position                                                                                               
+ft_check_if_position_is_free                                                                                           
+ft_check_if_position_is_free                                                                                           
+ft_check_if_position_is_free                                                                                           
+find path : one goes on bottom                                                                                         
+side [2], index[8]                                                                                                     
+side [2], index[10]                                                                                                    
+ft_check_if_position_is_free                                                                                           
+find path flag: 1 , skip var 0                                                                                         
+path len i = 0: [-1]                                                                                                   
+path len i = 1: [-1]                                                                                                   
+path len i = 2: [8]                                                                                                    
+path len i = 3: [-1]                                                                                                   
+find path flag: 1 , skip var 0                                                                                         
+path len i = 0: [-1]                                                                                                   
+path len i = 1: [-1]                                                                                                   
+path len i = 2: [8]                                                                                                    
+path len i = 3: [-1]                                                                                                   
+find path flag: 1 , skip var 0                                                                                         
+path len i = 0: [-1]                                                                                                   
+path len i = 1: [-1]                                                                                                   
+path len i = 2: [8]                                                                                                    
+path len i = 3: [-1]                                                                                                   
+ft_move_to_position_path                                                                                               
+path result : i 0 = [-1]path result : i 1 = [-1]path result : i 2 = [8]path result : i 3 = [-1]short path pos_x[9] pos_y[7] [0][1] board now [2] board after move [0]
+Find path [1]                                                                                                          
+Player do move [1]                                                                                                     
+ ____________________
