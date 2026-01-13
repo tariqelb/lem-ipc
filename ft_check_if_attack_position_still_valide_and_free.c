@@ -30,10 +30,12 @@ int	ft_check_if_attack_position_still_valid_and_free(t_player *player, t_message
 				return (1);
 		}
 	}
-	else
+	/*else
 	{
-		if (free_pos > 0 && free_pos != player->team_id + 1)
+		if (enemy_pos > 0 && enemy_pos != player->team_id + 1)
+		{
 			return (3);
-	}
+		}
+	}*/
 	return (0);
 }

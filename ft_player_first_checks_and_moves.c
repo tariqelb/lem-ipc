@@ -19,6 +19,11 @@ int	ft_player_first_checks_and_moves(t_player *player, t_message_queue *old_msg)
 			printf("Player surround enemy first check\n");
 			return (1);
 		}
+		if (last_attack == 0 && ft_check_if_player_surround_enemy_from_one_side(player, old_msg) > 0)
+		{
+			printf("Player surround enemy second check\n");
+			return (1);
+		}
 	}
 	{
 		int	x,y;
