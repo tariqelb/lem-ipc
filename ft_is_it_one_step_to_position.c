@@ -9,7 +9,7 @@ int     ft_is_it_one_step_to_position_x_y(t_player *player, int x, int y)
                 return (-1);
         if (player->pos_y - 1 == y && player->pos_x == x)
                 return (0);
-        if (player->pos_x + 1 && player->pos_y == y)
+        if (player->pos_x + 1 == x && player->pos_y == y)
                 return (1);
         if (player->pos_y + 1 == y && player->pos_x == x)
                 return (2);

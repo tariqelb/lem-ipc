@@ -82,7 +82,7 @@ int	ft_get_team(int ac, char *av, t_player *player)
 	{
 		write(2, "Lemipc : Missing player team\n", 29);
 		write(2, "Usage: ./lemipc [1 - N]\n", 24);
-		return (1);
+		return (-1);
 	}
 
 	
@@ -102,7 +102,7 @@ int	ft_get_team(int ac, char *av, t_player *player)
 	if (is_a_number == 0)
 	{
 		write(2, "Fisrt argument should be pure number from 1 to N\n", 49);
-		return (0);
+		return (-1);
 	}
 	team = ft_atoi(av);
 	if (team > 0)
@@ -111,5 +111,5 @@ int	ft_get_team(int ac, char *av, t_player *player)
 		return (team);
 	}
 	write(2, "Lemipc : Wrong team id\n", 23);
-	return (1);
+	return (-1);
 }

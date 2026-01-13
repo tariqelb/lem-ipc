@@ -9,8 +9,11 @@ int	ft_player_first_checks_and_moves(t_player *player, t_message_queue *old_msg)
 	last_attack = 0;
 
 	{
+		//this use last announce msg
 		//2 mean current player surrent enemy and its the player who aanounce the attack
+		//return 3 if last attack still valid but enemy not surrouneded from any side
 		last_attack = ft_check_if_attack_position_still_valid_and_free(player, old_msg);
+		printf("last attack result : %d\n", last_attack);
 		if (last_attack == 2)
 		{
 			printf("Player surround enemy first check\n");
@@ -84,11 +87,13 @@ int	ft_player_first_checks_and_moves(t_player *player, t_message_queue *old_msg)
 			if (move)
 				return (1);
 		}
-		if (last_attack == 0)
+		else if (last_attack == 0)
 		{
 			//check if current player surround enemy and announce an attack message if yes
-
-			if (ft_check_if_player_surround_enemy_from_one_side(player, old_msg) == 2)//push also message to queue
+			//this not use data on old msg just save new date on it and push  if player surround enemy
+			
+			//here you should confirm that no player from the same team surround an enemy
+			if (ft_check_if_player_surround_enemy_from_one_side(player, old_msg) > 0)//push also message to queue
 			{
 				printf("player already surround enemy\n");
 				return (1);

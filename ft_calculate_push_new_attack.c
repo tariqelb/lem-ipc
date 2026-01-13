@@ -55,10 +55,16 @@ int	ft_calculate_push_new_attack(t_player *player, t_message_queue *msg)
 			msg->y_defence = enemy_y + y;
 			msg->x_player = enemy_x + (x * -1);
 			msg->y_player = enemy_y + (y * -1);
+			msg->x_attack = enemy_x;
+			msg->y_attack = enemy_y;
 			msg->defence_flag = 4;
 		}
 		else
 		{
+			msg->x_defence = -1;
+			msg->y_defence = -1;
+			msg->x_player = -1;
+			msg->y_player = -1;
 			msg->x_attack = enemy_x;
 			msg->y_attack = enemy_y;
 			msg->defence_flag = 0;

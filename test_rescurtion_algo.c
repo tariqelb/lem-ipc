@@ -1,5 +1,24 @@
 #include "./lemipc.h"
 
+/*
+
+
+| [x/y] | [0][1][2][3][4][5][6][7][8][9] |
+|_______|________________________________|
+|  [0]  | [0][0][0][0][0][0][0][0][0][0] | 
+|  [1]  | [0][0][0][0][0][0][0][0][0][0] |
+|  [2]  | [0][0][0][0][0][0][0][0][0][0] | 
+|  [3]  | [0][0][0][0][0][0][0][0][0][0] |  
+|  [4]  | [0][0][0][0][0][2][2][0][2][0] |   
+|  [5]  | [0][0][0][0][0][0][8][0][8][0] |    
+|  [6]  | [0][0][0][0][0][2][0][0][0][0] |          
+|  [7]  | [0][0][0][0][0][0][0][0][0][0] |          
+|  [8]  | [0][0][0][0][0][0][0][0][0][0] |          
+|  [9]  | [0][0][0][0][0][0][0][0][0][0] |          
+|_______|________________________________|     
+
+
+ */
 
 int	ft_initial_the_board(t_player *player)
 {
@@ -13,14 +32,14 @@ int	ft_initial_the_board(t_player *player)
 		while (x < BOARD_X_LEN)
 		{
 			player->game->board[y][x] = 0;
-			if (x == 5 && y == 2)//place an enemy
+			if (x == 8 && y == 5)//place an enemy
 				player->game->board[y][x] = 8;
-			if (x == 5 && y == 3)//enemy
+			if (x == 6 && y == 5)//enemy
 				player->game->board[y][x] = 8;
+			if (x == 8 && y == 4)//enemy
+				player->game->board[y][x] = 2;
 			if (x == 6 && y == 4)//enemy
-				player->game->board[y][x] = 8;
-			if (x == 6 && y == 3)//enemy
-				player->game->board[y][x] = 4;
+				player->game->board[y][x] = 2;
 			//if (i == 3 && j == 3)//enemy
 			//	player->game->board[y][x] = 6;
 			//if (x == 3 && y == 1)//player + 1
@@ -81,30 +100,32 @@ int	main(void)
 
 	//player.find_x = 3;
 	//player.find_y = 1;
-	msg.x_attack = 6;
-	msg.y_attack = 3;
-	msg.x_defence = 5;
-	msg.y_defence = 2;
-	msg.x_player = 6;
-	msg.y_player = 4;
-	msg.defence_flag = 0;
-	player.team_id = 3;
+	msg.x_attack = 8;
+	msg.y_attack = 4;
+	msg.x_defence = 8;
+	msg.y_defence = 3;
+	msg.x_player = 8;
+	msg.y_player = 5;
+	msg.defence_flag = 4;
+	player.team_id = 7;
 	player1.team_id = 7;
-	player2.team_id = 7;
-	player3.team_id = 7;
+	player2.team_id = 1;
+	player3.team_id = 1;
 	ft_get_resouces(&player);
 	ft_get_resouces(&player1);
 	ft_get_resouces(&player2);
 	ft_get_resouces(&player3);
 	ft_initial_the_board(&player);
-	ft_set_player(&player,  6, 3, 3, 7, 1);
-	ft_set_player(&player1, 5, 3, 7, 3, 1);
-	ft_set_player(&player2, 5, 2, 7, 3, 2);
-	ft_set_player(&player3, 6, 4, 7, 3, 3);
-	ft_set_team(&player,  1, 3, 9, 9, 2, 0);
-	ft_set_team(&player1, 3, 7, 0, 1, 2, 1);
-	ft_set_team(&player2, 3, 7, 0, 1, 2, 1);
-	ft_set_team(&player3, 3, 7, 0, 1, 2, 1);
+	//int	ft_set_player(t_player *player, int x, int y, int team_id, int target_team_id, int player_id)
+	ft_set_player(&player,  8, 5, 7, 1, 1);
+	ft_set_player(&player1, 6, 5, 7, 1, 2);
+	ft_set_player(&player2, 6, 4, 1, 7, 1);
+	ft_set_player(&player3, 8, 4, 1, 7, 2);
+	//int	ft_set_team(t_player *player, int nbr_of_players, int team_id, int init_x, int init_y, int corner, int team_index)
+	ft_set_team(&player,  2, 7, 9, 9, 2, 0);
+	ft_set_team(&player1, 2, 7, 9, 9, 2, 0);
+	ft_set_team(&player2, 2, 1, 0, 1, 2, 1);
+	ft_set_team(&player3, 2, 1, 0, 1, 2, 1);
 	player.first_move = 0;
 	player1.first_move = 0;
 	player2.first_move = 0;
@@ -116,7 +137,7 @@ int	main(void)
 	{
 		printf("-------------***************----------------\n");
 		printf("player position x[%d] y[%d]\n", player1.pos_x, player1.pos_y);
-		ft_attack_defend_escape_moves(&player1, &msg);
+		ft_attack_defend_escape_moves(&player, &msg);
 		//ft_attack_position(player, msg.x_defence, msg.y_defence);
 		//ft_second_side_to_attack(&player, &msg);
 		printf("--------------------------------------------\n");

@@ -5,7 +5,7 @@ int	main(int ac, char **av)
 	t_player	player;
 	t_message_queue msg;
 
-	if (ft_get_team(ac, av[1], &player))
+	if (ft_get_team(ac, av[1], &player) == -1)
 		return (1);
 	//initialze board , get semaphore ...
 	if (ft_get_resouces(&player))

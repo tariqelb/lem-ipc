@@ -25,6 +25,7 @@ int	ft_get_position_sides(t_player *player, int x, int y, int *top, int *right, 
 int	ft_check_if_player_surround_enemy_from_one_side(t_player *player , t_message_queue *msg)
 {
 	printf("ft_check_if_player_surround_enemy_from_one_side\n");
+	//this do check based on current position and save attack message in old msg and announce it
 	//this function check player side if enemy exist and next opposite free , just stay here
 	int	top;
 	int	right;
@@ -83,7 +84,7 @@ int	ft_check_if_player_surround_enemy_from_one_side(t_player *player , t_message
 			msg->y_attack = player->pos_y - 2;
 			msg->defence_flag = 4;
 			ft_push_message_to_queue(player, msg);
-			printf("Top data [%d][%d][%d][%d][%d][%d]\n", msg->x_player, msg->y_player, msg->x_attack, msg->y_attack, msg->y_defence, msg->y_defence);
+			printf("Top data [%d][%d][%d][%d][%d][%d]\n", msg->x_player, msg->y_player, msg->x_attack, msg->y_attack, msg->x_defence, msg->y_defence);
 			return (1);
 		}
 	}
@@ -104,7 +105,7 @@ int	ft_check_if_player_surround_enemy_from_one_side(t_player *player , t_message
 			msg->y_defence = player->pos_y;
 			msg->defence_flag = 4;
 			ft_push_message_to_queue(player, msg);
-			printf("Right data [%d][%d][%d][%d][%d][%d]\n", msg->x_player, msg->y_player, msg->x_attack, msg->y_attack, msg->y_defence, msg->y_defence);
+			printf("Right data [%d][%d][%d][%d][%d][%d]\n", msg->x_player, msg->y_player, msg->x_attack, msg->y_attack, msg->x_defence, msg->y_defence);
 			return (2);
 		}
 	}
@@ -125,7 +126,7 @@ int	ft_check_if_player_surround_enemy_from_one_side(t_player *player , t_message
 			msg->y_defence = player->pos_y + 2;
 			msg->defence_flag = 4;
 			ft_push_message_to_queue(player, msg);
-			printf("Bottom data [%d][%d][%d][%d][%d][%d]\n", msg->x_player, msg->y_player, msg->x_attack, msg->y_attack, msg->y_defence, msg->y_defence);
+			printf("Bottom data [%d][%d][%d][%d][%d][%d]\n", msg->x_player, msg->y_player, msg->x_attack, msg->y_attack, msg->x_defence, msg->y_defence);
 			return (3);
 		}
 	}
@@ -146,7 +147,7 @@ int	ft_check_if_player_surround_enemy_from_one_side(t_player *player , t_message
 			msg->y_defence = player->pos_y;
 			msg->defence_flag = 4;
 			ft_push_message_to_queue(player, msg);
-			printf("Left data [%d][%d][%d][%d][%d][%d]\n", msg->x_player, msg->y_player, msg->x_attack, msg->y_attack, msg->y_defence, msg->y_defence);
+			printf("Left data [%d][%d][%d][%d][%d][%d]\n", msg->x_player, msg->y_player, msg->x_attack, msg->y_attack, msg->x_defence, msg->y_defence);
 			return (4);
 		}
 	}
