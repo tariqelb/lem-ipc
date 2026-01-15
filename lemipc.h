@@ -15,12 +15,13 @@
 # include "raylib.h"
 # include <sys/wait.h>
 
-# define BOARD_SIZE 32
 # define BOARD_X_LEN 10 
 # define BOARD_Y_LEN 10
-# define SHM_SIZE 8192 // page size * 2
-# define MAX_TEAMS 100 //Game will be designed to hold handred team as max
-# define MAX_PLAYER_IN_TEAM 50
+# define BOARD_MIN_LEN 8
+# define BOARD_MAX_LEN 32
+# define MAX_TEAMS 10
+# define MAX_PLAYER_IN_TEAM 20
+# define SHM_SIZE 8192 // page size * 2 // should be geater that t_game struct
 
 
 #define HEIGHT 900
@@ -32,14 +33,15 @@
 #define SHM_KEY 0x4C454D49  // "LEMI" in hex
 #define SEM_KEY 0x4C454D50  // "LEMP" in hex  
 #define MSG_KEY 0x4C454D51  // "LEMQ" in hex
-#define FIND_PATH_MAX 200 //max steps calculate to find path to position
 
 typedef struct	s_team
 {
-	//teamid is team number
+	//team_id is team number (./lemipc 5)
+	//init_x init_y initial position for team to access the board
+	//corner is a varial increase every time new team member get in game 
+	//and decrease after a player move to the corner of the board
 	int		team_id; 	// 4 bytes
 	int		nbr_of_players; // 4 bytes
-	//initial position for team to access the board
 	short		init_x;		// 2 bytes
 	short		init_y;		// 2 bytes
 	short		corner;		// 2 bytes
@@ -47,14 +49,14 @@ typedef struct	s_team
 
 typedef struct	s_game 
 {
- 	//board: 0=empty, 1+=team_id
-	//active: 1=game running, 0=game over, -1=not yet start 
-	int	board[BOARD_Y_LEN][BOARD_X_LEN]; //4096 bytes
-	short	game_active;	//2 bytes
-	int	total_players;	//4 bytes
-	short	total_teams;	//2 bytes
-	t_team	teams[MAX_TEAMS];//1400 bytes for 100 team
-}		t_game; //totale size 5504 bytes
+ 	//board: 0=empty, player : 1+=team_id
+	//active: 1=game running, 0=game over, -1=not yet start
+	int	board[BOARD_Y_LEN][BOARD_X_LEN];	//4096 bytes for 32 * 32 * 4
+	short	game_active;				//2 bytes
+	int	total_players;				//4 bytes
+	short	total_teams;				//2 bytes
+	t_team	teams[MAX_TEAMS];			//1400 bytes for 100 team
+}		t_game; 				//totale size 5504 bytes
 
 // System V semaphore operations
 typedef struct sembuf t_sem_lock;  // Wait/Lock
@@ -71,21 +73,15 @@ typedef struct	s_player
 	int	shmid;
 	int	msqid;
 	int	died;
-	//this var hold how mony step i need to reach find_x/y from safe side
-	//related to player->pos_x/y
 	int	path[4];//top->right->bottom->left
 	int	first_move;
 	int	target_team_id;
-	short	find_x;//you should check if i use this or remove it
-	short	find_y;//
-		       //
-		       //
+	short	find_x;
+	short	find_y;
 	short	last_x_pos;
 	short	last_y_pos;
 	short	find_path_active;
 	int	graphic_representative;
-	int	team_color;
-	int	attack;
 	// Semaphore operations - DECLARE ONCE
 	t_sem_lock	lock_op;
 	t_sem_unlock	unlock_op;
@@ -99,17 +95,14 @@ typedef struct	s_message_queue
 {
 	long		mtype; 
 	unsigned short 	team_id;     // unsinged short is 2 byte, 0-65,535 teams
-	unsigned short	defence_flag; // 0 or 1 for defence 2 surround from one side
-	unsigned short	nbr_team_member; // 0-127 players
-	unsigned short	x_attack;    // 0-31
-	unsigned short	y_attack;    // 0-31
-	unsigned short	x_defence;   // 0-31  
-	unsigned short	y_defence;   // 0-31
+	unsigned short	defence_flag; // when 0 or 4
+	unsigned short	nbr_team_member;
+	unsigned short	x_attack;    //N > 0 N < 2 bytes max
+	unsigned short	y_attack;    
+	unsigned short	x_defence;     
+	unsigned short	y_defence;   
 	unsigned short  x_player;
 	unsigned short  y_player;
-	unsigned short  x_y_sides[4][2];
-	unsigned short  sides[4];	// enemy surrounded from one side attack side[1] = 1 => [P][E][0] 
-					// enemies positions in x y sides , surround flag = 2 in defence_flag and side to attack in side[N] = 1
 }		t_message_queue; //total size = 22 * 100 + 14 = 2214 byes
 
 
@@ -187,7 +180,6 @@ int     ft_is_it_one_step_to_position_x_y(t_player *player, int x, int y);
 //file : ft_last_player_escape.c
 int	ft_random_direction(int a, int b, int c, int d);
 int	ft_find_best_move_and_escape(t_player *player);
-int	ft_last_player_escape(t_player *player);
 
 //file : ft_leave_the_board.c
 int	ft_leave_the_board(t_player *player);
@@ -219,10 +211,6 @@ void	ft_print_the_board(t_player *player);
 int     ft_get_target_enemy_team_id(t_player *pleyer);
 
 
-//file : ft_check_if_player_in_right_position_do_not_move.c
-int	ft_check_if_player_in_right_position_do_not_move(t_player *player);
-
-
 //file :  ft_display_the_board.c
 void    ft_display_the_board(int board[BOARD_Y_LEN][BOARD_X_LEN]);
 
@@ -232,7 +220,6 @@ int	ft_best_side(t_player *player, int p_x, int p_y, int i, int best_side[4]);
 
 //file : ft_is_enemy_surounded.c
 int     ft_is_player_surrounded(t_player *player);
-int	ft_is_enemy_surounded(t_player *player);
 int     ft_scan_board_if_a_player_surrounded(t_player *player);
 int     ft_get_player_sides(t_player *player, int x, int y, int *top, int *right, int *bottom, int *left);
 
@@ -244,15 +231,8 @@ int     ft_graphic_representation(t_player *player);
 int	ft_best_move(t_player *player, int *x, int *y);
 int     ft_second_best_move(t_player *player, int *x, int *y);
 
-//file : ft_player_surround_enemy_from_one_side_and_other_side_free.c
-int	ft_player_surround_enemy_from_one_side_and_other_side_free(t_player *player, t_message_queue *msg);
-
-//file : ft_check_attack_sides_of_surrouned_enemy_and_choose_one.c
-int     ft_check_attack_sides_of_surrouned_enemy_and_choose_one(t_player *player, t_message_queue *msg);
-
 //file : ft_side_to_attack.c
 int     ft_attack_position(t_player *player, int x, int y);
-int     ft_side_to_attack(t_player *player, t_message_queue msg);
 int     ft_second_side_to_attack(t_player *player, t_message_queue msg);
 
 //file :  ft_check_if_player_surround_enemy_from_one_side.c
@@ -295,9 +275,10 @@ int     ft_active_the_game_and_get_into_board(t_player *player);
 //file : ft_check_if_last_position_surround_enemy.c
 int     ft_check_if_last_position_surround_enemy(t_player *player, int new_x, int new_y);
 
+//file : ft_check_defines.c
+int		ft_check_defines(void);
 
 
-//file :
 //file :
 //file :
 //file :

@@ -113,20 +113,3 @@ int	ft_find_best_move_and_escape(t_player *player) //change name to go random
 	}
 	return (0);
 }
-
-
-int	ft_last_player_escape(t_player *player)
-{
-	printf("ft_last_player_escape\n");
-	//int	team_array_index;
-
-	//team_array_index = ft_get_team_array_index(player);
-	//if (team_array_index == -1)
-	//	return (0);
-	//if (player->game->teams[team_array_index].nbr_of_players == 1)
-	//{
-		ft_find_best_move_and_escape(player);
-		return (1);
-	//}
-	//return (0);
-}

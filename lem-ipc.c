@@ -7,6 +7,8 @@ int	main(int ac, char **av)
 
 	if (ft_get_team(ac, av[1], &player) == -1)
 		return (1);
+	if (ft_check_defines())
+		return (1);
 	//initialze board , get semaphore ...
 	if (ft_get_resouces(&player))
 		return (1);
@@ -34,7 +36,6 @@ int	main(int ac, char **av)
 	printf("Player position x = %d , y = %d\n", player.pos_x, player.pos_y);
 	printf("Total players %d\n", player.game->total_players);
 	printf("Total teams %d\n", player.game->total_teams);
-	printf("Team color ----[%d]----\n", player.team_color);
 	int attack_index = 0;
 	int win;
 	while (player.game->game_active == 1 && player.died == 0)
