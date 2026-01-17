@@ -20,13 +20,13 @@ int	ft_check_defines(void)
 	}
 	if (MAX_PLAYER_IN_TEAM < 5)
 	{
-		write(2, "Lemipc: Error , mix player defined for team should be at less 5\n", 64);
+		write(2, "Lemipc: Error , min players defined for team should be at less 5\n", 65);
 		return (1);
 	}
 
 	if (SHM_KEY == 0 || MSG_KEY == 0 || SEM_KEY == 0)
 	{
-		write(2, "Lemipc: Error , Shared memory, Messge queue and Semaphore keys\n", 63);
+		write(2, "Lemipc: Error , Check Shared memory, Messge queue and Semaphore keys\n", 69);
 		return (1);
 	}
 

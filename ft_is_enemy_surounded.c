@@ -11,6 +11,10 @@ int	ft_is_player_surrounded(t_player *player)
 	right = -1;
 	bottom = -1;
 	left = -1;
+	if (RANDOM)
+	{
+		return (ft_random_rule_check_if_player_surrounded(player, player->team_id + 1, player->pos_x, player->pos_y));
+	}
 	printf("Check is player surouneded [%d][%d]\n", player->pos_x, player->pos_y);
 	ft_print_the_board(player);
 	
@@ -89,18 +93,26 @@ int	ft_scan_board_if_a_player_surrounded(t_player *player)
 			curr_pos = player->game->board[y][x];
 			if (curr_pos)
 			{
-				ft_get_player_sides(player, x, y, &top, &right, &bottom, &left);
-				//printf("scan board if enemy dead : top[%d]  curr[%d] btm[%d] x y [%d,%d]\n", top, curr_pos, bottom , x ,y);
-				//printf("scan board if enemy dead : left[%d] curr[%d] right[%d]\n", left, curr_pos, right);
-				if (left > 0 && right > 0 && left != curr_pos && right != curr_pos)
+				if (RANDOM)
 				{
-					printf("ft_scan_if_a_player_surrounded left[%d] [%d] right[%d]\n", left, curr_pos, right);
-					return (1);
+					if(ft_random_rule_check_if_player_surrounded(player, curr_pos, x, y))
+						return (1);
 				}
-				if (top > 0 && bottom > 0 && top != curr_pos && bottom != curr_pos)
+				else
 				{
-					printf("ft_scan_if_a_player_surrounded top[%d] [%d] bottom[%d]\n", top, curr_pos, bottom);
-					return (1);
+					ft_get_player_sides(player, x, y, &top, &right, &bottom, &left);
+					//printf("scan board if enemy dead : top[%d]  curr[%d] btm[%d] x y [%d,%d]\n", top, curr_pos, bottom , x ,y);
+					//printf("scan board if enemy dead : left[%d] curr[%d] right[%d]\n", left, curr_pos, right);
+					if (left > 0 && right > 0 && left != curr_pos && right != curr_pos)
+					{
+						printf("ft_scan_if_a_player_surrounded left[%d] [%d] right[%d]\n", left, curr_pos, right);
+						return (1);
+					}
+					if (top > 0 && bottom > 0 && top != curr_pos && bottom != curr_pos)
+					{
+						printf("ft_scan_if_a_player_surrounded top[%d] [%d] bottom[%d]\n", top, curr_pos, bottom);
+						return (1);
+					}
 				}
 			}
 			x++;

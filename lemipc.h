@@ -15,13 +15,16 @@
 # include "raylib.h"
 # include <sys/wait.h>
 
-# define BOARD_X_LEN 10 
-# define BOARD_Y_LEN 10
+# define BOARD_X_LEN 9 
+# define BOARD_Y_LEN 9
 # define BOARD_MIN_LEN 8
 # define BOARD_MAX_LEN 32
 # define MAX_TEAMS 10
 # define MAX_PLAYER_IN_TEAM 20
 # define SHM_SIZE 8192 // page size * 2 // should be geater that t_game struct
+		       
+
+# define RANDOM 1
 
 
 #define HEIGHT 900
@@ -279,8 +282,21 @@ int     ft_check_if_last_position_surround_enemy(t_player *player, int new_x, in
 int		ft_check_defines(void);
 
 
+
+
+
+
+
+
+
+//********random set of functions
+//file : ft_check_if_player_died.c
+int     ft_random_rule_check_if_other_enemy_exist(short player_sides[8], short index);
+int     ft_random_rule_check_if_player_surrounded(t_player *player, int player_id, int x, int y);
+
 //file :
-//file :
+int     ft_random_rule_check_if_player_attacked_surround_enemy_from_side(t_player *player, int x, int y);
+
 //file :
 //file :
 

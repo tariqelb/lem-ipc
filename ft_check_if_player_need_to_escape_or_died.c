@@ -30,6 +30,15 @@ int	ft_check_if_player_need_to_escape_or_died(t_player *player)
 	int	p_y;
 	int	t_id;
 
+	if (RANDOM)
+	{
+		if (ft_random_rule_check_if_player_surrounded(player, player->team_id + 1, player->pos_x, player->pos_y))
+			return (-1);
+	}
+
+
+
+
 	top_left  = 0;
 	top_right = 0;
 	btm_left  = 0;

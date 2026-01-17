@@ -1,5 +1,27 @@
 #include "./lemipc.h"
 
+int	ft_random_rule_check_if_player_attacked_surround_enemy_from_side(t_player *player, int x, int y)
+{
+	if (player->pos_x - 1 == x && player->pos_y - 1 == y)//left-top
+		return (1);
+	if (player->pos_x == x && player->pos_y - 1 == y)//top
+		return (1);
+	if (player->pos_x + 1 == x && player->pos_y - 1 == y)//top-right
+		return (1);
+	if (player->pos_x + 1 == x && player->pos_y == y)//right
+		return (1);
+	if (player->pos_x + 1 == x && player->pos_y + 1 == y)//btm-right
+		return (1);
+	if (player->pos_x == x && player->pos_y + 1 == y)//btm
+	       return (1);
+	if (player->pos_x - 1 == x && player->pos_y + 1 == y)//btm-left
+		return (1);
+	if (player->pos_x - 1 == x && player->pos_y == y)//left
+		return (1);
+	return (0);
+}
+
+
 int	ft_get_position_sides(t_player *player, int x, int y, int *top, int *right, int *bottom, int *left)
 {
 	printf("ft_get_position_sides\n");

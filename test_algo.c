@@ -36,11 +36,11 @@ int	ft_initial_the_board(t_player *player)
 				player->game->board[y][x] = 8;
 			if (x == 6 && y == 5)//enemy
 				player->game->board[y][x] = 8;
-			if (x == 8 && y == 4)//enemy
-				player->game->board[y][x] = 2;
 			if (x == 6 && y == 4)//enemy
 				player->game->board[y][x] = 2;
-			//if (i == 3 && j == 3)//enemy
+			if (x == 5 && y == 4)//enemy
+				player->game->board[y][x] = 2;
+			//if (x == 3 && j == 3)//enemy
 			//	player->game->board[y][x] = 6;
 			//if (x == 3 && y == 1)//player + 1
 			//	player->game->board[y][x] = 3;
@@ -120,7 +120,7 @@ int	main(void)
 	ft_set_player(&player,  8, 5, 7, 1, 1);
 	ft_set_player(&player1, 6, 5, 7, 1, 2);
 	ft_set_player(&player2, 6, 4, 1, 7, 1);
-	ft_set_player(&player3, 8, 4, 1, 7, 2);
+	ft_set_player(&player3, 5, 4, 1, 7, 2);
 	//int	ft_set_team(t_player *player, int nbr_of_players, int team_id, int init_x, int init_y, int corner, int team_index)
 	ft_set_team(&player,  2, 7, 9, 9, 2, 0);
 	ft_set_team(&player1, 2, 7, 9, 9, 2, 0);
@@ -132,7 +132,7 @@ int	main(void)
 	player2.first_move = 0;
 	ft_print_the_board(&player);
 	
-	int i = 0;
+/*	int i = 0;
 	while (i < 8)
 	{
 		printf("-------------***************----------------\n");
@@ -144,6 +144,8 @@ int	main(void)
 		ft_print_the_board(&player);
 		i++;
 	}
+*/
+	printf("result : %d\n", ft_check_if_player_need_to_escape_or_died(&player));
 	player.game->total_players = 0;
 	ft_exit_from_game(&player, 3);
 	return (0);

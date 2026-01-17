@@ -87,8 +87,6 @@ int	ft_attack_defend_escape_moves(t_player *player, t_message_queue *old_msg)
 		return (0);
 	}*/
 
-	if (ft_player_first_checks_and_moves(player, old_msg))
-		return (0);
 
 	{
 		move = 0;
@@ -100,7 +98,12 @@ int	ft_attack_defend_escape_moves(t_player *player, t_message_queue *old_msg)
 			*old_msg = new_msg;
 			if (msg_status == 0)
 			{
-				if (new_msg.defence_flag == 4)
+				if (RANDOM)
+				{
+					if (ft_random_rule_check_if_player_attacked_surround_enemy_from_side(player, new_msg.x_attack, new_msg.y_attack))
+						return (0);
+				}
+				if (RANDOM == 0 && new_msg.defence_flag == 4)
 				{
 					move = ft_attack_position(player, new_msg.x_defence, new_msg.y_defence);
 				}
@@ -128,7 +131,12 @@ int	ft_attack_defend_escape_moves(t_player *player, t_message_queue *old_msg)
 				ft_push_message_to_queue(player, &msg);
 			if (msg_status == 0)
 			{
-				if (msg.defence_flag == 4)
+				if (RANDOM)
+				{
+					if (ft_random_rule_check_if_player_attacked_surround_enemy_from_side(player, msg.x_attack, msg.y_attack))
+						return (0);
+				}
+				if (RANDOM == 0 && msg.defence_flag == 4)
 					move = ft_attack_position(player, msg.x_defence, msg.y_defence);
 				else
 					move = ft_second_side_to_attack(player, msg);		
