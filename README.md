@@ -100,15 +100,11 @@ in this case move to best position bottom
 in this case just stay in your position and announce an attack
 
 
-[0][0][0][0]
-
-[0][E][P][0]
-
-[0][0][p][0]
-
-[0][0][0][0]
-
-[0][0][0][0]
+[0][0][0][0].
+[0][E][P][0].
+[0][0][p][0].
+[0][0][0][0].
+[0][0][0][0].
 
 in this case player move left
 
