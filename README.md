@@ -109,8 +109,8 @@ in this case just stay in your position and announce an attack
 in this case player move left
 
 ### set up
-  make ; make clean
-  ./lemipc 1
+  ```make ; make clean```
+  ```./lemipc 1```
   ./lemipc 2
   ./lemipc 1
   .....
