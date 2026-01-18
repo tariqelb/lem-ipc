@@ -25,7 +25,7 @@ A semaphore is a synchronization mechanism that controls access to a shared reso
 
 
 # The game
-  The game is a 2D board when players (process) from diffent team attack each other by surrending player from two sides to kill him and last team remain in the board win.
+  The game is a 2D board when players (process) from diffent team attack each other by surrending player from two sides to kill him and last team remain in the board win.  
   [0][0][7][7][0][0]  
   [0][0][5][0][0][0]  
   [0][0][0][0][3][0]  
