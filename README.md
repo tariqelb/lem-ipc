@@ -33,28 +33,84 @@ A semaphore is a synchronization mechanism that controls access to a shared reso
   [0][0][0][0][7][0]
 
 
-  ## my rules
+  ## Rules
     -  Players access the board from sides (Board exist in Shared memory)
     -  Game start after at less two player from team N exist and 1 player from team m
     -  Player after get into board scan it and chose a target team to attack
     -  Players exchange between them two type of messages (message queue) 
         -  type 0 where just x and y position of attacked enemy and that enemy no surrouned from any side from any there player
         -  type 4 where an enemy already surrended from one side and other team member should attack the opposide side
-        -  in subject rules , player considered as surrounded and died if two player from the same team surround him like ex in player 5
-        -  my rule (set RANDOM define to 0 in lemipc.h to play with that rule) player consider died/surouneded if two player from any other team surround him from two sides either (top and bottom) or (left and right) like player two
+    -  In subject rules , player considered as surrounded and died if two player from the same team surround him like ex in player 5
+    -  The rules i work with (set RANDOM define to 0 in lemipc.h to play with that rule) player consider died/surouneded if 
+        -  two player from any other team surround him from two sides either (top and bottom) or (left and right) like player two
 
-  ## game logic
-    -  player first check if there is a best move or best position to do for surround an enemy before check message queue or scan the board to announce an attack
+  ## Game logic
+    -  Player first check if there is a best move or best position to do for surround an enemy before check message queue or scan the board to announce an attack
     -  Best move is a move where you can surround an enemy by one move
     -  Best position is where player do a move that make him closer to surround an enemy
     -  Best move/position act when an enemy is already surrounded from one side
-    -  when a player surround an enemy from one side its announce an attack type 4 for other team member to move
-    -  player do not move if surround player from one side and announce a message, wait till other team member surround enemy from otherside
-    -  with a team member suround enemy from one side other player move even if they maybe surround enemy (player 1 from my team surround enemy other do not try to surround other enemy and block in its position)
+    -  When a player surround an enemy from one side its announce an attack type 4 for other team member to move
+    -  Player do not move if surround player from one side and announce a message, wait till other team member surround enemy from otherside
+    -  With a team member suround enemy from one side other player move even if they maybe surround enemy (player 1 from my team surround enemy other do not try to surround other enemy and block in its position)
     -  Every player when get Semaphore check the board if a player died, if yes , they just stop till the surrounded player leave the board
     -  Player check after get Semaphore (access) if he died/ surrouned from two opposide side from other team, in this case just leave the board
-    -  player after check that there is no best move/position to do , check message queue or calculate new attack, them go close to enemy selected (The one close to center)
-    -  if player block from two side (top and right) and can not go closer to player exist in top right of his position , then use find path resuresion to go the positon
-    -  find path try to find path to a position player want to go to , with minimum steps
+    -  Player after check that there is no best move/position to do , check message queue or calculate new attack, them go close to enemy selected (The one close to center)
+    -  If player block from two side (top and right) and can not go closer to player exist in top right of his position , then use find path resuresion to go the positon
+    -  Find path try to find path to a position player want to go to , with minimum steps
     -  Find path do not use last position to not go back to the some position mutiple time
-  
+    
+  ## Some explaination of best move and best position:
+
+I think the game is about go closer, and handle 8 side of a player , make the best move if an enemy prisent in one of your sides,
+othersiwe just go closer to selected enemy team and find path to position if player block
+
+[0][0][P][0]
+[0][0][E][0]
+[0][0][0][0]
+[0][0][p][0]
+[0][0][0][0]
+
+in this case make best move to top
+
+[0][P][0][0]
+[P][E][0][0]
+[0][0][p][0]
+[0][0][0][0]
+[0][0][0][0]
+
+in this case make second best move to left or top
+
+
+[0][P][0][0]
+[0][E][p][0]
+[0][0][0][0]
+[0][0][0][0]
+[0][0][0][0]
+
+
+in this case move to best position bottom
+
+
+[0][0][0][0]
+[0][0][E][0]
+[0][0][p][0]
+[0][0][0][0]
+[0][0][0][0]
+
+in this case just stay in your position and announce an attack
+
+
+[0][0][0][0]
+[0][E][P][0]
+[0][0][p][0]
+[0][0][0][0]
+[0][0][0][0]
+
+in this case player move left
+
+### set up
+  make ; make clean
+  ./lemipc 1
+  ./lemipc 2
+  ./lemipc 1
+  .....
