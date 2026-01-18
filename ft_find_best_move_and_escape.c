@@ -2,7 +2,7 @@
 
 int ft_random_direction(int a, int b, int c, int d)
 {
-	printf("ft_random_direction\n");
+	//ft_putstr("ft_random_direction\n");
 	int valid_directions[4] = {0};
 	int count = 0;
 
@@ -32,7 +32,7 @@ int ft_random_direction(int a, int b, int c, int d)
 
 int	ft_find_best_move_and_escape(t_player *player) //change name to go random
 {
-	printf("ft_find_best_move_and_escape (random free positions \n)");
+	ft_putstr("ft_find_best_move_and_escape (random free positions )\n");
 	int	left;
 	int	right;
 	int	top;

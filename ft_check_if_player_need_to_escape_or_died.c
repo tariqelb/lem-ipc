@@ -2,7 +2,7 @@
 
 int	ft_check_if_player_need_to_escape_or_died(t_player *player)
 {
-	printf("ft_check_if_player_need_to_escape_or_died\n");
+	ft_putstr("ft_check_if_player_need_to_escape_or_died\n");
 	//Diagonal positions (do NOT cause death):
 	//[E]   [E]
 	//   [P]

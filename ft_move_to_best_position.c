@@ -3,7 +3,7 @@
 
 int	ft_move_to_best_position(t_player *player, int *x, int *y)
 {
-	printf("ft_move_to_best_position\n");
+	//ft_putstr("ft_move_to_best_position\n");
 	int	top;
 	int	right;
 	int	bottom;
@@ -46,7 +46,6 @@ int	ft_move_to_best_position(t_player *player, int *x, int *y)
 	if (player->pos_x < BOARD_X_LEN - 1 && player->pos_y < BOARD_Y_LEN - 1)
 		bottom_right = player->game->board[player->pos_y + 1][player->pos_x + 1];
 
-	printf("Data : t[%d]r[%d]b[%d]l[%d] tl[%d]tr[%d]br[%d]bl[%d]\n", top, right, bottom, left, top_left, top_right, bottom_right, bottom_left);
 	if (top > 0 && top != player_id)
 	{
 		if (top_left > 0 && top_left != top && top_right == 0)
@@ -116,7 +115,7 @@ int	ft_move_to_best_position(t_player *player, int *x, int *y)
 
 int	ft_move_to_second_best_position(t_player *player, int *x, int *y)
 {
-	printf("ft_move_to_second_best_position\n");
+	ft_putstr("ft_move_to_second_best_position\n");
 	//ex of case work on
 	//[0][0][0][0][0] 
 	//[x][E][P][0][0] 

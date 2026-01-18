@@ -2,7 +2,7 @@
 
 int     ft_get_message_from_message_queue(t_player *player, t_message_queue *msg)
 {
-	printf("ft_get_message_from_message_queue\n");
+	ft_putstr("ft_get_message_from_message_queue\n");
         size_t size;
         int ret;
 
@@ -15,6 +15,5 @@ int     ft_get_message_from_message_queue(t_player *player, t_message_queue *msg
 
         if (ret == -1)
                 return (1);
-	printf("msg flag = [%d]\n", msg->defence_flag);
         return (0);
 }

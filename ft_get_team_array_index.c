@@ -2,7 +2,7 @@
 
 int	ft_get_team_array_index(t_player *player)
 {
-	printf("ft_get_team_array_index\n");
+	//ft_putstr("ft_get_team_array_index\n");
 	int	i;
 
 	i = 0;

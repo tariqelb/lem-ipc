@@ -2,7 +2,7 @@
 
 int	ft_check_if_max_teams_or_players_reached(t_player *player)
 {
-	printf("ft_check_if_max_teams_or_players_reached\n");
+	ft_putstr("ft_check_if_max_teams_or_players_reached\n");
 	int	nbr_of_team;
 	int	i;
 
@@ -34,8 +34,8 @@ int	ft_check_if_max_teams_or_players_reached(t_player *player)
 
 int ft_create_shared_memory(t_player *player)
 {
-	printf("ft_create_shared_memory\n");
-    	size_t size;
+	ft_putstr("ft_create_shared_memory\n");
+	size_t size;
 
 	size = SHM_SIZE;
 	semop(player->semid, &player->lock_op, 1);
@@ -111,7 +111,7 @@ int ft_create_shared_memory(t_player *player)
 
 int     ft_remove_shared_memory(t_player *player)
 {
-	printf("ft_remove_shared_memory\n");
+	ft_putstr("ft_remove_shared_memory\n");
         int     status;
 
         status = shmctl(player->shmid, IPC_RMID, NULL);

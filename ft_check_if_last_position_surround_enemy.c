@@ -4,7 +4,7 @@ int	ft_check_if_last_position_surround_enemy(t_player *player, int new_x, int ne
 {
 	//some times player block in position and find path get him out , but may next move bring him back to the same position
 	//here we will check if its goes to last position , if yes , we will let player go back only if this position will surround an enemy
-	printf("ft_check_if_last_position_surround_enemy\n");
+	ft_putstr("ft_check_if_last_position_surround_enemy\n");
 	if (player->last_x_pos == new_x && player->last_y_pos == new_y)
 	{
 		int	player_id;

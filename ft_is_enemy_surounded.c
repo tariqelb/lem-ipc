@@ -2,6 +2,7 @@
 
 int	ft_is_player_surrounded(t_player *player)
 {
+	//ft_putstr("ft_is_player_surrounded\n");
 	int	left;
 	int	right;
 	int	top;
@@ -15,7 +16,6 @@ int	ft_is_player_surrounded(t_player *player)
 	{
 		return (ft_random_rule_check_if_player_surrounded(player, player->team_id + 1, player->pos_x, player->pos_y));
 	}
-	printf("Check is player surouneded [%d][%d]\n", player->pos_x, player->pos_y);
 	ft_print_the_board(player);
 	
 	if (player->pos_x > 0)
@@ -27,8 +27,6 @@ int	ft_is_player_surrounded(t_player *player)
 	if (player->pos_y < BOARD_Y_LEN - 1)
 		bottom = player->game->board[player->pos_y + 1][player->pos_x];
 
-	printf("Data top[%d] pos[%d] btm[%d]\n", top, player->game->board[player->pos_y][player->pos_x], bottom);
-	printf("Data left[%d] pos[%d] right[%d]\n", left, player->game->board[player->pos_y][player->pos_x], right);
 	if (top > 0 && top != player->team_id + 1 && bottom > 0 && bottom != player->team_id + 1)
 		return (1);
 
@@ -72,7 +70,7 @@ int	ft_get_player_sides(t_player *player, int x, int y, int *top, int *right, in
 
 int	ft_scan_board_if_a_player_surrounded(t_player *player)
 {
-	printf("ft_scan_board_if_a_player_surrounded\n");
+	ft_putstr("ft_scan_board_if_a_player_surrounded\n");
 	int	y;
 	int	x;
 
@@ -101,16 +99,12 @@ int	ft_scan_board_if_a_player_surrounded(t_player *player)
 				else
 				{
 					ft_get_player_sides(player, x, y, &top, &right, &bottom, &left);
-					//printf("scan board if enemy dead : top[%d]  curr[%d] btm[%d] x y [%d,%d]\n", top, curr_pos, bottom , x ,y);
-					//printf("scan board if enemy dead : left[%d] curr[%d] right[%d]\n", left, curr_pos, right);
 					if (left > 0 && right > 0 && left != curr_pos && right != curr_pos)
 					{
-						printf("ft_scan_if_a_player_surrounded left[%d] [%d] right[%d]\n", left, curr_pos, right);
 						return (1);
 					}
 					if (top > 0 && bottom > 0 && top != curr_pos && bottom != curr_pos)
 					{
-						printf("ft_scan_if_a_player_surrounded top[%d] [%d] bottom[%d]\n", top, curr_pos, bottom);
 						return (1);
 					}
 				}

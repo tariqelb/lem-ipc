@@ -2,7 +2,7 @@
 
 int	ft_check_if_player_in_the_corner(t_player *player)
 {
-	printf("ft_check_if_player_in_the_corner\n");
+	ft_putstr("ft_check_if_player_in_the_corner\n");
 	int	team_array_index;
 
 	if (player->pos_x == 0 && player->pos_y == 0)

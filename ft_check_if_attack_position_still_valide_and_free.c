@@ -2,8 +2,7 @@
 
 int	ft_check_if_attack_position_still_valid_and_free(t_player *player, t_message_queue *msg)
 {
-	printf("ft_check_if_attack_position_still_valid_and_free\n");
-	//this check last msg attack values
+	ft_putstr("ft_check_if_attack_position_still_valid_and_free\n");
 	int player_pos = -1;
 	int enemy_pos = -1;
 	int free_pos = -1;
@@ -18,7 +17,6 @@ int	ft_check_if_attack_position_still_valid_and_free(t_player *player, t_message
 	//return 2 valid and current player surround enemy from one side
 	//return 3 just an enemy exist in position 
 
-	printf("last attack flag [%d]and data p [%d], e[%d], free pos[%d]\n", msg->defence_flag, player_pos, enemy_pos, free_pos);
 	if (msg->defence_flag == 4)
 	{
 		if (player_pos > 0 && enemy_pos > 0 && player_pos != enemy_pos && enemy_pos != player->team_id + 1 && free_pos == 0)
@@ -30,12 +28,5 @@ int	ft_check_if_attack_position_still_valid_and_free(t_player *player, t_message
 				return (1);
 		}
 	}
-	/*else
-	{
-		if (enemy_pos > 0 && enemy_pos != player->team_id + 1)
-		{
-			return (3);
-		}
-	}*/
 	return (0);
 }

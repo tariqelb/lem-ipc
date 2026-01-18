@@ -2,7 +2,7 @@
 
 int	ft_player_died(t_player *player)
 {
-	printf("player died \n");
+	ft_putstr("ft_player died \n");
 	int	team_array_index;
 
 	team_array_index = ft_get_team_array_index(player);
@@ -19,6 +19,7 @@ int	ft_player_died(t_player *player)
 
 int	ft_attack_defend_escape_moves(t_player *player, t_message_queue *old_msg)
 {
+	ft_putstr("ft_attack_defence_escape_moves\n");
 	t_message_queue msg;
 	t_message_queue new_msg;
 	int		msg_status;
@@ -38,7 +39,7 @@ int	ft_attack_defend_escape_moves(t_player *player, t_message_queue *old_msg)
 		if (escape == -1) //player surrounded
 		{
 			player->died = 1;
-			printf("Player surrounded\n");
+			ft_putstr("Player surrounded\n");
 			return (1);
 		}
 		return (0);
@@ -62,31 +63,19 @@ int	ft_attack_defend_escape_moves(t_player *player, t_message_queue *old_msg)
 	if (escape == -1) //player surrounded
 	{
 		player->died = 1;
-		//return (ft_player_died(player));
-		printf("Player surrounded\n");
+		ft_putstr("Player surrounded\n");
 		return (1);
 	}
+	if (RANDOM == 0 && ft_player_first_checks_and_moves(player, old_msg))
+		return (0);
 	//check if i surround an enemy stay here
 	if (ft_scan_board_if_a_player_surrounded(player))
 	{
-		printf("ft_scan_the_board_and_get_x_y_of_enemy_to_attack\n");
-		printf("*********************************************\n");
+		ft_putstr("*********************************************\n");
 		ft_print_the_board(player);
-		printf("*********************************************\n");
+		ft_putstr("*********************************************\n");
 		return (0);
 	}
-	//to improve this we will push only attack message 
-	//player by itself check if player need defence and move to defence before do an attack
-	//msg_status = ft_get_message_from_message_queue(player, &msg);
-	/*defence = ft_check_if_team_member_need_defence(player, &new_msg);
-	if (defence == 1)
-	{
-		//(only first move should be safe)
-		//move to defence position 
-		ft_find_path_to_position_and_make_move(player, new_msg.x_defence, new_msg.y_defence);
-		return (0);
-	}*/
-
 
 	{
 		move = 0;
@@ -111,10 +100,6 @@ int	ft_attack_defend_escape_moves(t_player *player, t_message_queue *old_msg)
 				{
 					move = ft_second_side_to_attack(player, new_msg);
 				}
-				if (move == 0)
-					printf("Attack one side surrouned enemy not complete\n");
-				else
-					printf("Attack one side surrouned enemy\n");
 			}
 			if (move)
 				return (0);
@@ -140,10 +125,7 @@ int	ft_attack_defend_escape_moves(t_player *player, t_message_queue *old_msg)
 					move = ft_attack_position(player, msg.x_defence, msg.y_defence);
 				else
 					move = ft_second_side_to_attack(player, msg);		
-				printf("Player do move [%d] \n", move);
 			}
-			if (move == 0)
-				printf("player change place\n");
 		}
 		
 	}

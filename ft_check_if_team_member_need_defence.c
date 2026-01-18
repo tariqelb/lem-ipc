@@ -2,7 +2,7 @@
 
 int	ft_check_if_postion_need_defence(t_player *player, int p_x, int p_y, t_message_queue *new_msg)
 {
-	printf("ft_check_if_postion_need_defence\n");
+	ft_putstr("ft_check_if_postion_need_defence\n");
 	int	top_left;
 	int	top_right;
 	int	btm_left;
@@ -152,7 +152,7 @@ int	ft_check_if_postion_need_defence(t_player *player, int p_x, int p_y, t_messa
 
 int	 ft_check_if_team_member_need_defence(t_player *player, t_message_queue *new_msg)
 {
-	printf("ft_check_if_team_member_need_defence\n");
+	ft_putstr("ft_check_if_team_member_need_defence\n");
 	int	checked_player;
 	int	team_array_index;
 	//scan board x and y is and index where i reach so i complete 

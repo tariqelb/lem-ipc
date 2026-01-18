@@ -5,37 +5,52 @@ void	ft_print_the_board(t_player *player)
 	int	i;
 	int	j;
 	
-	printf(" _________");
-	i = 0;
-	while (i++ < BOARD_X_LEN)
-		printf("___");
-	printf("_ \n");
-	printf("| [x/y] | ");
+	ft_putstr(" _________");
 	i = 0;
 	while (i < BOARD_X_LEN)
-		printf("[%d]", i++);
-	printf(" |\n");
-	printf("|_______|_");
+	{
+		ft_putstr("___");
+		i++;
+	}
+	ft_putstr("_ \n");
+	ft_putstr("| [x/y] | ");
+	i = 0;
+	while (i < BOARD_X_LEN)
+	{
+		ft_putstr("[");
+		ft_putint(i);
+		ft_putstr("]");
+		i++;
+	}
+	ft_putstr(" |\n");
+	ft_putstr("|_______|_");
 	i = 0;
 	while (i++ < BOARD_X_LEN)
-		printf("___");
-	printf("_|\n");
+		ft_putstr("___");
+	ft_putstr("_|\n");
 	i = 0;
 	while (i < BOARD_Y_LEN)
 	{
-		printf("|  [%d]  | ", i);
+		ft_putstr("|  [");
+		ft_putint(i);
+		ft_putstr("]  | ");
 		j = 0;
 		while (j < BOARD_X_LEN)
 		{
-			printf("[%d]", player->game->board[i][j]);
+			ft_putstr("[");
+			ft_putint(player->game->board[i][j]);
+			ft_putstr("]");
 			j++;
 		}
-		printf(" |\n");
+		ft_putstr(" |\n");
 		i++;
 	}
-	printf("|_______|_");
+	ft_putstr("|_______|_");
 	i = 0;
-	while (i++ < BOARD_X_LEN)
-		printf("___");
-	printf("_|\n");
+	while (i < BOARD_X_LEN)
+	{
+		ft_putstr("___");
+		i++;
+	}
+	ft_putstr("_|\n");
 }

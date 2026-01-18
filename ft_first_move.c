@@ -1,9 +1,8 @@
 #include "./lemipc.h"
 
-
 int     ft_first_move(t_player *player)
 {
-	printf("ft_first_move\n");
+	ft_putstr("ft_first_move\n");
 	int	top;
 	int	right;
 	int	bottom;
@@ -56,4 +55,3 @@ int     ft_first_move(t_player *player)
         }
         return (0);
 }
-

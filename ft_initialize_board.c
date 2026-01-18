@@ -2,7 +2,7 @@
 
 t_player	*ft_initialize_game_board(t_player *player)
 {
-	printf("ft_initialize_game_board\n");
+	ft_putstr("ft_initialize_game_board\n");
 	int	x;
 	int	y;
 

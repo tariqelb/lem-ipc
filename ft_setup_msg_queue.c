@@ -2,7 +2,7 @@
 
 int	ft_create_message_queue(t_player *player)
 {
-	printf("ft_create_message_queue\n");
+	//ft_putstr("ft_create_message_queue\n");
 	semop(player->semid, &player->lock_op, 1);
 	// 1. Create message queue (first player)
 	player->msqid = msgget(MSG_KEY, IPC_CREAT | IPC_EXCL | 0666);
@@ -37,7 +37,7 @@ int	ft_create_message_queue(t_player *player)
 
 int	ft_destroy_message_queue(t_player *player)
 {
-	printf("ft_destroy_message_queue\n");
+	//ft_putstr("ft_destroy_message_queue\n");
 	int	status;
 
 	status = msgctl(player->msqid, IPC_RMID, NULL);

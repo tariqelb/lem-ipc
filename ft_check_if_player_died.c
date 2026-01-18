@@ -17,8 +17,8 @@ int	ft_random_rule_check_if_other_enemy_exist(short player_sides[8], short index
 
 int	ft_random_rule_check_if_player_surrounded(t_player *player, int player_id, int x, int y)
 {
-	printf("ft_random_rule_check_if_player_surrounded [%d]\n", RANDOM);
-	short	player_sides[8];//0-top-left->1-top->2-top-right->3-right->4-btm-right->5-btm->6-btm-left->7-left
+	ft_putstr("ft_random_rule_check_if_player_surrounded\n");
+	short	player_sides[8];//[0-top-left]->[1-top]->[2-top-right]->[3-right]->[4-btm-right]->[5-btm]->[6-btm-left]->[7-left]
 	short	i;
 	
 	if (x < 0 || x >= BOARD_X_LEN || y < 0 || y > BOARD_Y_LEN)
@@ -52,17 +52,8 @@ int	ft_random_rule_check_if_player_surrounded(t_player *player, int player_id, i
 	{
 		if (player_sides[i] > 0 && player_sides[i] != player_id)
 		{
-			//printf("check i = %d, side = %d , p id = %d\n", i, player_sides[i], player_id);
 			if (ft_random_rule_check_if_other_enemy_exist(player_sides, i))
 			{
-				int j = 0;
-				while (j < 8)
-				{
-					printf("sides %d = [%d] | ", j, player_sides[j]);
-					j++;
-				}
-				printf("random player surrouneded p_x [%d] p_y[%d]\n", player->pos_x, player->pos_y);
-
 				return (1);
 			}
 		}
@@ -73,7 +64,7 @@ int	ft_random_rule_check_if_player_surrounded(t_player *player, int player_id, i
 
 int	ft_check_if_player_surrounded(t_player *player)
 {
-	printf("ft_check_if_player_surrounded : RANDOM[%d]\n", RANDOM);
+	ft_putstr("ft_check_if_player_surrounded : RANDOM\n");
 	//player died if sourended by the same team from two diagonal position
 	//if player in broad side then one or even two var from below can have -1
 	//which mean out of the board

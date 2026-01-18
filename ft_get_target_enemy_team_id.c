@@ -2,7 +2,7 @@
 
 int	ft_get_target_enemy_team_id(t_player *player)
 {
-	printf("ft_get_target_enemy_team_id\n");
+	ft_putstr("ft_get_target_enemy_team_id\n");
 	int	i;
 	int	prev_id;
 	int	next_id;
@@ -20,7 +20,6 @@ int	ft_get_target_enemy_team_id(t_player *player)
 		if (player->game->teams[i].nbr_of_players > 0)
 		{
 			enemy_id = player->game->teams[i].team_id; 
-			printf("Data : i [%d] , nbr of players [%d] , enemy id [%d], player id [%d] \n", i, player->game->teams[i].nbr_of_players, enemy_id, player->team_id);
 			if (enemy_id != player->team_id)
 			{
 				if (enemy_id < player->team_id)

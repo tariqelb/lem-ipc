@@ -2,14 +2,16 @@
 
 int	ft_active_the_game(t_player *player)
 {
-	printf("ft_active_the_game\n");
+	ft_putstr("ft_active_the_game\n");
 	int	team_have_at_less_one_player;
 	int	team_have_at_less_two_player;
 	int	team_one_id;
 	int	team_two_id;
 	int	i;
 
-	printf("Game active : %d\n", player->game->game_active);
+	ft_putstr("Game active : ");
+	ft_putint(player->game->game_active);
+	ft_putstr("\n");
 	if (player->game->game_active >= 0)
 		return (player->game->game_active);
 
@@ -39,13 +41,15 @@ int	ft_active_the_game(t_player *player)
 		player->game->game_active = 1;
 		semop(player->semid, &player->unlock_op, 1);
 	}
-	printf("Active the game %d\n", player->game->game_active);
+	ft_putstr("Active the game ");
+	ft_putint(player->game->game_active);
+	ft_putstr("\n");
 	return (player->game->game_active);
 }
 
 int	ft_is_the_game_active(t_player *player)
 {
-	printf("ft_is_the_game_active 111\n");
+	//ft_putstr("ft_is_the_game_active\n");
 	int	team_have_at_less_one_player;
 	int	team_have_at_less_two_player;
 	int	team_one_id;
@@ -73,13 +77,12 @@ int	ft_is_the_game_active(t_player *player)
 	}
 	if (team_have_at_less_two_player && team_have_at_less_one_player)
 		return(1);
-	printf("end of ft_is_the_game_active\n");
 	return (0);
 }
 
 int	ft_check_if_team_win(t_player *player)
 {
-	printf("ft_check_if_team_win\n");
+	//ft_putstr("ft_check_if_team_win\n");
 	int	team_one_exist;
 	int	team_two_exist;
 	int	team_one_id;

@@ -50,3 +50,4 @@ othersiwe just go closer to selected enemy team and find path to position if pla
 ----------------------------
 record and fix bugs 
 
+remove printf debug logs

@@ -73,7 +73,7 @@ int	ft_atoi(char *str)
 
 int	ft_get_team(int ac, char *av, t_player *player)
 {
-	printf("ft_get_team\n");
+	//ft_putstr("ft_get_team\n");
 	int	i;
 	int 	team;
 	int	is_a_number;

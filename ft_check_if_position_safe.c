@@ -2,7 +2,7 @@
 
 int     ft_check_position_is_safe(t_player *player, int x, int y)
 {
-	printf("ft_check_position_is_safe\n");
+	ft_putstr("ft_check_position_is_safe\n");
         int     left;
         int     right;
         int     top;
@@ -39,7 +39,7 @@ int     ft_check_position_is_safe(t_player *player, int x, int y)
 
 int	ft_check_if_position_is_free(t_player *player, int x, int y)
 {
-	printf("ft_check_if_position_is_free\n");
+	ft_putstr("ft_check_if_position_is_free\n");
         if (x < 0 || x >= BOARD_X_LEN || y < 0 || y >= BOARD_Y_LEN)
                 return (-1);
 	if (player->game->board[y][x] != 0)	

@@ -2,7 +2,7 @@
 
 int	ft_check_if_team_exist(t_player *player)
 {
-	printf("ft_check_if_team_exist\n");
+	//ft_putstr("ft_check_if_team_exist\n");
 	int i;
 
 	i = 0;
@@ -19,7 +19,7 @@ int	ft_check_if_team_exist(t_player *player)
 
 int	ft_get_free_place_in_team_array(t_player *player)
 {
-	printf("ft_get_free_place_in_team_array");
+	//ft_putstr("ft_get_free_place_in_team_array");
 	int	i;
 
 	i = 0;
@@ -34,7 +34,7 @@ int	ft_get_free_place_in_team_array(t_player *player)
 
 t_player	*ft_initialize_player(t_player *player)
 {
-	printf("ft_initialize_player\n");
+	ft_putstr("ft_initialize_player\n");
 	int	team_exist;
 	int	x;
 	int	y;

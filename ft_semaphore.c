@@ -28,7 +28,7 @@ void	ft_initialize_semaphore_struct(t_player *player)
 
 int	ft_create_semaphore(t_player *player)
 {
-	printf("ft_create_semaphore\n");
+	//ft_putstr("ft_create_semaphore\n");
 	// Try to create new semaphore
 	player->semid = semget(SEM_KEY, 1, IPC_CREAT | IPC_EXCL | 0666);
 	if (player->semid != -1)
@@ -62,7 +62,7 @@ int	ft_create_semaphore(t_player *player)
 
 int	ft_destroy_semaphore(t_player *player)
 {
-	printf("ft_destroy_semaphore\n");
+	//ft_putstr("ft_destroy_semaphore\n");
 	int status;
 
 	status = semctl(player->semid, 0, IPC_RMID);

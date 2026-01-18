@@ -2,24 +2,13 @@
 
 int	ft_choose_one_side_to_attack(t_player *player, int x, int y)
 {
-	printf("ft_choose_one_side_to_attack\n");
+	ft_putstr("ft_choose_one_side_to_attack\n");
 	int	top_side;
 	int	right_side;
 	int	bottom_side;
 	int	left_side;
 	int	enemy_id;
 
-/*	
- 	int	move_top;
-	int	move_right;
-	int	move_bottom;
-	int	move_left;
-
-	move_top = 0;
-	move_right = 0;
-	move_bottom = 0;
-	move_left = 0;
-*/
 	top_side = -1;
 	right_side = -1;
 	bottom_side = -1;

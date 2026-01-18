@@ -22,9 +22,10 @@
 # define MAX_TEAMS 10
 # define MAX_PLAYER_IN_TEAM 20
 # define SHM_SIZE 8192 // page size * 2 // should be geater that t_game struct
+# define DELAY 3
 		       
 
-# define RANDOM 1
+# define RANDOM 0
 
 
 #define HEIGHT 900
@@ -163,6 +164,7 @@ int	ft_get_into_board(t_player *player);
 int	ft_get_team_array_index(t_player *player);
 
 //file : ft_get_team.c
+int	ft_putstr(char *str);
 int     ft_putint(int nbr);
 int	ft_atoi(char *str);
 int     ft_get_team(int ac, char *av, t_player *player);

@@ -2,7 +2,7 @@
 
 int	ft_new_enemy_found_select_best_side_to_attack(t_player *player, int enemy_x, int enemy_y, int enemy_team_id)
 {
-	printf("ft_new_enemy_found_select_best_side_to_attack\n");
+	ft_putstr("ft_new_enemy_found_select_best_side_to_attack\n");
 	int	e_top;
 	int	e_right;
 	int	e_bottom;

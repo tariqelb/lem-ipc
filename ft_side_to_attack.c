@@ -2,10 +2,11 @@
 
 int	ft_attack_position(t_player *player, int x, int y)
 {
+	ft_putstr("ft_attack_position\n");
 	int	one_step;
 	int	move ;
 
-	printf("ft_attack_position enemy x [%d] y [%d]\n", x, y);
+	//ft_putstr("ft_attack_position enemy x [%d] y [%d]\n", x, y);
 	move = 0;
 
 	if (x < 0 || x >= BOARD_X_LEN || y < 0 || y >= BOARD_Y_LEN)
@@ -17,16 +18,14 @@ int	ft_attack_position(t_player *player, int x, int y)
 	}
 	else
 	{
-		printf("attak position find path \n");
  		move = ft_find_path_to_position_and_make_move(player, x, y);
 	}
-	printf("move [%d]\n", move);
 	return (move);
 }
 
 int	ft_second_side_to_attack(t_player *player, t_message_queue msg)
 {
-	printf("ft_surround_side_to_attack\n");
+	ft_putstr("ft_surround_side_to_attack\n");
 
 	int	move;
 	int	x_attack;

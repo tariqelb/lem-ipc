@@ -135,12 +135,12 @@ int	main(void)
 /*	int i = 0;
 	while (i < 8)
 	{
-		printf("-------------***************----------------\n");
+		ft_putstr("-------------***************----------------\n");
 		printf("player position x[%d] y[%d]\n", player1.pos_x, player1.pos_y);
 		ft_attack_defend_escape_moves(&player, &msg);
 		//ft_attack_position(player, msg.x_defence, msg.y_defence);
 		//ft_second_side_to_attack(&player, &msg);
-		printf("--------------------------------------------\n");
+		ft_putstr("--------------------------------------------\n");
 		ft_print_the_board(&player);
 		i++;
 	}
