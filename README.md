@@ -64,47 +64,47 @@ A semaphore is a synchronization mechanism that controls access to a shared reso
 I think the game is about go closer, and handle 8 side of a player , make the best move if an enemy prisent in one of your sides,
 othersiwe just go closer to selected enemy team and find path to position if player block
 
-[0][0][P][0]
-[0][0][E][0]
-[0][0][0][0]
-[0][0][p][0]
-[0][0][0][0]
+[0][0][P][0]  
+[0][0][E][0]  
+[0][0][0][0]  
+[0][0][p][0]  
+[0][0][0][0]  
 
 in this case make best move to top
 
-[0][P][0][0]
-[P][E][0][0]
-[0][0][p][0]
-[0][0][0][0]
-[0][0][0][0]
+[0][P][0][0]  
+[P][E][0][0]  
+[0][0][p][0]  
+[0][0][0][0]  
+[0][0][0][0]  
 
 in this case make second best move to left or top
 
 
-[0][P][0][0]
-[0][E][p][0]
-[0][0][0][0]
-[0][0][0][0]
-[0][0][0][0]
+[0][P][0][0]  
+[0][E][p][0]  
+[0][0][0][0]  
+[0][0][0][0]  
+[0][0][0][0]  
 
 
 in this case move to best position bottom
 
 
-[0][0][0][0]
-[0][0][E][0]
-[0][0][p][0]
-[0][0][0][0]
-[0][0][0][0]
+[0][0][0][0]  
+[0][0][E][0]  
+[0][0][p][0]  
+[0][0][0][0]  
+[0][0][0][0]  
 
 in this case just stay in your position and announce an attack
 
 
-[0][0][0][0].
-[0][E][P][0].
-[0][0][p][0].
-[0][0][0][0].
-[0][0][0][0].
+[0][0][0][0]  
+[0][E][P][0]  
+[0][0][p][0]  
+[0][0][0][0]  
+[0][0][0][0]  
 
 in this case player move left
 
