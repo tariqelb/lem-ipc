@@ -25,7 +25,7 @@
 # define DELAY 3
 		       
 
-# define RANDOM 0
+# define RANDOM 1
 
 
 #define HEIGHT 900
